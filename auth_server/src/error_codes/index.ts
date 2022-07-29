@@ -5,5 +5,7 @@ enum StatusCodes {
   BadRequest = 400,
   Unauthorized = 401,
   MethodNotAllowed = 405,
+  Conflict = 409,
+  ServerError = 500,
 }
 export { StatusCodes };
