@@ -1,5 +1,5 @@
 export interface UserDataToSign {
-  name: string;
   uid: string;
+  name: string;
   email: string;
 }
