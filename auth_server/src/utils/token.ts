@@ -9,7 +9,7 @@ function signToken(userDetails: UserDataToSign, age: number): string {
   });
   return token;
 }
-function verifyToken(token: string): string | boolean | object {
+export function verifyToken(token: string): string | boolean | object {
   try {
     jwt.verify(token, getPublicKey(), function (err, decoded) {
       return decoded === undefined ? false : decoded;
@@ -18,4 +18,9 @@ function verifyToken(token: string): string | boolean | object {
     return false;
   }
 }
-export { signToken, verifyToken };
+export function generateAccessToken(userDetails: UserDataToSign): string {
+  return signToken(userDetails, 600);
+}
+export function generateRefreshToken(userDetails: UserDataToSign): string {
+  return signToken(userDetails, 604800);
+}

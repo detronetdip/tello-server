@@ -4,7 +4,10 @@ import { Request, Response } from "express";
 import { UserModel } from "../model/userModel";
 import bcrypt from "bcryptjs";
 import { StatusCodes } from "../error_codes";
-import { signToken } from "../utils/token";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../utils/token";
 
 export function handelLogin(req: Request, res: Response) {
   const { email, username, password } = req.body;
@@ -27,12 +30,20 @@ export function handelLogin(req: Request, res: Response) {
             msg: "Invalid Credentials",
           });
         } else {
-          const token = signToken(
-            { uid: _user.id, name: _user.userName, email: _user.email },
-            300
-          );
+          const accessToken = generateAccessToken({
+            uid: _user.id,
+            name: _user.userName,
+            email: _user.email,
+          });
+          const refreshToken = generateRefreshToken({
+            uid: _user.id,
+            name: _user.userName,
+            email: _user.email,
+            version: _user.tokenVersion == 0 ? 1 : _user.tokenVersion,
+          });
           res.status(StatusCodes.Success).json({
-            token,
+            accessToken,
+            refreshToken,
           });
         }
       };

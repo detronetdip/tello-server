@@ -9,6 +9,10 @@ const userSchema = new Schema({
     unique: true,
   },
   password: String,
+  tokenVersion: {
+    type: Number,
+    default: 0,
+  },
 });
 const UserModel = model("user", userSchema);
 export { UserModel };
