@@ -20,7 +20,9 @@ export function handelRegistration(req: Request, res: Response) {
     });
   };
   try {
-    addUser();
+    (async function () {
+      await addUser();
+    })();
   } catch (error) {
     res.status(StatusCodes.BadRequest).json({
       msg: "Duplicate Entry detected",
