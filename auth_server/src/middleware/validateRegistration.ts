@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
 import { validateEmail, validateUserName } from "../utils/validator";
 import { UserModel } from "../model/userModel";
+import { ErrorMessages } from "../error_messages";
 
 export function validateRegistration(
   req: Request,
@@ -11,11 +12,15 @@ export function validateRegistration(
 ) {
   const { email, username, password } = req.body;
   if (email === undefined || username === undefined || password === undefined) {
-    return res
-      .status(StatusCodes.BadRequest)
-      .json({ msg: "Insufficient Data" });
+    return res.status(StatusCodes.BadRequest).json({
+      code: StatusCodes.InsufficientArguments,
+      msg: ErrorMessages.InsufficientData,
+    });
   } else if (!validateEmail(email) || !validateUserName(username)) {
-    return res.status(StatusCodes.BadRequest).json({ msg: "Invalid Data" });
+    return res.status(StatusCodes.BadRequest).json({
+      code: StatusCodes.InvalidFormat,
+      msg: ErrorMessages.MalformedData,
+    });
   } else {
     const checkUser = async () => {
       const result = await UserModel.find({
@@ -25,9 +30,10 @@ export function validateRegistration(
     };
     checkUser().then((e) => {
       if (e.length > 0) {
-        return res
-          .status(StatusCodes.Conflict)
-          .json({ msg: "Credentials are already in use." });
+        return res.status(StatusCodes.Conflict).json({
+          code: StatusCodes.AlredyInUse,
+          msg: ErrorMessages.AllRedyPresent,
+        });
       } else {
         next();
       }
