@@ -11,9 +11,12 @@ import registration from "./routes/authentication/Register";
 import login from "./routes/authentication/Login";
 import corsOption from "./config/cors";
 
-Database_Connection;
+(function () {
+  Database_Connection;
+})();
 const app = express();
 const port = 3000;
+app.disable("x-powered-by");
 app.use(cors(corsOption));
 app.use(cookie());
 app.use(express.json());

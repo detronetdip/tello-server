@@ -3,6 +3,6 @@ export function validateUserName(input: string): boolean {
   return !regex.test(input);
 }
 export function validateEmail(input: string): boolean {
-  const r = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
-  return r.test(input);
+  const regex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+  return regex.test(input);
 }
