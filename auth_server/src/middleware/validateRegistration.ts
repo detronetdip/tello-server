@@ -31,9 +31,7 @@ export function validateRegistration(
       };
       (async function () {
         await checkUser().then((e) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          if (e.lenth > 0) {
+          if (e.length > 0) {
             return res.status(StatusCodes.Conflict).json({
               code: StatusCodes.AlredyInUse,
               msg: ErrorMessages.AllRedyPresent,

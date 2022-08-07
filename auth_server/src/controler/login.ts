@@ -45,7 +45,9 @@ export function handelLogin(req: Request, res: Response) {
             });
           }
         };
-        checkPass();
+        (async function () {
+          await checkPass();
+        })();
       });
     })();
   } catch (error) {
