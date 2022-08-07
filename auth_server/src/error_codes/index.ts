@@ -21,6 +21,7 @@ enum StatusCodes {
   InsufficientArguments=1003,
   InvalidFormat=1004,
   AlredyInUse=1005,
-  RegistrationSuccessful=1006
+  RegistrationSuccessful=1006,
+  InternalServerError=5000
 }
 export { StatusCodes };

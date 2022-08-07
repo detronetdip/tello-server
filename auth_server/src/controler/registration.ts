@@ -2,6 +2,7 @@
 import { Request, Response } from "express";
 import { UserModel } from "../model/userModel";
 import bcrypt from "bcryptjs";
+import { v4 as uuidv4 } from "uuid";
 import { StatusCodes } from "../error_codes";
 
 export function handelRegistration(req: Request, res: Response) {
@@ -12,12 +13,20 @@ export function handelRegistration(req: Request, res: Response) {
       userName: username,
       email: email,
       password: bcrypt.hashSync(password, salt),
+      uid: uuidv4(),
     });
-    await USER.save().then((_e: object) => {
-      res.status(StatusCodes.Success).json({
-        msg: "Registration successfull",
+    await USER.save()
+      .then((_e: object) => {
+        res.status(StatusCodes.Success).json({
+          msg: "Registration successfull",
+        });
+      })
+      .catch((e) => {
+        res.status(StatusCodes.BadRequest).json({
+          msg: "Duplicate Entry detected",
+          e,
+        });
       });
-    });
   };
   try {
     (async function () {

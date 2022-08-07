@@ -22,23 +22,33 @@ export function validateRegistration(
       msg: ErrorMessages.MalformedData,
     });
   } else {
-    const checkUser = async () => {
-      const result = await UserModel.find({
-        $or: [{ email: email }, { userName: username }],
+    try {
+      const checkUser = async () => {
+        const result = await UserModel.find({
+          $or: [{ email: email }, { userName: username }],
+        });
+        return result;
+      };
+      (async function () {
+        await checkUser().then((e) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          if (e.lenth > 0) {
+            return res.status(StatusCodes.Conflict).json({
+              code: StatusCodes.AlredyInUse,
+              msg: ErrorMessages.AllRedyPresent,
+            });
+          } else {
+            next();
+          }
+        });
+      })();
+    } catch (error) {
+      console.log(error);
+      return res.status(StatusCodes.ServerError).json({
+        code: StatusCodes.InternalServerError,
+        msg: ErrorMessages.ServerError,
       });
-      return result;
-    };
-    (async function () {
-      await checkUser().then((e) => {
-        if (e.length > 0) {
-          return res.status(StatusCodes.Conflict).json({
-            code: StatusCodes.AlredyInUse,
-            msg: ErrorMessages.AllRedyPresent,
-          });
-        } else {
-          next();
-        }
-      });
-    })();
+    }
   }
 }
