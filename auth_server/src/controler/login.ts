@@ -14,7 +14,7 @@ export function handelLogin(req: Request, res: Response) {
   };
   try {
     (async function () {
-      findUser().then((_user) => {
+      await findUser().then((_user) => {
         if (!_user)
           return res.status(StatusCodes.Success).json({
             msg: "Invalid Credentials",

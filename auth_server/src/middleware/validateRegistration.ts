@@ -28,15 +28,17 @@ export function validateRegistration(
       });
       return result;
     };
-    checkUser().then((e) => {
-      if (e.length > 0) {
-        return res.status(StatusCodes.Conflict).json({
-          code: StatusCodes.AlredyInUse,
-          msg: ErrorMessages.AllRedyPresent,
-        });
-      } else {
-        next();
-      }
-    });
+    (async function () {
+      await checkUser().then((e) => {
+        if (e.length > 0) {
+          return res.status(StatusCodes.Conflict).json({
+            code: StatusCodes.AlredyInUse,
+            msg: ErrorMessages.AllRedyPresent,
+          });
+        } else {
+          next();
+        }
+      });
+    })();
   }
 }
