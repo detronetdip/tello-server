@@ -30,7 +30,11 @@ export function handelRegistration(req: Request, res: Response) {
   };
   try {
     (async function () {
-      await addUser();
+      try {
+        await addUser();
+      } catch (er) {
+        console.log(er);
+      }
     })();
   } catch (error) {
     res.status(StatusCodes.BadRequest).json({
