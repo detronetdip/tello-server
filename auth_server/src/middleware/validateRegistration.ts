@@ -40,7 +40,9 @@ export function validateRegistration(
         await checkUser()
           .then((r) => console.log(r))
           .catch((er) => console.log(er));
-      })();
+      })()
+        .then((e) => console.log(e))
+        .catch((er) => console.log(er));
     } catch (error) {
       console.log(error);
       return res.status(StatusCodes.ServerError).json({
