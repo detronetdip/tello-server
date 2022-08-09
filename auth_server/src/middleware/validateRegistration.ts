@@ -23,15 +23,12 @@ export function validateRegistration(
     });
   } else {
     try {
-      const checkUser = async () => {
-        const result = await UserModel.find({
-          $or: [{ email: email }, { userName: username }],
-        });
-        return result;
-      };
       (async function () {
-        await checkUser().then((e) => {
-          if (e.length > 0) {
+        const checkUser = async () => {
+          const result = await UserModel.find({
+            $or: [{ email: email }, { userName: username }],
+          });
+          if (result.length > 0) {
             return res.status(StatusCodes.Conflict).json({
               code: StatusCodes.AlredyInUse,
               msg: ErrorMessages.AllRedyPresent,
@@ -39,7 +36,10 @@ export function validateRegistration(
           } else {
             next();
           }
-        });
+        };
+        await checkUser()
+          .then((r) => console.log(r))
+          .catch((er) => console.log(er));
       })();
     } catch (error) {
       console.log(error);
