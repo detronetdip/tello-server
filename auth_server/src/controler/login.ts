@@ -47,13 +47,13 @@ export function handelLogin(req: Request, res: Response) {
         };
         (async function () {
           await checkPass()
-            .then((e) => console.log(e))
-            .catch((er) => console.log(er));
+            .then((e) => {})
+            .catch((er) => {});
         })();
       });
     })()
-      .then((e) => console.log(e))
-      .catch((er) => console.log(er));
+      .then((e) => {})
+      .catch((er) => {});
   } catch (error) {
     res.status(StatusCodes.BadRequest).json({
       msg: "Something went wrong",

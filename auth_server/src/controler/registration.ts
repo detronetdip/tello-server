@@ -33,7 +33,7 @@ export function handelRegistration(req: Request, res: Response) {
       };
       addUser();
     })()
-      .then((e) => console.log(e))
+      .then((e) => {})
       .catch((er) => {
         res.status(StatusCodes.ServerError).json({
           msg: ErrorMessages.ServerError,
