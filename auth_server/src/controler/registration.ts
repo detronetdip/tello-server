@@ -35,7 +35,9 @@ export function handelRegistration(req: Request, res: Response) {
       } catch (er) {
         console.log(er);
       }
-    })();
+    })()
+      .then((e) => console.log(e))
+      .catch((er) => console.log(er));
   } catch (error) {
     res.status(StatusCodes.BadRequest).json({
       msg: "Duplicate Entry detected",
