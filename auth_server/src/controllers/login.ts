@@ -5,6 +5,7 @@ import { UserModel } from "../model/userModel";
 import bcrypt from "bcryptjs";
 import { StatusCodes } from "../error_codes";
 import { generateAccessToken, generateRefreshToken } from "../utils/token";
+import { ErrorMessages } from "../error_messages";
 
 export async function handelLogin(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -12,21 +13,23 @@ export async function handelLogin(req: Request, res: Response) {
     const _user = await UserModel.findOne({ email: email });
     if (!_user)
       return res.status(StatusCodes.Success).json({
-        msg: "Invalid Credentials",
+        code: StatusCodes.InvalidCredential,
+        msg: ErrorMessages.InvalidCredentials,
       });
     const Db_password = _user.password;
     const match = await bcrypt.compare(password, Db_password);
     if (!match) {
       res.status(StatusCodes.Success).json({
-        msg: "Invalid Credentials",
+        code: StatusCodes.InvalidCredential,
+        msg: ErrorMessages.InvalidCredentials,
       });
     } else {
-      const accessToken = generateAccessToken({
+      const accessToken = await generateAccessToken({
         uid: _user.id,
         name: _user.userName,
         email: _user.email,
       });
-      const refreshToken = generateRefreshToken({
+      const refreshToken = await generateRefreshToken({
         uid: _user.id,
         name: _user.userName,
         email: _user.email,

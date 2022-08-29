@@ -12,12 +12,12 @@ export async function validateRegistration(
 ) {
   const { email, username, password } = req.body;
   if (email === undefined || username === undefined || password === undefined) {
-    return res.status(StatusCodes.BadRequest).json({
+    return res.status(StatusCodes.Success).json({
       code: StatusCodes.InsufficientArguments,
       msg: ErrorMessages.InsufficientData,
     });
   } else if (!validateEmail(email) || !validateUserName(username)) {
-    return res.status(StatusCodes.BadRequest).json({
+    return res.status(StatusCodes.Success).json({
       code: StatusCodes.InvalidFormat,
       msg: ErrorMessages.MalformedData,
     });

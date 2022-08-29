@@ -9,19 +9,25 @@ enum StatusCodes {
   NotFound = 404,
   MethodNotAllowed = 405,
   Conflict = 409,
-  UnprocessableEntity=422,
+  UnprocessableEntity = 422,
   UnsupportedMediaType = 415,
   ServerError = 500,
   // --------------------
   // server status codes
   // --------------------
-  AccessTokenNotFound = 1000,
-  RefreshTokenNotFound = 1001,
-  InvalidToken = 1002,
-  InsufficientArguments=1003,
-  InvalidFormat=1004,
-  AlredyInUse=1005,
-  RegistrationSuccessful=1006,
-  InternalServerError=5000
+  // success indication codes should present within 2*** level
+  RegistrationSuccessful = 2000,
+  // Invalidity indication codes should present within 3*** level
+  InvalidToken = 3000,
+  InsufficientArguments = 3001,
+  InvalidFormat = 3002,
+  InvalidCredential = 3003,
+  // Not found indication codes should present within 4*** level
+  AccessTokenNotFound = 4000,
+  RefreshTokenNotFound = 4001,
+  // Internal error indication codes should present within 5*** level
+  InternalServerError = 5000,
+  // Duplication error indication codes should present within 5*** level
+  AlredyInUse = 6000,
 }
 export { StatusCodes };

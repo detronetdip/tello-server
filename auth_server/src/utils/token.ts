@@ -2,8 +2,11 @@ import { UserDataToSign } from "../types";
 import jwt from "jsonwebtoken";
 import { getPrivateKey, getPublicKey } from "./key";
 
-function signToken(userDetails: UserDataToSign, age: number): string {
-  const token = jwt.sign(userDetails, getPrivateKey(), {
+async function signToken(
+  userDetails: UserDataToSign,
+  age: number
+): Promise<string> {
+  const token = await jwt.sign(userDetails, getPrivateKey(), {
     algorithm: "RS256",
     expiresIn: age,
   });
@@ -18,9 +21,13 @@ export function verifyToken(token: string): string | boolean | object {
     return false;
   }
 }
-export function generateAccessToken(userDetails: UserDataToSign): string {
+export function generateAccessToken(
+  userDetails: UserDataToSign
+): Promise<string> {
   return signToken(userDetails, 600);
 }
-export function generateRefreshToken(userDetails: UserDataToSign): string {
+export async function generateRefreshToken(
+  userDetails: UserDataToSign
+): Promise<string> {
   return signToken(userDetails, 604800);
 }
