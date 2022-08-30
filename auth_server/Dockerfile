@@ -1,7 +1,9 @@
 FROM node as builder
 WORKDIR /app
-COPY . .
+COPY ./package.json .
+COPY ./package-lock.json .
 RUN npm install
+COPY . .
 RUN npm run build
 
 FROM node:18-alpine3.15
