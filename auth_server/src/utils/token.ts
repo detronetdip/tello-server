@@ -1,6 +1,7 @@
 import { UserDataToSign } from "../types";
 import jwt from "jsonwebtoken";
 import { getPrivateKey, getPublicKey } from "./key";
+import tokenConfig from "../config/token";
 
 async function signToken(
   userDetails: UserDataToSign,
@@ -25,10 +26,10 @@ export function verifyToken(token: string): boolean | UserDataToSign {
 export function generateAccessToken(
   userDetails: UserDataToSign
 ): Promise<string> {
-  return signToken(userDetails, 600);
+  return signToken(userDetails, tokenConfig.accessTokenExpiryTime);
 }
 export async function generateRefreshToken(
   userDetails: UserDataToSign
 ): Promise<string> {
-  return signToken(userDetails, 604800);
+  return signToken(userDetails, tokenConfig.refreshTokenExpiryTime);
 }
