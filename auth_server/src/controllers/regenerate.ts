@@ -18,61 +18,51 @@ export async function handelRegeneration(req: Request, res: Response) {
   ) as UserDataToSign;
 
   if (!token) {
-    res.status(StatusCodes.Unauthorized).json({
-      msg: "No access granted",
+    return res.status(StatusCodes.Unauthorized).json({
+      code: StatusCodes.InvalidToken,
+      msg: ErrorMessages.TokenExpired,
     });
   } else {
-    const findUser = async () => {
-      const result = await UserModel.findOne({ email: token.email });
-      return result;
-    };
-    await findUser().then((_user) => {
-      const uid: string = _user.id;
-      const UserName = _user.firstName + " " + _user.lastName;
-      const email = _user.email;
-      const v = _user.tokenVersion;
+    const _user = await UserModel.findOne({ email: token.email });
+    const uid: string = _user.id;
+    const UserName = _user.firstName + " " + _user.lastName;
+    const email = _user.email;
+    const v = _user.tokenVersion;
 
-      if (v !== token.version) {
-        res.status(StatusCodes.Success).json({
-          msg: "Hacker detected",
-          code: 457,
-        });
-      } else {
-        const accessToken = generateAccessToken({
-          uid,
-          UserName,
-          email,
-        });
-        const incrementVersion = async () => {
-          return await UserModel.findOneAndUpdate(
-            { email: token?.email },
-            { $inc: { tokenVersion: 1 } },
-            { returnOriginal: false }
-          );
-        };
-        incrementVersion().then((e) => {
-          console.log(e);
-          const refreshToken = generateRefreshToken({
-            uid,
-            UserName,
-            email,
-            version: e.tokenVersion,
-          });
-          res.cookie("accessToken", accessToken, {
-            ...cookieOption,
-            maxAge: 600 * 1000,
-          });
-          res.cookie("refreshToken", refreshToken, {
-            ...cookieOption,
-            maxAge: 604800 * 1000,
-          });
-
-          res.status(StatusCodes.Success).json({
-            msg: "token regenerated successfully",
-            code: 456,
-          });
-        });
-      }
-    });
+    if (v !== token.version) {
+      res.status(StatusCodes.Success).json({
+        msg: ErrorMessages.TokenVersionError,
+        code: StatusCodes.TokenVersionMissMatch,
+      });
+    } else {
+      const accessToken = await generateAccessToken({
+        uid,
+        UserName,
+        email,
+      });
+      const updatedUser = await UserModel.findOneAndUpdate(
+        { email: token?.email },
+        { $inc: { tokenVersion: 1 } },
+        { returnOriginal: false }
+      );
+      const refreshToken = await generateRefreshToken({
+        uid,
+        UserName,
+        email,
+        version: updatedUser.tokenVersion,
+      });
+      res.cookie("accessToken", accessToken, {
+        ...cookieOption,
+        maxAge: 600 * 1000,
+      });
+      res.cookie("refreshToken", refreshToken, {
+        ...cookieOption,
+        maxAge: 604800 * 1000,
+      });
+      res.status(StatusCodes.Success).json({
+        msg: ErrorMessages.Successfull,
+        code: StatusCodes.TokenGenerationSuccessfull,
+      });
+    }
   }
 }

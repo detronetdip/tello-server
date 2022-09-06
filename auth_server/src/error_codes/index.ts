@@ -26,6 +26,8 @@ enum StatusCodes {
   AccessTokenNotFound = 4000,
   RefreshTokenNotFound = 4001,
   ValidAccessTokenError = 4002,
+  TokenVersionMissMatch = 4003,
+  TokenGenerationSuccessfull = 4004,
   // Internal error indication codes should present within 5*** level
   InternalServerError = 5000,
   // Duplication error indication codes should present within 5*** level
