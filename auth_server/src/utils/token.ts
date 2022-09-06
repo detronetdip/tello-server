@@ -12,7 +12,7 @@ async function signToken(
   });
   return token;
 }
-export function verifyToken(token: string): string | boolean | object {
+export function verifyToken(token: string): boolean | UserDataToSign {
   if (token == null || token == undefined) return false;
   try {
     jwt.verify(token, getPublicKey(), function (err, decoded) {

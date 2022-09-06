@@ -3,11 +3,19 @@ import { Request, Response } from "express";
 import { UserModel } from "../model/userModel";
 import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
-import { generateAccessToken, verifyToken } from "../utils/token";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyToken,
+} from "../utils/token";
+import { UserDataToSign } from "../types";
+import cookieOption from "../config/Cookie";
 
-export async function handelRegistration(req: Request, res: Response) {
+export async function handelRegeneration(req: Request, res: Response) {
   const { refreshToken } = req.cookies;
-  const token = verifyToken(refreshToken);
+  const token: UserDataToSign | boolean = verifyToken(
+    refreshToken
+  ) as UserDataToSign;
 
   if (!token) {
     res.status(StatusCodes.Unauthorized).json({
@@ -18,28 +26,25 @@ export async function handelRegistration(req: Request, res: Response) {
       const result = await UserModel.findOne({ email: token.email });
       return result;
     };
-    findUser().then((_user) => {
-      const userId = _user.id;
+    await findUser().then((_user) => {
+      const uid: string = _user.id;
       const UserName = _user.firstName + " " + _user.lastName;
-      const userLID = _user.lid;
       const email = _user.email;
       const v = _user.tokenVersion;
-      
-      if (v !== token.v) {
+
+      if (v !== token.version) {
         res.status(StatusCodes.Success).json({
           msg: "Hacker detected",
           code: 457,
         });
       } else {
         const accessToken = generateAccessToken({
-          userId,
-          userLID,
+          uid,
           UserName,
           email,
         });
         const incrementVersion = async () => {
           return await UserModel.findOneAndUpdate(
-            //@ts-ignore
             { email: token?.email },
             { $inc: { tokenVersion: 1 } },
             { returnOriginal: false }
@@ -48,11 +53,10 @@ export async function handelRegistration(req: Request, res: Response) {
         incrementVersion().then((e) => {
           console.log(e);
           const refreshToken = generateRefreshToken({
-            userId,
-            userLID,
+            uid,
             UserName,
             email,
-            v: e.tokenVersion,
+            version: e.tokenVersion,
           });
           res.cookie("accessToken", accessToken, {
             ...cookieOption,
@@ -71,5 +75,4 @@ export async function handelRegistration(req: Request, res: Response) {
       }
     });
   }
-  
 }
