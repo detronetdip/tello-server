@@ -1,4 +1,5 @@
 export enum ErrorMessages {
+  Successfull = "Successfull",
   ServerError = "Server Error",
   NotAuthenticate = "Not Authenticated.",
   TokenExpired = "Token Expired.",
@@ -6,4 +7,5 @@ export enum ErrorMessages {
   MalformedData = "Invalid Data",
   AllRedyPresent = "Alredy Present",
   InvalidCredentials = "Invalid Credentials",
+  BadRequest = "Bad Request",
 }

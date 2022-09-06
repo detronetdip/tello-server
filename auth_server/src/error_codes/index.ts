@@ -22,9 +22,10 @@ enum StatusCodes {
   InsufficientArguments = 3001,
   InvalidFormat = 3002,
   InvalidCredential = 3003,
-  // Not found indication codes should present within 4*** level
+  // Not found indication and token error codes should present within 4*** level
   AccessTokenNotFound = 4000,
   RefreshTokenNotFound = 4001,
+  ValidAccessTokenError = 4002,
   // Internal error indication codes should present within 5*** level
   InternalServerError = 5000,
   // Duplication error indication codes should present within 5*** level

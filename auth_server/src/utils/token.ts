@@ -13,6 +13,7 @@ async function signToken(
   return token;
 }
 export function verifyToken(token: string): string | boolean | object {
+  if (token == null || token == undefined) return false;
   try {
     jwt.verify(token, getPublicKey(), function (err, decoded) {
       return decoded === undefined ? false : decoded;

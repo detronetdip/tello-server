@@ -9,7 +9,13 @@ export async function validateRegenerateRequest(
   res: Response,
   next: Function
 ): Promise<void | Response> {
-  const { refreshToken } = req.cookies;
+  const { accessToken, refreshToken } = req.cookies;
+  if(accessToken && verifyToken(accessToken)){
+    return res.status(StatusCodes.Success).json({
+      code: StatusCodes.ValidAccessTokenError,
+      msg: ErrorMessages.BadRequest,
+    });
+  }
   if (!refreshToken) {
     return res.status(StatusCodes.Unauthorized).json({
       code: StatusCodes.RefreshTokenNotFound,

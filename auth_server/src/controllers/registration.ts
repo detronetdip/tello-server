@@ -19,13 +19,14 @@ export async function handelRegistration(req: Request, res: Response) {
     await USER.save()
       .then((_e: object) => {
         res.status(StatusCodes.Success).json({
-          msg: "Registration successfull",
+          code:StatusCodes.Success,
+          msg: ErrorMessages.Successfull,
         });
       })
       .catch((e) => {
         res.status(StatusCodes.BadRequest).json({
-          msg: "Duplicate Entry detected",
-          e,
+          code:StatusCodes.AlredyInUse,
+          msg: ErrorMessages.AllRedyPresent,
         });
       });
   } catch (error) {
