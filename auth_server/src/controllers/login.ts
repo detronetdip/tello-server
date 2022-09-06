@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import { StatusCodes } from "../error_codes";
 import { generateAccessToken, generateRefreshToken } from "../utils/token";
 import { ErrorMessages } from "../error_messages";
+import cookieOption from "../config/Cookie";
 
 export async function handelLogin(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -35,9 +36,17 @@ export async function handelLogin(req: Request, res: Response) {
         email: _user.email,
         version: _user.tokenVersion == 0 ? 1 : _user.tokenVersion,
       });
+      res.cookie("accessToken", accessToken, {
+        ...cookieOption,
+        maxAge: 600 * 1000,
+      });
+      res.cookie("refreshToken", refreshToken, {
+        ...cookieOption,
+        maxAge: 604800 * 1000,
+      });
       res.status(StatusCodes.Success).json({
-        accessToken,
-        refreshToken,
+        code: StatusCodes.Success,
+        msg: ErrorMessages.Successfull,
       });
     }
   } catch (error) {
