@@ -7,6 +7,7 @@ import { StatusCodes } from "../error_codes";
 import { generateAccessToken, generateRefreshToken } from "../utils/token";
 import { ErrorMessages } from "../error_messages";
 import cookieOption from "../config/Cookie";
+import tokenConfig from "../config/token";
 
 export async function handelLogin(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -38,11 +39,11 @@ export async function handelLogin(req: Request, res: Response) {
       });
       res.cookie("accessToken", accessToken, {
         ...cookieOption,
-        maxAge: 600 * 1000,
+        maxAge: tokenConfig.accessTokenExpiryTime * 1000,
       });
       res.cookie("refreshToken", refreshToken, {
         ...cookieOption,
-        maxAge: 604800 * 1000,
+        maxAge: tokenConfig.refreshTokenExpiryTime * 1000,
       });
       res.status(StatusCodes.Success).json({
         code: StatusCodes.Success,
@@ -52,6 +53,7 @@ export async function handelLogin(req: Request, res: Response) {
   } catch (error) {
     res.status(StatusCodes.BadRequest).json({
       msg: "Something went wrong",
+      code: StatusCodes.BadRequest,
     });
   }
 }
