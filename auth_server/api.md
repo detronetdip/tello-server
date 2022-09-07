@@ -16,7 +16,7 @@ This API is used for new user registration and only accessible from client domai
 - Param: `email,username,password`
 - Authentication: `Not Needed`
 
-A sample request is shown [below](*1000) using [axios](https://axios-http.com/)
+A sample request is shown below using [axios](https://axios-http.com/)
 
 ```
  axios.post(
@@ -28,28 +28,66 @@ A sample request is shown [below](*1000) using [axios](https://axios-http.com/)
     }
  );
 ```
+
 sample response
+
 ```
 {
     data:{
-        accepted: true,
-        code: 1006,
+        code: 200,
         msg: "Successfuly registered"
     }
 }
 ```
 
+### Expected status codes are:
 
+| Http codes | Response codes  |
+| ---------- | --------------- |
+| 200        | 3001, 3002, 200 |
+| 409        | 6000            |
+| 400        | 6000            |
+| 500        | 5000            |
 
+## Login API
 
+This API is used for user login and only accessible from client domain.
 
+- Path : `/api/v1/login`
+- Method: `POST`
+- Param: `email,password`
+- Authentication: `Not Needed`
 
+A sample request is shown below using [axios](https://axios-http.com/)
 
+```
+ axios.post(
+    "https://server.com/api/v1/login",
+    {
+        email: mail@mail.com,
+        password: password
+    }
+ );
+```
 
+sample response
 
+```
+{
+    data:{
+        code: 200,
+        msg: "Successfull"
+    }
+}
+```
 
+### Expected status codes are:
 
-
+| Http codes | Response codes |
+| ---------- | -------------- |
+| 422        | 3001, 3002     |
+| 200        | 3003, 200      |
+| 400        | 400            |
 
 <hr/>
 <hr/>
@@ -83,16 +121,29 @@ sample response
 - 500
   > The server has encountered a situation it does not know how to handle.
 
-### Responce Status Codes
- * 1000
-   > A access token is required but got none. In this situation client need to authenticate with the server to obtain new token. 
- * 1001
-   > A access token is required but got none and also could not get the refresh token. In this situation client need to authenticate with the server to obtain new set of token. 
- * 1002
-   > Current authentication token is malformed of has expired.
- * 1003
-   > Could no get enough data to proccess the request or client has sent less amount of data.
- * 1004
-   > Data sent by the client is malformed.
- * 1005
-   > Requested resourse is already present in the server.
+### Response Status Codes
+
+- 2000
+  > Registration successfull
+- 3000
+  > Received Invalid token.
+- 3001
+  > Did not receive Expected arguments.
+- 3002
+  > Format of arguments are invalid.
+- 3003
+  > Received invalid credentials from client.
+- 4000
+  > A access token is required but got none. In this situation client need to authenticate with the server to obtain new token.
+- 4001
+  > A access token is required but got none and also could not get the refresh token. In this situation client need to authenticate with the server to obtain new set of token.
+- 4002
+  > Current authentication token is malformed of has expired.
+- 4003
+  > Token version is not matching and that's why refresh token can not be generated.
+- 4004
+  > Token generated successfully.
+- 5000
+  > Internal Server error.
+- 6000
+  > Requested resource is already in use or present in the server.
