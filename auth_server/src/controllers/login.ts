@@ -8,8 +8,11 @@ import { generateAccessToken, generateRefreshToken } from "../utils/token";
 import { ErrorMessages } from "../error_messages";
 import cookieOption from "../config/Cookie";
 import tokenConfig from "../config/token";
+import { setData } from "../cache";
 
 export async function handelLogin(req: Request, res: Response) {
+  console.log(2);
+
   const { email, password } = req.body;
   try {
     const _user = await UserModel.findOne({ email: email });
@@ -45,12 +48,15 @@ export async function handelLogin(req: Request, res: Response) {
         ...cookieOption,
         maxAge: tokenConfig.refreshTokenExpiryTime * 1000,
       });
+      await setData(_user.uid, accessToken);
       res.status(StatusCodes.Success).json({
         code: StatusCodes.Success,
         msg: ErrorMessages.Successfull,
       });
     }
   } catch (error) {
+    console.log(error);
+
     res.status(StatusCodes.BadRequest).json({
       msg: "Something went wrong",
       code: StatusCodes.BadRequest,
