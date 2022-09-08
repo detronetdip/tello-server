@@ -10,6 +10,7 @@ import {
 } from "../utils/token";
 import { UserDataToSign } from "../types";
 import cookieOption from "../config/Cookie";
+import tokenConfig from "../config/token";
 
 export async function handelRegeneration(req: Request, res: Response) {
   const { refreshToken } = req.cookies;
@@ -25,7 +26,7 @@ export async function handelRegeneration(req: Request, res: Response) {
   } else {
     const _user = await UserModel.findOne({ email: token.email });
     const uid: string = _user.id;
-    const UserName = _user.firstName + " " + _user.lastName;
+    // const UserName = _user.firstName + " " + _user.lastName;
     const email = _user.email;
     const v = _user.tokenVersion;
 
@@ -35,9 +36,10 @@ export async function handelRegeneration(req: Request, res: Response) {
         code: StatusCodes.TokenVersionMissMatch,
       });
     } else {
+      
       const accessToken = await generateAccessToken({
         uid,
-        UserName,
+        // UserName,
         email,
       });
       const updatedUser = await UserModel.findOneAndUpdate(
@@ -47,17 +49,17 @@ export async function handelRegeneration(req: Request, res: Response) {
       );
       const refreshToken = await generateRefreshToken({
         uid,
-        UserName,
+        // UserName,
         email,
         version: updatedUser.tokenVersion,
       });
       res.cookie("accessToken", accessToken, {
         ...cookieOption,
-        maxAge: 600 * 1000,
+        maxAge: tokenConfig.accessTokenExpiryTime * 1000,
       });
       res.cookie("refreshToken", refreshToken, {
         ...cookieOption,
-        maxAge: 604800 * 1000,
+        maxAge: tokenConfig.refreshTokenExpiryTime * 1000,
       });
       res.status(StatusCodes.Success).json({
         msg: ErrorMessages.Successfull,

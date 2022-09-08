@@ -27,13 +27,13 @@ export async function handelLogin(req: Request, res: Response) {
       });
     } else {
       const accessToken = await generateAccessToken({
-        uid: _user.id,
-        name: _user.userName,
+        uid: _user.uid,
+        // name: _user.userName,
         email: _user.email,
       });
       const refreshToken = await generateRefreshToken({
-        uid: _user.id,
-        name: _user.userName,
+        uid: _user.uid,
+        // name: _user.userName,
         email: _user.email,
         version: _user.tokenVersion == 0 ? 1 : _user.tokenVersion,
       });

@@ -10,7 +10,7 @@ export async function validateRegenerateRequest(
   next: Function
 ): Promise<void | Response> {
   const { accessToken, refreshToken } = req.cookies;
-  if(accessToken && verifyToken(accessToken)){
+  if(accessToken){
     return res.status(StatusCodes.Success).json({
       code: StatusCodes.ValidAccessTokenError,
       msg: ErrorMessages.BadRequest,

@@ -11,7 +11,7 @@ export async function handelRegistration(req: Request, res: Response) {
   const salt = bcrypt.genSaltSync(10);
   try {
     const USER = new UserModel({
-      userName: username,
+      // userName: username,
       email: email,
       password: bcrypt.hashSync(password, salt),
       uid: uuidv4(),

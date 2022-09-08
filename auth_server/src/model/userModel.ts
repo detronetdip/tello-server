@@ -4,19 +4,19 @@ const userSchema = new Schema({
     type: String,
     unique: true,
   },
-  userName: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  firstName: {
-    type: String,
-    unique: true,
-  },
-  lastName: {
-    type: String,
-    unique: true,
-  },
+  // userName: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  // },
+  // firstName: {
+  //   type: String,
+  //   unique: true,
+  // },
+  // lastName: {
+  //   type: String,
+  //   unique: true,
+  // },
   email: {
     type: String,
     unique: true,
