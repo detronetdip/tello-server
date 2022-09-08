@@ -1,6 +1,6 @@
 export interface UserDataToSign {
   uid?: string;
-  name?: string;
+  // name?: string;
   // UserName?: string;
   email?: string;
   version?: number;

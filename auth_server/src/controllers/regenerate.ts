@@ -11,6 +11,7 @@ import {
 import { UserDataToSign } from "../types";
 import cookieOption from "../config/Cookie";
 import tokenConfig from "../config/token";
+import {getData, setData} from "./../cache";
 
 export async function handelRegeneration(req: Request, res: Response) {
   const { refreshToken } = req.cookies;
@@ -25,18 +26,23 @@ export async function handelRegeneration(req: Request, res: Response) {
     });
   } else {
     const _user = await UserModel.findOne({ email: token.email });
-    const uid: string = _user.id;
+    const uid: string = _user.uid;
     // const UserName = _user.firstName + " " + _user.lastName;
     const email = _user.email;
     const v = _user.tokenVersion;
-
+    const userAccessToken=await getData(uid);
+    if(userAccessToken && verifyToken(userAccessToken)){
+      return res.status(StatusCodes.Success).json({
+        msg: ErrorMessages.TokenVersionError,
+        code: StatusCodes.TokenVersionMissMatch,
+      });
+    }
     if (v !== token.version) {
       res.status(StatusCodes.Success).json({
         msg: ErrorMessages.TokenVersionError,
         code: StatusCodes.TokenVersionMissMatch,
       });
     } else {
-      
       const accessToken = await generateAccessToken({
         uid,
         // UserName,

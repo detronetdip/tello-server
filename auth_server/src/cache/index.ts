@@ -8,4 +8,11 @@ client.on("connect", () => console.log("cache server conected"));
 async function connectCache() {
   await client.connect();
 }
-export { connectCache };
+async function setData(key: string, value: string) {
+  await client.set(key, value);
+}
+async function getData(key: string) {
+  const val=await client.get(key);
+  return val;
+}
+export { connectCache, setData, getData };

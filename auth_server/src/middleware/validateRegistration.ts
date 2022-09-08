@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
-import { validateEmail, validateUserName } from "../utils/validator";
+import { validateEmail /*, validateUserName*/ } from "../utils/validator";
 import { UserModel } from "../model/userModel";
 import { ErrorMessages } from "../error_messages";
 
@@ -10,13 +10,16 @@ export async function validateRegistration(
   res: Response,
   next: Function
 ) {
-  const { email, username, password } = req.body;
-  if (email === undefined || username === undefined || password === undefined) {
+  const { email, /*username,*/ password } = req.body;
+  if (
+    email === undefined ||
+    /*username === undefined ||*/ password === undefined
+  ) {
     return res.status(StatusCodes.Success).json({
       code: StatusCodes.InsufficientArguments,
       msg: ErrorMessages.InsufficientData,
     });
-  } else if (!validateEmail(email) || !validateUserName(username)) {
+  } else if (!validateEmail(email) /*|| !validateUserName(username)*/) {
     return res.status(StatusCodes.Success).json({
       code: StatusCodes.InvalidFormat,
       msg: ErrorMessages.MalformedData,
@@ -24,7 +27,7 @@ export async function validateRegistration(
   } else {
     try {
       const result = await UserModel.find({
-        $or: [{ email: email }, { userName: username }],
+        $or: [{ email: email } /*, { userName: username }*/],
       });
       if (result.length > 0) {
         return res.status(StatusCodes.Conflict).json({
