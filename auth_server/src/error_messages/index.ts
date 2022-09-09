@@ -9,4 +9,5 @@ export enum ErrorMessages {
   AllRedyPresent = "Alredy Present",
   InvalidCredentials = "Invalid Credentials",
   BadRequest = "Bad Request",
+  SomethingWentWrong = "Something went wrong",
 }
