@@ -11,18 +11,28 @@ import {
 import { UserDataToSign } from "../types";
 
 export async function isLogedIn(req: Request, res: Response) {
-  const { accessToken } = req.cookies;
-  const token: UserDataToSign | boolean = verifyToken(
+  const { accessToken, refreshToken } = req.cookies;
+  const token: UserDataToSign | boolean =  verifyToken(
     accessToken
   ) as UserDataToSign;
+  const rToken: UserDataToSign | boolean =  verifyToken(
+    refreshToken
+  ) as UserDataToSign;
+  console.log(refreshToken,rToken);
 
-  if (!token) {
-    return res.status(StatusCodes.Unauthorized).json({
-      isLogin: false,
-    });
-  } else {
-    res.status(StatusCodes.Success).json({
+  if (token && rToken) {
+    return res.status(StatusCodes.Success).json({
       isLogin: true,
+    });
+  } else if (!token && rToken) {
+    res.status(StatusCodes.Unauthorized).json({
+      isLogin: false,
+      msg: "token expired",
+    });
+  } else if (!token && !rToken) {
+    res.status(StatusCodes.Unauthorized).json({
+      isLogin: false,
+      msg: "both token not found",
     });
   }
 }

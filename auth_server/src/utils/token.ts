@@ -13,10 +13,12 @@ async function signToken(
   });
   return token;
 }
-export function verifyToken(token: string): boolean | UserDataToSign {
+export function verifyToken(
+  token: string
+): boolean | UserDataToSign {
   if (token == null || token == undefined) return false;
   try {
-    jwt.verify(token, getPublicKey(), function (err, decoded) {
+    return jwt.verify(token, getPublicKey(), function (err, decoded) {
       return decoded === undefined ? false : decoded;
     });
   } catch (error) {

@@ -13,6 +13,8 @@ import regen from "./routes/authentication/regen";
 import corsOption from "./config/cors";
 import helmet from "helmet";
 import { connectCache } from "./cache";
+import validLogin from "./routes/authentication/validLogin";
+import resourse from "./routes/resourse"
 
 Database_Connection; // skipcq: JS-0354
 const app = express();
@@ -25,6 +27,8 @@ app.use(express.json());
 app.use(registration);
 app.use(login);
 app.use(regen);
+app.use(validLogin);
+app.use(resourse);
 app.use(defaultRoute);
 connectCache();
 app.listen(port, () => {

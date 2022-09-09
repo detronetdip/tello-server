@@ -38,7 +38,7 @@ export async function handelLogin(req: Request, res: Response) {
         uid: _user.uid,
         // name: _user.userName,
         email: _user.email,
-        version: _user.tokenVersion == 0 ? 1 : _user.tokenVersion,
+        version: _user.tokenVersion == 0 ? 0 : _user.tokenVersion,
       });
       res.cookie("accessToken", accessToken, {
         ...cookieOption,
