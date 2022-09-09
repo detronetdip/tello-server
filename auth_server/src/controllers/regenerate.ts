@@ -31,7 +31,7 @@ export async function handelRegeneration(req: Request, res: Response) {
     const email = _user.email;
     const v = _user.tokenVersion;
     const userAccessToken = await getData(uid);
-    if (userAccessToken && verifyToken(userAccessToken)) {      
+    if (userAccessToken && verifyToken(userAccessToken)) {
       return res.status(StatusCodes.Success).json({
         msg: ErrorMessages.TokenVersionError,
         code: StatusCodes.TokenVersionMissMatch,
@@ -60,6 +60,7 @@ export async function handelRegeneration(req: Request, res: Response) {
         email,
         version: updatedUser.tokenVersion,
       });
+      setData(uid, accessToken);
       res.cookie("accessToken", accessToken, {
         ...cookieOption,
         maxAge: tokenConfig.accessTokenExpiryTime * 1000,
