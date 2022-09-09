@@ -1,13 +1,15 @@
 # API Documentation
 
-\*_`Every Path should start with server URL`_
+\*\_`Every Path should start with server URL`\_
+
+\*\_`Use { withCredentials:true } for each and every request where authentication is needed`\_
 
 - Auth API
   - [Registration API](#registration-api)
   - [Login API]()
   - [Refresh Token API]()
 
-## Registration API
+## # Registration API
 
 This API is used for new user registration and only accessible from client domain.
 
@@ -49,7 +51,7 @@ sample response
 | 400        | 6000            |
 | 500        | 5000            |
 
-## Login API
+## # Login API
 
 This API is used for user login and only accessible from client domain.
 
@@ -88,6 +90,78 @@ sample response
 | 422        | 3001, 3002     |
 | 200        | 3003, 200      |
 | 400        | 400            |
+
+## # Login Validation API
+
+This API is used for validating a loggedin user to check wheather the user is logged in or not.
+
+- Path : `/api/v1/validate`
+- Method: `GET`
+- Param: null
+- Authentication: `Needed`
+
+A sample request is shown below using [axios](https://axios-http.com/)
+
+```
+ axios.get(
+    "https://server.com/api/v1/validate"
+ );
+```
+
+sample response
+
+```
+{
+    data:{
+      isLogin: true,
+      code: 200,
+      msg: "Successfull"
+    }
+}
+```
+
+### Expected status codes are:
+
+| Http codes | Response codes |
+| ---------- | -------------- |
+| 422        | 3001           |
+| 401        | 3000           |
+| 200        | 200            |
+
+## # Regeneration Token API
+
+This API is used for regenerating new set of token.
+
+- Path : `/api/v1/regen`
+- Method: `GET`
+- Param: null
+- Authentication: `Needed`
+
+A sample request is shown below using [axios](https://axios-http.com/)
+
+```
+ axios.get(
+    "https://server.com/api/v1/regen"
+ );
+```
+
+sample response
+
+```
+{
+    data:{
+      msg: "Successfull",
+      code: 4003,
+    }
+}
+```
+
+### Expected status codes are:
+
+| Http codes | Response codes   |
+| ---------- | ---------------- |
+| 200        | 4002, 4003, 4004 |
+| 401        | 4001, 3000       |
 
 <hr/>
 <hr/>
