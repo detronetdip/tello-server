@@ -5,11 +5,11 @@ dotEnv.config({
 import cors from "cors";
 import express from "express";
 import cookie from "cookie-parser";
-import helmet from "helmet";
 import { ApolloServer } from "apollo-server-express";
 import resolvers from "./graphql/resolvers";
 import typedefs from "./graphql/typedefs";
 import corsOption from "./config/cors";
+import helmet from "helmet";
 
 const PORT = process.env.PORT;
 const app = express();
@@ -21,7 +21,7 @@ async function createGraphQlServer() {
   await graphQlServer.start();
   graphQlServer.applyMiddleware({ app });
   console.log("ok");
-  app.listen(PORT, () => console.log("resourse server started" + PORT));
+  app.listen(PORT, () => console.log("resourse server started at : " + PORT));
 }
 
 app.use(helmet({ contentSecurityPolicy: false }));
