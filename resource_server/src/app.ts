@@ -17,6 +17,9 @@ async function createGraphQlServer() {
   const graphQlServer = new ApolloServer({
     typeDefs: typedefs,
     resolvers: resolvers,
+    context: (req) => {
+      return req;
+    },
   });
   await graphQlServer.start();
   graphQlServer.applyMiddleware({ app });
