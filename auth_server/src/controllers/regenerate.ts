@@ -25,7 +25,7 @@ export async function handelRegeneration(req: Request, res: Response) {
       msg: ErrorMessages.TokenExpired,
     });
   } else {
-    const _user = await UserModel.findOne({ email: token.email });
+    const _user = await UserModel.findOne({ uid: token.uid });
     const uid: string = _user.uid;
     const UserName = _user.firstName + " " + _user.lastName;
     const email = _user.email;

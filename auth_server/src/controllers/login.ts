@@ -11,8 +11,6 @@ import tokenConfig from "../config/token";
 import { setData } from "../cache";
 
 export async function handelLogin(req: Request, res: Response) {
-  console.log(2);
-
   const { email, password } = req.body;
   try {
     const _user = await UserModel.findOne({ email: email });
@@ -31,12 +29,12 @@ export async function handelLogin(req: Request, res: Response) {
     } else {
       const accessToken = await generateAccessToken({
         uid: _user.uid,
-        // name: _user.userName,
+        name: _user.userName,
         email: _user.email,
       });
       const refreshToken = await generateRefreshToken({
         uid: _user.uid,
-        // name: _user.userName,
+        name: _user.userName,
         email: _user.email,
         version: _user.tokenVersion == 0 ? 0 : _user.tokenVersion,
       });
@@ -55,8 +53,7 @@ export async function handelLogin(req: Request, res: Response) {
       });
     }
   } catch (error) {
-    console.log(error);
-
+    // console.log(error);
     res.status(StatusCodes.BadRequest).json({
       code: StatusCodes.BadRequest,
       msg: ErrorMessages.SomethingWentWrong,

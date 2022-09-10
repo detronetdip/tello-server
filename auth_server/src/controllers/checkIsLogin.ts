@@ -11,20 +11,24 @@ import {
 import { UserDataToSign } from "../types";
 
 export async function isLogedIn(req: Request, res: Response) {
-  const { accessToken, refreshToken } = req.cookies;
+  const { accessToken } = req.cookies;
+  if (!accessToken) {
+    return res.status(StatusCodes.Unauthorized).json({
+      isLogin: false,
+      code: StatusCodes.InvalidToken,
+      msg: ErrorMessages.TokenExpired,
+    });
+  }
   const token: UserDataToSign | boolean = verifyToken(
     accessToken
   ) as UserDataToSign;
-  const rToken: UserDataToSign | boolean = verifyToken(
-    refreshToken
-  ) as UserDataToSign;
-  if (token && rToken) {
+  if (token) {
     return res.status(StatusCodes.Success).json({
       isLogin: true,
       code: StatusCodes.Success,
       msg: ErrorMessages.Successfull,
     });
-  } else if ((!token && rToken) || (!token && !rToken)) {
+  } else {
     res.status(StatusCodes.Unauthorized).json({
       isLogin: false,
       code: StatusCodes.InvalidToken,
