@@ -8,10 +8,20 @@ import resolvers from "./graphql/resolvers";
 import typedefs from "./graphql/typedefs";
 import corsOption from "./config/cors";
 import helmet from "helmet";
+import defaultRouter from "./routes/api/index";
 
 const PORT = process.env.PORT;
 const app = express();
-async function createGraphQlServer() {
+
+
+app.use(helmet({ contentSecurityPolicy: false }));
+app.use(cors(corsOption));
+app.use(cookie());
+app.use(express.json());
+
+app.use(defaultRouter);
+
+async function startServer() {
   const graphQlServer = new ApolloServer({
     typeDefs: typedefs,
     resolvers: resolvers,
@@ -21,12 +31,6 @@ async function createGraphQlServer() {
   });
   await graphQlServer.start();
   graphQlServer.applyMiddleware({ app });
-  console.log("ok");
   app.listen(PORT, () => console.log("resourse server started at : " + PORT));
 }
-
-app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors(corsOption));
-app.use(cookie());
-app.use(express.json());
-createGraphQlServer();
+startServer();
