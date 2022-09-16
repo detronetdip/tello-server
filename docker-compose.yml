@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+  db-cache:
+    image: redis
+    container_name: cache-db
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli","ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
   db-mongo:
     image: mongo
     container_name: mongo-database
@@ -31,12 +42,31 @@ services:
       - ./auth_server/.env
     depends_on:
       db-mongo:
-          condition: service_healthy
+        condition: service_healthy
       db-postgress:
-          condition: service_healthy
+        condition: service_healthy
+      db-cache:
+        condition: service_healthy
     container_name: auth_server
     build:
       context: ./auth_server
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+  resource_server:
+    image: resource-server
+    env_file:
+      - ./resource_server/.env
+    depends_on:
+      db-mongo:
+        condition: service_healthy
+      db-postgress:
+        condition: service_healthy
+      db-cache:
+        condition: service_healthy
+    container_name: resource_server
+    build:
+      context: ./resource_server
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
