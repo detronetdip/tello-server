@@ -1,7 +1,5 @@
 import dotEnv from "dotenv";
-dotEnv.config({
-  path: "./src/.env/.env",
-});
+dotEnv.config();
 import cors from "cors";
 import express from "express";
 import Database_Connection from "./config/DB";
