@@ -1,17 +1,39 @@
-version: '3'
+version: "3"
 
 services:
-  db:
+  db-mongo:
     image: mongo
-    container_name: social-database
+    container_name: mongo-database
     ports:
       - "27017:27017"
+    healthcheck:
+      test: [ "CMD", "echo", "db.runCommand({serverStatus:1}).ok" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+  db-postgress:
+    image: postgres
+    container_name: postgres-database
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
   auth_server:
     image: auth-server
     env_file:
-      - ./auth_server/src/.env/.env
+      - ./auth_server/.env
     depends_on:
-      - db
+      db-mongo:
+          condition: service_healthy
+      db-postgress:
+          condition: service_healthy
     container_name: auth_server
     build:
       context: ./auth_server
