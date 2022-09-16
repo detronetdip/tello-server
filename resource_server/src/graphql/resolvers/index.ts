@@ -1,14 +1,9 @@
 const resolvers = {
   Query: {
-    hello: () => {
-      return "hello world";
-    },
+    // All queries will go here
   },
   Mutation: {
-    test: (_parrent, _args, _context, _info) => {
-      console.log(_info);
-      return "world";
-    },
+    // All mutations will go here
   },
 };
 export default resolvers;
