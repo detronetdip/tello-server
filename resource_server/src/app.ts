@@ -8,7 +8,7 @@ import resolvers from "./graphql/resolvers";
 import typedefs from "./graphql/typedefs";
 import corsOption from "./config/cors";
 import helmet from "helmet";
-import defaultRouter from "./routes/api/index";
+import defaultRouter from "./routes/internal/index";
 
 const PORT = process.env.PORT;
 const app = express();
