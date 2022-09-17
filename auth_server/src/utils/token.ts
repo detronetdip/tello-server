@@ -16,7 +16,7 @@ async function signToken(
 export function verifyToken(
   token: string
 ): boolean | UserDataToSign {
-  if (token == null || token == undefined) return false;
+  if (token === null || token === undefined) return false;
   try {
     return jwt.verify(token, getPublicKey(), function (err, decoded) {
       return decoded === undefined ? false : decoded;
