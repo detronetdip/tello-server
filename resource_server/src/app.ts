@@ -21,8 +21,7 @@ async function createGraphQlServer() {
   });
   await graphQlServer.start();
   graphQlServer.applyMiddleware({ app });
-  console.log("ok");
-  app.listen(PORT, () => console.log("resourse server started at : " + PORT));
+  app.listen(PORT, () => console.log("resourse server started at : " + PORT)); // skipcq: JS-0002
 }
 
 app.use(helmet({ contentSecurityPolicy: false }));
