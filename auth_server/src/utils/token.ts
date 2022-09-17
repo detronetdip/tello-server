@@ -25,13 +25,13 @@ export function verifyToken(
     return false;
   }
 }
-export function generateAccessToken(
+export async function generateAccessToken(
   userDetails: UserDataToSign
 ): Promise<string> {
-  return signToken(userDetails, tokenConfig.accessTokenExpiryTime);
+  return await signToken(userDetails, tokenConfig.accessTokenExpiryTime);
 }
 export async function generateRefreshToken(
   userDetails: UserDataToSign
 ): Promise<string> {
-  return signToken(userDetails, tokenConfig.refreshTokenExpiryTime);
+  return await signToken(userDetails, tokenConfig.refreshTokenExpiryTime);
 }
