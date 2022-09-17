@@ -4,13 +4,13 @@ import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
 import { verifyToken } from "../utils/token";
 
-export async function validateRegenerateRequest(
+export function validateRegenerateRequest(
   req: Request,
   res: Response,
   next: Function
-): Promise<void | Response> {
+): void | Response {
   const { accessToken, refreshToken } = req.cookies;
-  if(accessToken){
+  if (accessToken) {
     return res.status(StatusCodes.Success).json({
       code: StatusCodes.ValidAccessTokenError,
       msg: ErrorMessages.BadRequest,
