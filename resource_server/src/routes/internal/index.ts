@@ -4,6 +4,7 @@ const route = Router();
 
 route.post("/api/internal/createUser", async (req: Request, res: Response) => {
   console.log(req.body);
+  console.log("received")
 
   const { username, firstName, lastName, userId } = req.body;
   await prisma.user.create({
@@ -14,6 +15,6 @@ route.post("/api/internal/createUser", async (req: Request, res: Response) => {
       lastname: lastName,
     },
   });
-  res.send(true);
+  res.send(true); 
 });
 export default route;
