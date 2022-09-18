@@ -57,6 +57,7 @@ export async function handelLogin(req: Request, res: Response) {
     res.status(StatusCodes.BadRequest).json({
       code: StatusCodes.BadRequest,
       msg: ErrorMessages.SomethingWentWrong,
+      er:error
     });
   }
 }

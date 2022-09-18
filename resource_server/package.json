@@ -7,8 +7,8 @@
     "start": "nodemon --exec ts-node src/app.ts",
     "build": "npx tsc",
     "lint": "npx eslint . --ext .ts",
-    "start:prod": "node dist/app.js",
-    "prod:migrate": "npx migrate deploy && npm run start:prod"
+    "start:prod": "node app.js",
+    "prod:migrate": "npx prisma migrate dev && npm run start:prod"
   },
   "keywords": [],
   "author": "Ayondip Jana",

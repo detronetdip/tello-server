@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 export function getPrivateKey(): string {
-  return readFileSync("./src/key/private.pem", "utf8");
+  return readFileSync("./key/private.pem", "utf8");
 }
 export function getPublicKey(): string {
-  return readFileSync("./src/key/public.pem", "utf8");
+  return readFileSync("./key/public.pem", "utf8");
 }
