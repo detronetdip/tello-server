@@ -3,8 +3,8 @@ const client = createClient({
   url: process.env.CACHE_URL,
 });
 
-client.on("error", (err) => console.log("Redis Client Error", err));
-client.on("connect", () => console.log("Cache server conected"));
+client.on("error", (err) => console.log("Redis Client Error", err));  // skipcq: JS-0002
+client.on("connect", () => console.log("Cache server conected")); // skipcq: JS-0002
 async function connectCache() {
   await client.connect();
 }
