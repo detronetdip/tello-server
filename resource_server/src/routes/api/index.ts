@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { Controller } from "../../controller";
 import { Auth } from "../../middleware/authMiddleware";
-import { validator } from "../../utils/validate";
-import { addFriendsSchema } from "../../validator";
+import { validate } from "../../utils/validate";
+import { validationSchema } from "../../validator";
 
 const route = Router();
 
 route.post(
   "/api/v1/addfriends",
-  validator(addFriendsSchema),
+  validate(validationSchema.addFriendsSchema),
   Controller.addFriend
 );
 export default route;

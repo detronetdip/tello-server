@@ -1,6 +1,5 @@
-import Joi from 'joi';
+import { addFriendsSchema } from "./schemas";
 
-export const addFriendsSchema= {
-    userId: Joi.string().alphanum().required(),
-    friendId: Joi.string().alphanum().required()
-}
+export const validationSchema = {
+  addFriendsSchema,
+};
