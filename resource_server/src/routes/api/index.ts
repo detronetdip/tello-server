@@ -1,19 +1,14 @@
-import { Router, Request, Response } from "express";
-import { prisma } from "../../prisma_connection";
+import { Router } from "express";
+import { Controller } from "../../controller";
+import { Auth } from "../../middleware/authMiddleware";
+import { validator } from "../../utils/validate";
+import { addFriendsSchema } from "../../validator";
+
 const route = Router();
 
-route.post("/api/internal/createUser", async (req: Request, res: Response) => {
-  console.log(req.body);
-
-  const { username, firstName, lastName, userId } = req.body;
-  await prisma.user.create({
-    data: {
-      id: userId,
-      username,
-      firstname: firstName,
-      lastname: lastName,
-    },
-  });
-  res.send(true);
-});
+route.post(
+  "/api/v1/addfriends",
+  validator(addFriendsSchema),
+  Controller.addFriend
+);
 export default route;
