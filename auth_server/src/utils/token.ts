@@ -16,7 +16,7 @@ async function signToken(
 export function verifyToken(
   token: string
 ): boolean | UserDataToSign {
-  if (token == null || token == undefined) return false;
+  if (token === null || token === undefined) return false;
   try {
     return jwt.verify(token, getPublicKey(), function (err, decoded) {
       return decoded === undefined ? false : decoded;
@@ -25,13 +25,13 @@ export function verifyToken(
     return false;
   }
 }
-export function generateAccessToken(
+export async function generateAccessToken(
   userDetails: UserDataToSign
 ): Promise<string> {
-  return signToken(userDetails, tokenConfig.accessTokenExpiryTime);
+  return await signToken(userDetails, tokenConfig.accessTokenExpiryTime);
 }
 export async function generateRefreshToken(
   userDetails: UserDataToSign
 ): Promise<string> {
-  return signToken(userDetails, tokenConfig.refreshTokenExpiryTime);
+  return await signToken(userDetails, tokenConfig.refreshTokenExpiryTime);
 }
