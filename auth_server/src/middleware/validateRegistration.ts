@@ -10,8 +10,14 @@ export async function validateRegistration(
   res: Response,
   next: Function
 ) {
-  const { email, username, password } = req.body;
-  if (email === undefined || username === undefined || password === undefined) {
+  const { email, username, password, firstName, lastName } = req.body;
+  if (
+    email === undefined ||
+    username === undefined ||
+    password === undefined ||
+    firstName === undefined ||
+    lastName === undefined
+  ) {
     return res.status(StatusCodes.Success).json({
       code: StatusCodes.InsufficientArguments,
       msg: ErrorMessages.InsufficientData,
@@ -26,6 +32,8 @@ export async function validateRegistration(
       const result = await UserModel.find({
         $or: [{ email: email }, { userName: username }],
       });
+      console.log(result);
+      
       if (result.length > 0) {
         return res.status(StatusCodes.Conflict).json({
           code: StatusCodes.AlredyInUse,
