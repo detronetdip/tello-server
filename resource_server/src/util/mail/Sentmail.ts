@@ -1,6 +1,6 @@
 import nodeMailer from "nodemailer";
 
-export async function sendMail(to: string, subject: string, template: string) {
+export async function sendMailHelper(to: string, subject: string, template: string) {
   return new Promise((resolve, reject) => {
     const mailTransporter = nodeMailer.createTransport({
       service: "gmail",
