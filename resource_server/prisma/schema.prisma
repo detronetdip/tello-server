@@ -19,6 +19,9 @@ model user {
   updatedAt DateTime  @updatedAt
   followers friends[] @relation(name: "user")
   following friends[] @relation(name: "following")
+  posts     post[]
+  comments  comment[]
+  likes     like[]
 }
 
 model friends {
@@ -32,4 +35,47 @@ model friends {
   block     Boolean  @default(false)
 
   @@unique([friendId, userId])
+}
+
+model post {
+  id        String    @id @default(uuid())
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  media     String    @default("")
+  content   String    @db.VarChar(255)
+  type      PostType  @default(CONTENT_ONLY)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  comments  comment[]
+  likes      like[]
+}
+
+model comment {
+  id               String    @id @default(uuid())
+  content          String
+  postId           String
+  userId           String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  parrentCommentId String?
+  parrentId        post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user             user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parrent          comment?  @relation("nested-comments", fields: [parrentCommentId], references: [id], onDelete: Cascade)
+  subComments      comment[] @relation("nested-comments")
+}
+
+model like {
+  id        String   @id @default(uuid())
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post    post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  postId    String
+}
+
+enum PostType {
+  CONTENT_ONLY
+  MEDIA_ONLY
+  MEDIA_WITH_CONTENT_ONLY
 }
