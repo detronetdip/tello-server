@@ -11,4 +11,9 @@ route.post(
   validate(validationSchema.addFriendsSchema),
   Controller.addFriend
 );
+route.post(
+  "/api/v1/post",
+  validate(validationSchema.postSchema),
+  Controller.addFriend
+);
 export default route;
