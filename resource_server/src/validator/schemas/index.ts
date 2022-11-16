@@ -1,10 +1,10 @@
 import Joi from "joi";
 
 export const addFriendsSchema = {
-  userId: Joi.string().alphanum().required(),
-  friendId: Joi.string().alphanum().required(),
+  userId: Joi.string().required(),
+  friendId: Joi.string().required(),
 };
 export const postSchema = {
-    userId: Joi.string().alphanum().required(),
-    postData: Joi.string().alphanum().required()
+    userId: Joi.string().required(),
+    postData: Joi.string().required()
 };
