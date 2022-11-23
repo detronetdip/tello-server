@@ -23,6 +23,7 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: |
+          cd resource_server
           npm install
       - name: production build
         run: |
