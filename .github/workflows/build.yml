@@ -1,0 +1,29 @@
+name: Test-Build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branch:
+      - master
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+    steps:
+      - name: Checkout code
+        uses: action/checkout@v1
+      - name: Install Node and NPM
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          cache: npm
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: production build
+        run: |
+          npm run build
