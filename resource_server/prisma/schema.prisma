@@ -11,17 +11,18 @@ datasource db {
 }
 
 model user {
-  id        String    @id @default(uuid())
-  username  String    @db.VarChar(255)
-  firstname String    @default("") @db.VarChar(255)
-  lastname  String    @default("") @db.VarChar(255)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  followers friends[] @relation(name: "user")
-  following friends[] @relation(name: "following")
-  posts     post[]
-  comments  comment[]
-  likes     like[]
+  id            String          @id @default(uuid())
+  username      String          @db.VarChar(255)
+  firstname     String          @default("") @db.VarChar(255)
+  lastname      String          @default("") @db.VarChar(255)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  followers     friends[]       @relation(name: "user")
+  following     friends[]       @relation(name: "following")
+  posts         post[]
+  comments      comment[]
+  likes         like[]
+  notifications notifications[]
 }
 
 model friends {
@@ -47,7 +48,7 @@ model post {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   comments  comment[]
-  likes      like[]
+  likes     like[]
 }
 
 model comment {
@@ -67,11 +68,29 @@ model comment {
 model like {
   id        String   @id @default(uuid())
   user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post    post     @relation(fields: [postId], references: [id])
+  post      post     @relation(fields: [postId], references: [id])
+  likeCount BigInt
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    String
   postId    String
+}
+
+model notifications {
+  id        String           @id @default(uuid())
+  content   String
+  userId    String
+  createdAt DateTime         @default(now())
+  type      NotificationType
+  redirect  String
+  read      Boolean          @default(false)
+  user      user             @relation(fields: [userId], references: [id])
+}
+
+enum NotificationType {
+  POST_LIKE
+  POST_COMMENT
+  COMMENT_REPLY
 }
 
 enum PostType {
