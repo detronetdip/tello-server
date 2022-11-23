@@ -15,7 +15,8 @@ jobs:
         os: ["ubuntu-latest"]
     steps:
       - name: Checkout code
-        uses: action/checkout@v1
+        uses: action/checkout@v3
+
       - name: Install Node and NPM
         uses: actions/setup-node@v1
         with:
