@@ -15,10 +15,9 @@ jobs:
         os: ["ubuntu-latest"]
     steps:
       - name: Checkout code
-        uses: action/checkout@v3
+        uses: action/checkout@v1
         with:
-          repository: ${{github.repository}}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SPECIAL_SECRET }}
 
       - name: Install Node and NPM
         uses: actions/setup-node@v1
