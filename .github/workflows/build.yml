@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: action/checkout@v3
+        with:
+          repository: ${{github.repository}}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Node and NPM
         uses: actions/setup-node@v1
