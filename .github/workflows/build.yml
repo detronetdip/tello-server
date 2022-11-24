@@ -14,20 +14,11 @@ jobs:
       matrix:
         os: ["ubuntu-latest"]
     steps:
-      - name: Checkout code
-        uses: action/checkout@v1
-        with:
-          token: ${{ secrets.SPECIAL_SECRET }}
-
-      - name: Install Node and NPM
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-          cache: npm
-      - name: Install dependencies
-        run: |
-          cd resource_server
-          npm install
-      - name: production build
-        run: |
-          npm run build
+        - uses: actions/checkout@v3
+        - name: Use Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '16.x'
+        - name: Install dependencies
+          run: npm install
+             
