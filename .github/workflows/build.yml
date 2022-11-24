@@ -20,5 +20,10 @@ jobs:
           with:
             node-version: '16.x'
         - name: Install dependencies
-          run: npm install && ls
+          run: |
+            cd auth_server 
+            npm install
+            npm run build
+        - name: cr
+          run: ls
              
