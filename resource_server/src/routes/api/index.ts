@@ -9,11 +9,11 @@ const route = Router();
 route.post(
   "/api/v1/accept",
   validate(validationSchema.addFriendsSchema),
-  Controller.acceptFriend
+  Controller.addFriend
 );
 route.post(
   "/api/v1/post",
   validate(validationSchema.postSchema),
-  Controller.acceptFriend
+  Controller.addFriend
 );
 export default route;
