@@ -1,0 +1,32 @@
+name: Test-Build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branch:
+      - master
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+    steps:
+        - uses: actions/checkout@v3
+        - name: Use Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '16.x'
+        - name: Build Auth server 
+          run: |
+            cd auth_server 
+            npm install
+            npm run build
+        - name: Build Resourse server
+          run: |
+            cd resource_server 
+            npm install
+            npm run build
+             
