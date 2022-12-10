@@ -8,7 +8,7 @@ export const acceptFriend=async (req:Request,res:Response)=>{
     const user1 = await prisma.user.findFirst({
         where: {
             id: userId,
-        },
+        }, 
     })
     const user2 = await prisma.user.findFirst({
         where: {
