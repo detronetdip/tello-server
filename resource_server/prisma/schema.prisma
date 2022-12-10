@@ -22,14 +22,15 @@ model user {
 }
 
 model friends {
-  id        String   @id @default(uuid())
-  user      user     @relation(name: "user", fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  follower  user     @relation(name: "following", fields: [friendId], references: [id], onDelete: Cascade)
-  friendId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  block     Boolean  @default(false)
+  id         String   @id @default(uuid())
+  user       user     @relation(name: "user", fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  follower   user     @relation(name: "following", fields: [friendId], references: [id], onDelete: Cascade)
+  friendId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isAccepted Boolean  @default(false)
+  block      Boolean  @default(false)
 
   @@unique([friendId, userId])
 }

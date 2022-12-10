@@ -8,6 +8,7 @@ export enum ErrorMessages {
   MalformedData = "Invalid Data",
   AllRedyPresent = "Alredy Present",
   InvalidCredentials = "Invalid Credentials",
+  InvalidArguments = "Invalid Arguments",
   BadRequest = "Bad Request",
   SomethingWentWrong = "Something went wrong",
 }

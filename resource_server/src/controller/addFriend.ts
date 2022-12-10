@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
-import { prisma } from"../prisma_connection/index"
-export const acceptFriend=async (req:Request,res:Response)=>{
+import { prisma } from "../prisma_connection/index";
+export const addFriend=async (req:Request,res:Response)=>{
    try{
     const { userId,friendId }=req.body;
     const user1 = await prisma.user.findFirst({
         where: {
             id: userId,
+            
         }, 
     })
     const user2 = await prisma.user.findFirst({
