@@ -1,7 +1,7 @@
-import { addFriend } from "./addFriend";
+import { acceptFriend } from "./acceptFriend";
 import { userPost } from "./Post";
 
 export const Controller={
-    addFriend,
+    acceptFriend,
     userPost
 }
