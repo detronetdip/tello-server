@@ -1,4 +1,3 @@
-// import { Prisma, prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
