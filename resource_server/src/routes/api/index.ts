@@ -7,13 +7,18 @@ import { validationSchema } from "../../validator";
 const route = Router();
 
 route.post(
-  "/api/v1/accept",
+  "/api/v1/addFriend",
   validate(validationSchema.addFriendsSchema),
   Controller.addFriend
 );
 route.post(
   "/api/v1/post",
   validate(validationSchema.postSchema),
-  Controller.addFriend
+  Controller.userPost
+);
+route.post(
+  "/api/v1/accept",
+  validate(validationSchema.acceptSchema),
+  Controller.accept
 );
 export default route;
