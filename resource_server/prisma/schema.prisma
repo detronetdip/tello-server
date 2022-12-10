@@ -5,69 +5,50 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator dbml {
-  provider = "prisma-dbml-generator"
-  output   = "../dbml"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model user {
-  id              String          @id @default(uuid())
-  username        String          @unique @db.VarChar(255)
-  firstname       String          @default("") @db.VarChar(255)
-  lastname        String          @default("") @db.VarChar(255)
-  email           String          @unique @db.VarChar(255)
-  password        String          @db.VarChar(255)
-  mobile          String          @db.VarChar(255)
-  theme           ThemeType       @default(Light)
-  bio             String          @db.VarChar(100)
-  dob             String
-  isVerified      Boolean
-  profileImage    String
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  followers       friends[]       @relation(name: "user")
-  following       friends[]       @relation(name: "following")
-  posts           post[]
-  comments        comment[]
-  notifications   notifications[]
-  activity        activity[]
-  conversations   conversations[]
-  sentMessages    messages[]      @relation(name: "sent-messages")
-  receiveMessages messages[]      @relation(name: "receive-messages")
+  id            String          @id @default(uuid())
+  username      String          @db.VarChar(255)
+  firstname     String          @default("") @db.VarChar(255)
+  lastname      String          @default("") @db.VarChar(255)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  followers     friends[]       @relation(name: "user")
+  following     friends[]       @relation(name: "following")
+  posts         post[]
+  comments      comment[]
+  likes         like[]
+  notifications notifications[]
 }
 
 model friends {
-  id            String          @id @default(uuid())
-  user          user            @relation(name: "user", fields: [userId], references: [id], onDelete: Cascade)
-  userId        String
-  follower      user            @relation(name: "following", fields: [friendId], references: [id], onDelete: Cascade)
-  friendId      String
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  block         Boolean         @default(false)
-  accepted      Boolean         @default(false)
-  conversations conversations[]
+  id        String   @id @default(uuid())
+  user      user     @relation(name: "user", fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  follower  user     @relation(name: "following", fields: [friendId], references: [id], onDelete: Cascade)
+  friendId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  block     Boolean  @default(false)
 
   @@unique([friendId, userId])
 }
 
 model post {
-  id          String    @id @default(uuid())
-  user        user      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String
-  media       String    @default("")
-  content     String    @default("") @db.VarChar(255)
-  type        PostType  @default(CONTENT_ONLY)
-  likeId      String    @unique
-  likeCounter like      @relation(fields: [likeId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  comments    comment[]
+  id        String    @id @default(uuid())
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  media     String    @default("")
+  content   String    @db.VarChar(255)
+  type      PostType  @default(CONTENT_ONLY)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  comments  comment[]
+  likes     like[]
 }
 
 model comment {
@@ -85,22 +66,14 @@ model comment {
 }
 
 model like {
-  id         String     @id @default(uuid())
-  likeCount  BigInt
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  activities activity[]
-  post       post?
-}
-
-model activity {
-  id          String @id @default(uuid())
-  userId      String
-  user        user   @relation(fields: [userId], references: [id])
-  likeCountId like   @relation(fields: [likeId], references: [id])
-  likeId      String
-
-  @@unique([userId, likeId])
+  id        String   @id @default(uuid())
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      post     @relation(fields: [postId], references: [id])
+  likeCount BigInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  postId    String
 }
 
 model notifications {
@@ -114,28 +87,6 @@ model notifications {
   user      user             @relation(fields: [userId], references: [id])
 }
 
-model conversations {
-  id       String     @id @default(uuid())
-  userId   String
-  friendId String
-  friend   friends    @relation(fields: [friendId], references: [id])
-  user     user       @relation(fields: [userId], references: [id])
-  messages messages[]
-}
-
-model messages {
-  id              String        @id @default(uuid())
-  conversationsId String
-  senderId        String
-  receiverId      String
-  content         String
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  sender          user          @relation("sent-messages", fields: [senderId], references: [id])
-  receiver        user          @relation("receive-messages", fields: [receiverId], references: [id])
-  conversationId  conversations @relation(fields: [conversationsId], references: [id])
-}
-
 enum NotificationType {
   POST_LIKE
   POST_COMMENT
@@ -146,9 +97,4 @@ enum PostType {
   CONTENT_ONLY
   MEDIA_ONLY
   MEDIA_WITH_CONTENT_ONLY
-}
-
-enum ThemeType {
-  Light
-  Dark
 }
