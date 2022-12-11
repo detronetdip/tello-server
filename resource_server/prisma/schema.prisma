@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native","linux-musl"]
@@ -12,25 +9,91 @@ datasource db {
 }
 
 model user {
-  id        String    @id @default(uuid())
-  username  String    @db.VarChar(255)
-  firstname String    @default("") @db.VarChar(255)
-  lastname  String    @default("") @db.VarChar(255)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  followers friends[] @relation(name: "user")
-  following friends[] @relation(name: "following")
+  id            String          @id @default(uuid())
+  username      String          @db.VarChar(255)
+  firstname     String          @default("") @db.VarChar(255)
+  lastname      String          @default("") @db.VarChar(255)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  comment       comment[]
+  following     friends[]       @relation("following")
+  followers     friends[]       @relation("user")
+  like          like[]
+  notifications notifications[]
+  post          post[]
 }
 
 model friends {
-  id        String   @id @default(uuid())
-  user      user     @relation(name: "user", fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  follower  user     @relation(name: "following", fields: [friendId], references: [id], onDelete: Cascade)
-  friendId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  block     Boolean  @default(false)
+  id         String   @id @default(uuid())
+  userId     String
+  friendId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isAccepted Boolean  @default(false)
+  block      Boolean  @default(false)
+  follower   user     @relation(name: "following", fields: [friendId], references: [id], onDelete: Cascade)
+  user       user     @relation(name: "user", fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([friendId, userId])
+}
+
+model comment {
+  id               String    @id
+  content          String
+  postId           String
+  userId           String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime
+  parrentCommentId String?
+  comment          comment?  @relation("commentTocomment", fields: [parrentCommentId], references: [id], onDelete: Cascade)
+  post             post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user             user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  other_comment    comment[] @relation("commentTocomment")
+}
+
+model like {
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  userId    String
+  postId    String
+  likeCount BigInt
+  post      post     @relation(fields: [postId], references: [id])
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model notifications {
+  id        String           @id
+  content   String
+  userId    String
+  createdAt DateTime         @default(now())
+  type      NotificationType
+  redirect  String
+  read      Boolean          @default(false)
+  user      user             @relation(fields: [userId], references: [id])
+}
+
+model post {
+  id        String    @id
+  userId    String
+  media     String    @default("")
+  content   String    @db.VarChar(255)
+  type      PostType  @default(CONTENT_ONLY)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment   comment[]
+  like      like[]
+}
+
+enum NotificationType {
+  POST_LIKE
+  POST_COMMENT
+  COMMENT_REPLY
+}
+
+enum PostType {
+  CONTENT_ONLY
+  MEDIA_ONLY
+  MEDIA_WITH_CONTENT_ONLY
 }
