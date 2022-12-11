@@ -22,6 +22,7 @@ enum StatusCodes {
   InsufficientArguments = 3001,
   InvalidFormat = 3002,
   InvalidCredential = 3003,
+  InvalidArguments = 3003,
   // Not found indication and token error codes should present within 4*** level
   AccessTokenNotFound = 4000,
   RefreshTokenNotFound = 4001,

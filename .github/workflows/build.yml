@@ -5,8 +5,9 @@ on:
     branches:
       - master
   pull_request:
-    branch:
+    branches:
       - master
+      - dev
 jobs:
   build:
     runs-on: ${{matrix.os}}
