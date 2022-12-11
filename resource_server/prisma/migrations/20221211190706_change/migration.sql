@@ -23,6 +23,7 @@ CREATE TABLE "friends" (
     "friendId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "isAccepted" BOOLEAN NOT NULL DEFAULT false,
     "block" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "friends_pkey" PRIMARY KEY ("id")
