@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
-import { prisma } from"../prisma_connection/index"
-export const acceptFriend=async (req:Request,res:Response)=>{
+import { prisma } from "../prisma_connection/index";
+export const addFriend=async (req:Request,res:Response)=>{
    try{
     const { userId,friendId }=req.body;
     const user1 = await prisma.user.findFirst({
         where: {
             id: userId,
+            
         }, 
     })
     const user2 = await prisma.user.findFirst({
@@ -17,7 +18,7 @@ export const acceptFriend=async (req:Request,res:Response)=>{
     })
     if(!user1 || !user2){
         return res.status(StatusCodes.BadRequest).json({
-            StatusCode: StatusCodes.InvalidCredential,
+            ResponseCode: StatusCodes.InvalidCredential,
             message: ErrorMessages.InvalidCredentials
         })
     }
@@ -29,7 +30,7 @@ export const acceptFriend=async (req:Request,res:Response)=>{
     })
     if(friends){
         return res.status(StatusCodes.BadRequest).json({
-            StatusCodes: StatusCodes.AlredyInUse,
+            ResponseCode: StatusCodes.AlredyInUse,
             message: ErrorMessages.AllRedyPresent
         })
     }
@@ -43,7 +44,7 @@ export const acceptFriend=async (req:Request,res:Response)=>{
    }
    catch(error){
         return res.status(StatusCodes.ServerError).json({
-            StatusCodes: StatusCodes.ServerError,
+            ResponseCode: StatusCodes.ServerError,
             message: ErrorMessages.ServerError
         })
    }
