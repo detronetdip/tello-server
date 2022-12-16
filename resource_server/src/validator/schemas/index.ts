@@ -13,4 +13,5 @@ export const acceptSchema = {
 };
 export const blockSchema = {
   reqId: Joi.string().required(),
+  action: Joi.boolean().required()
 };
