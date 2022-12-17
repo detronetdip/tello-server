@@ -163,8 +163,7 @@ sample response
 | 200        | 4002, 4003, 4004 |
 | 401        | 4001, 3000       |
 
-<hr/>
-<hr/>
+
 
 ## # AddFriend API
 
@@ -207,6 +206,8 @@ sample response
 | 500        | 5000            |
 
 
+<hr/>
+<hr/>
 # Status Codes
 
 ### HTTP Status Codes
