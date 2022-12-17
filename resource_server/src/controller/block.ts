@@ -6,12 +6,12 @@ export const block=async (req:Request,res:Response)=>{
     try{
         const { reqId,action }=req.body;
         
-        const id2=await prisma.friends.findFirst({
+        const targetId=await prisma.friends.findFirst({
             where: {
                 id: reqId,
             }
         })
-        if(id2.block==action){
+        if(targetId.block===action){
             return res.status(StatusCodes.BadRequest).json(
                 {
                     ResponseCode: StatusCodes.AlredyInUse,
@@ -22,7 +22,7 @@ export const block=async (req:Request,res:Response)=>{
         
         if(action){
         await prisma.friends.update({
-            where: { id: id2.id},
+            where: { id: targetId.id},
             data: { block : true}
         })
         return res.status(StatusCodes.Success).json(
@@ -33,7 +33,7 @@ export const block=async (req:Request,res:Response)=>{
         )
     }
     await prisma.friends.update({
-        where: { id: id2.id},
+        where: { id: targetId.id},
         data: { block : false}
     })
         return res.status(StatusCodes.Success).json(
