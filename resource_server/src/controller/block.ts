@@ -45,7 +45,7 @@ export const block=async (req:Request,res:Response)=>{
        
     } catch(error){
         return res.status(StatusCodes.ServerError).json({
-            ResponseCode: StatusCodes.ServerError,
+            ResponseCode: StatusCodes.InternalServerError,
             message: ErrorMessages.ServerError
         })
    }
