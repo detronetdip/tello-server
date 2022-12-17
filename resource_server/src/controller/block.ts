@@ -1,0 +1,53 @@
+import { Request, Response } from "express";
+import { StatusCodes } from "../error_codes";
+import { ErrorMessages } from "../error_messages";
+import { prisma } from "../prisma_connection/index";
+export const block=async (req:Request,res:Response)=>{
+    try{
+        const { reqId,action }=req.body;
+        
+        const targetId=await prisma.friends.findFirst({
+            where: {
+                id: reqId,
+            }
+        })
+        if(targetId.block===action){
+            return res.status(StatusCodes.BadRequest).json(
+                {
+                    ResponseCode: StatusCodes.AlredyInUse,
+                    message: ErrorMessages.AllRedyPresent
+                }
+            )
+        }
+        
+        if(action){
+        await prisma.friends.update({
+            where: { id: targetId.id},
+            data: { block : true}
+        })
+        return res.status(StatusCodes.Success).json(
+            {
+                ResponseCode: StatusCodes.Accepted,
+                message: ErrorMessages.Successfull
+            }
+        )
+    }
+    await prisma.friends.update({
+        where: { id: targetId.id},
+        data: { block : false}
+    })
+        return res.status(StatusCodes.Success).json(
+            {
+                ResponseCode: StatusCodes.Accepted,
+                message: ErrorMessages.Successfull
+            }
+        )
+       
+    } catch(error){
+        return res.status(StatusCodes.ServerError).json({
+            ResponseCode: StatusCodes.InternalServerError,
+            message: ErrorMessages.ServerError
+        })
+   }
+    
+}

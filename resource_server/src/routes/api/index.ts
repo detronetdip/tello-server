@@ -21,4 +21,9 @@ route.post(
   validate(validationSchema.acceptSchema),
   Controller.accept
 );
+route.post(
+  "/api/v1/block",
+  validate(validationSchema.blockSchema),
+  Controller.block
+);
 export default route;
