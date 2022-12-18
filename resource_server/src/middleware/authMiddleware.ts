@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
 import { verifyToken } from "../utils/token";
