@@ -31,7 +31,7 @@ This API is used for new user registration and only accessible from client domai
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
+```js
  axios.post(
     "https://server.com/api/v1/registration",
     {
@@ -46,7 +46,7 @@ A sample request is shown below using [axios](https://axios-http.com/)
 
 sample response
 
-```
+```js
 {
     data:{
         code: 200,
@@ -81,19 +81,19 @@ This API is used for user login and only accessible from client domain.
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
+```js
  axios.post(
     "https://server.com/api/v1/login",
     {
-        email: mail@mail.com,
-        password: password
+        email: "mail@mail.com",
+        password: "password"
     }
  );
 ```
 
 sample response
 
-```
+```http
 {
     data:{
         code: 200,
