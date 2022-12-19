@@ -41,7 +41,7 @@ export const addFriend=async (req:Request,res:Response)=>{
         }
     })
     return res.status(StatusCodes.Success).json({
-        ResponseCode: StatusCodes.Success,
+        ResponseCode: StatusCodes.RegistrationSuccessful,
         message: ErrorMessages.Successfull
     })
 

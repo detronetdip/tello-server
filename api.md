@@ -4,10 +4,12 @@
 
 `Use { withCredentials:true } for each and every request where authentication is needed`
 
-- Auth API
+
   - [Registration API](#registration-api)
-  - [Login API]()
-  - [Refresh Token API]()
+  - [Login API](#login-api)
+  - [Login Validation API](#login-validation-api)
+  - [Refresh Token API](#regeneration-token-api)
+  - [Add Friend API](#addfriend-api)
 
 ## # Registration API
 
@@ -20,7 +22,6 @@ This API is used for new user registration and only accessible from client domai
   POST  /api/v1/registration
 ```
 
-
 | Parameter   | Type     | Required | Description       |
 | :---------- | :------- | :------- | :---------------- |
 | `email`     | `string` | True     | User's email      |
@@ -32,16 +33,13 @@ This API is used for new user registration and only accessible from client domai
 A sample request is shown below using [axios](https://axios-http.com/)
 
 ```js
- axios.post(
-    "https://server.com/api/v1/registration",
-    {
-        email: "mail@mail.com",
-        username: "username",
-        password: "password",
-        firstName: "firstName",
-        lastName: "lastname"
-    }
- );
+axios.post("https://server.com/api/v1/registration", {
+  email: "mail@mail.com",
+  username: "username",
+  password: "password",
+  firstName: "firstName",
+  lastName: "lastname",
+});
 ```
 
 sample response
@@ -67,12 +65,13 @@ sample response
 ## # Login API
 
 This API is used for user login and only accessible from client domain.
+
 - Authentication: `Not Needed`
 - Target Server: `Auth`
+
 ```http
   POST  /api/v1/login
 ```
-
 
 | Parameter  | Type     | Required | Description     |
 | :--------- | :------- | :------- | :-------------- |
@@ -82,18 +81,15 @@ This API is used for user login and only accessible from client domain.
 A sample request is shown below using [axios](https://axios-http.com/)
 
 ```js
- axios.post(
-    "https://server.com/api/v1/login",
-    {
-        email: "mail@mail.com",
-        password: "password"
-    }
- );
+axios.post("https://server.com/api/v1/login", {
+  email: "mail@mail.com",
+  password: "password",
+});
 ```
 
 sample response
 
-```http
+```js
 {
     data:{
         code: 200,
@@ -121,22 +117,19 @@ This API is used for validating a loggedin user to check wheather the user is lo
   GET /api/v1/validate
 ```
 
-
 | Parameter | Type | Required | Description                      |
 | :-------- | :--- | :------- | :------------------------------- |
 | Null      | Null | False    | You do not have to pass anything |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
- axios.get(
-    "https://server.com/api/v1/validate"
- );
+```js
+axios.get("https://server.com/api/v1/validate");
 ```
 
 sample response
 
-```
+```js
 {
     data:{
       isLogin: true,
@@ -165,22 +158,19 @@ This API is used for regenerating new set of token.
   GET /api/v1/regen
 ```
 
-
 | Parameter | Type | Required | Description                      |
 | :-------- | :--- | :------- | :------------------------------- |
 | Null      | Null | False    | You do not have to pass anything |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
- axios.get(
-    "https://server.com/api/v1/regen"
- );
+```js
+axios.get("https://server.com/api/v1/regen");
 ```
 
 sample response
 
-```
+```js
 {
     data:{
       msg: "Successfull",
@@ -200,26 +190,30 @@ sample response
 
 This API is used for sending friend request and only accessible from client domain.
 
-- Path : `/api/v1/addFriend`
-- Method: `POST`
-- Param: `userId,friendId`
 - Authentication: `Needed`
+- Target Server: `Resource`
+
+```http
+  POST  /api/v1/addFriend
+```
+
+| Parameter  | Type     | Required | Description                                 |
+| :--------- | :------- | :------- | :------------------------------------------ |
+| `userId`   | `string` | True     | User's id who is sending request            |
+| `friendId` | `string` | True     | User's id to whom the request is to be sent |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
- axios.post(
-    "https://server.com/api/v1/addFreind",
-    {
-        userId: "userId",
-        friendId: "friendId"
-    }
- );
+```js
+axios.post("https://server.com/api/v1/addFreind", {
+  userId: "userId",
+  friendId: "friendId",
+});
 ```
 
 sample response
 
-```
+```js
 {
     data:{
         code: 200,
@@ -232,9 +226,12 @@ sample response
 
 | Http codes | Response codes |
 | ---------- | -------------- |
-| 200        | 200            |
+| 200        | 2000           |
 | 400        | 6000,3003      |
 | 500        | 5000           |
+
+
+
 
 <hr/>
 <hr/>
@@ -284,7 +281,7 @@ sample response
 - 4001
   > A access token is required but got none and also could not get the refresh token. In this situation client need to authenticate with the server to obtain new set of token.
 - 4002
-  > Current authentication token is malformed of has expired.
+  > Current authentication token is malformed or has expired.
 - 4003
   > Token version is not matching and that's why refresh token can not be generated.
 - 4004
