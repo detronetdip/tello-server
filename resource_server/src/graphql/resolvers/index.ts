@@ -1,13 +1,14 @@
+import { friendsOfUser } from "../../controller/friendsOfUser";
+
 const resolvers = {
   Query: {
-    // All queries will go here
-    hello: () => {
+    test: () => {
       return "hello world";
     },
+    friendsOfUser: friendsOfUser,
   },
   Mutation: {
-    // All mutations will go here
-    test: (_parrent, _args, _context, _info) => {
+    test: (_parrent: any, _args: any, _context: any, _info: any) => {
       console.log(_info);
       return "world";
     },
