@@ -1,8 +1,8 @@
 # API Documentation
 
-\*\_`Every Path should start with server URL`\_
+`Every Path should start with server URL`
 
-\*\_`Use { withCredentials:true } for each and every request where authentication is needed`\_
+`Use { withCredentials:true } for each and every request where authentication is needed`
 
 - Auth API
   - [Registration API](#registration-api)
@@ -13,10 +13,21 @@
 
 This API is used for new user registration and only accessible from client domain.
 
-- Path : `/api/v1/registration`
-- Method: `POST`
-- Param: `email,username,password`
 - Authentication: `Not Needed`
+- Target Server: `Auth`
+
+```http
+  POST  /api/v1/registration
+```
+
+
+| Parameter   | Type     | Required | Description       |
+| :---------- | :------- | :------- | :---------------- |
+| `email`     | `string` | True     | User's email      |
+| `username`  | `string` | True     | User's username   |
+| `password`  | `string` | True     | User's password   |
+| `firstName` | `string` | True     | User's First Name |
+| `lastName`  | `string` | True     | User's Last Name  |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
@@ -24,9 +35,11 @@ A sample request is shown below using [axios](https://axios-http.com/)
  axios.post(
     "https://server.com/api/v1/registration",
     {
-        email: mail@mail.com,
-        username: username,
-        password: password
+        email: "mail@mail.com",
+        username: "username",
+        password: "password",
+        firstName: "firstName",
+        lastName: "lastname"
     }
  );
 ```
@@ -54,11 +67,17 @@ sample response
 ## # Login API
 
 This API is used for user login and only accessible from client domain.
-
-- Path : `/api/v1/login`
-- Method: `POST`
-- Param: `email,password`
 - Authentication: `Not Needed`
+- Target Server: `Auth`
+```http
+  POST  /api/v1/login
+```
+
+
+| Parameter  | Type     | Required | Description     |
+| :--------- | :------- | :------- | :-------------- |
+| `email`    | `string` | True     | User's email    |
+| `password` | `string` | True     | User's password |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
@@ -95,10 +114,17 @@ sample response
 
 This API is used for validating a loggedin user to check wheather the user is logged in or not.
 
-- Path : `/api/v1/validate`
-- Method: `GET`
-- Param: null
 - Authentication: `Needed`
+- Target Server: `Auth`
+
+```http
+  GET /api/v1/validate
+```
+
+
+| Parameter | Type | Required | Description                      |
+| :-------- | :--- | :------- | :------------------------------- |
+| Null      | Null | False    | You do not have to pass anything |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
@@ -132,10 +158,17 @@ sample response
 
 This API is used for regenerating new set of token.
 
-- Path : `/api/v1/regen`
-- Method: `GET`
-- Param: null
 - Authentication: `Needed`
+- Target Server: `Auth`
+
+```http
+  GET /api/v1/regen
+```
+
+
+| Parameter | Type | Required | Description                      |
+| :-------- | :--- | :------- | :------------------------------- |
+| Null      | Null | False    | You do not have to pass anything |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
@@ -162,8 +195,6 @@ sample response
 | ---------- | ---------------- |
 | 200        | 4002, 4003, 4004 |
 | 401        | 4001, 3000       |
-
-
 
 ## # AddFriend API
 
@@ -199,12 +230,11 @@ sample response
 
 ### Expected status codes are:
 
-| Http codes | Response codes  |
-| ---------- | --------------- |
-| 200        | 200             |
-| 400        | 6000,3003       |
-| 500        | 5000            |
-
+| Http codes | Response codes |
+| ---------- | -------------- |
+| 200        | 200            |
+| 400        | 6000,3003      |
+| 500        | 5000           |
 
 <hr/>
 <hr/>
