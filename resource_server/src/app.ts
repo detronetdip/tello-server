@@ -10,6 +10,7 @@ import corsOption from "./config/cors";
 import helmet from "helmet";
 import internalAPIRoutes from "./routes/internal/index";
 import externalAPIRoutes from "./routes/api/index";
+import { graphQlAuth } from "./middleware/graphQlAuth";
 
 const PORT = process.env.PORT;
 const app = express();
@@ -26,9 +27,7 @@ async function startServer() {
   const graphQlServer = new ApolloServer({
     typeDefs: typedefs,
     resolvers: resolvers,
-    context: (req) => {
-      return req;
-    },
+    context: graphQlAuth,
   });
   await graphQlServer.start();
   graphQlServer.applyMiddleware({ app });

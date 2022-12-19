@@ -163,9 +163,51 @@ sample response
 | 200        | 4002, 4003, 4004 |
 | 401        | 4001, 3000       |
 
-<hr/>
-<hr/>
 
+
+## # AddFriend API
+
+This API is used for sending friend request and only accessible from client domain.
+
+- Path : `/api/v1/addFriend`
+- Method: `POST`
+- Param: `userId,friendId`
+- Authentication: `Needed`
+
+A sample request is shown below using [axios](https://axios-http.com/)
+
+```
+ axios.post(
+    "https://server.com/api/v1/addFreind",
+    {
+        userId: "userId",
+        friendId: "friendId"
+    }
+ );
+```
+
+sample response
+
+```
+{
+    data:{
+        code: 200,
+        msg: "Successfull"
+    }
+}
+```
+
+### Expected status codes are:
+
+| Http codes | Response codes  |
+| ---------- | --------------- |
+| 200        | 200             |
+| 400        | 6000,3003       |
+| 500        | 5000            |
+
+
+<hr/>
+<hr/>
 # Status Codes
 
 ### HTTP Status Codes

@@ -11,3 +11,8 @@ export const postSchema = {
 export const acceptSchema = {
   reqId: Joi.string().required(),
 };
+export const blockSchema = {
+  userId: Joi.string().required(),
+  friendId: Joi.string().required(),
+  action: Joi.boolean().required()
+};
