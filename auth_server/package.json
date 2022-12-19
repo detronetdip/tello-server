@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec ts-node src/app.ts",
-    "build": "npx tsc",
+    "build": "npx tsc && npx minify-all-js ./dist/",
     "lint": "npx eslint . --ext .ts"
   },
   "keywords": [],
