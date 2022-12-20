@@ -229,6 +229,94 @@ sample response
 | 400        | 6000,3003      |
 | 500        | 5000           |
 
+## # Friend request accept API
+
+This API is used for accepting friend request and only accessible from client domain.
+
+- Authentication: `Needed`
+- Target Server: `Resource`
+
+```http
+  POST  /api/v1/accept
+```
+
+| Parameter | Type     | Required | Description      |
+| :-------- | :------- | :------- | :--------------- |
+| `reqId`   | `string` | True     | friendRequest Id |
+
+A sample request is shown below using [axios](https://axios-http.com/)
+
+```js
+axios.post("https://server.com/api/v1/accept", {
+  reqId: "friendRequest Id",
+});
+```
+
+sample response
+
+```js
+{
+    data:{
+        code: 200,
+        msg: "Successfull"
+    }
+}
+```
+
+### Expected status codes are:
+
+| Http codes | Response codes |
+| ---------- | -------------- |
+| 200        | 2000           |
+| 400        | 3003,6000      |
+| 500        | 5000           |
+
+## # Block unblock API
+
+This API is used for blocking or unblocking a friend and only accessible from client domain.
+
+- Authentication: `Needed`
+- Target Server: `Resource`
+
+```http
+  POST  /api/v1/block
+```
+
+| Parameter  | Type      | Required | Description                                                  |
+| :--------- | :-------- | :------- | :----------------------------------------------------------- |
+| `userId`   | `string`  | True     | User's Id                                                    |
+| `friendId` | `string`  | True     | User's friend Id                                             |
+| `action`   | `Boolean` | True     | `true` or `false` based on we will perform block and unblock |
+
+A sample request is shown below using [axios](https://axios-http.com/)
+
+```js
+axios.post("https://server.com/api/v1/block", {
+  userId: "User id",
+  friendId: "Friend id",
+  action: true,
+});
+```
+
+sample response
+
+```js
+{
+    data:{
+        code: 200,
+        msg: "Successfull"
+    }
+}
+```
+
+### Expected status codes are:
+
+| Http codes | Response codes  |
+| ---------- | --------------- |
+| 200        | 2000            |
+| 400        | 3003,6000 , 400 |
+| 500        | 5000            |
+
 <hr/>
 <hr/>
 # Status Codes
@@ -266,4 +354,3 @@ sample response
 | 4004  | Token generated successfully.                                                                                                                                               |
 | 5000  | Internal Server error.                                                                                                                                                      |
 | 6000  | Requested resource is already in use or present in the server.                                                                                                              |
-
