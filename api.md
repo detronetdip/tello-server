@@ -1,39 +1,50 @@
 # API Documentation
 
-\*\_`Every Path should start with server URL`\_
+`Every Path should start with server URL`
 
-\*\_`Use { withCredentials:true } for each and every request where authentication is needed`\_
+`Use { withCredentials:true } for each and every request where authentication is needed`
 
-- Auth API
+
   - [Registration API](#registration-api)
-  - [Login API]()
-  - [Refresh Token API]()
+  - [Login API](#login-api)
+  - [Login Validation API](#login-validation-api)
+  - [Refresh Token API](#regeneration-token-api)
+  - [Add Friend API](#addfriend-api)
 
 ## # Registration API
 
 This API is used for new user registration and only accessible from client domain.
 
-- Path : `/api/v1/registration`
-- Method: `POST`
-- Param: `email,username,password`
 - Authentication: `Not Needed`
+- Target Server: `Auth`
+
+```http
+  POST  /api/v1/registration
+```
+
+| Parameter   | Type     | Required | Description       |
+| :---------- | :------- | :------- | :---------------- |
+| `email`     | `string` | True     | User's email      |
+| `username`  | `string` | True     | User's username   |
+| `password`  | `string` | True     | User's password   |
+| `firstName` | `string` | True     | User's First Name |
+| `lastName`  | `string` | True     | User's Last Name  |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
- axios.post(
-    "https://server.com/api/v1/registration",
-    {
-        email: mail@mail.com,
-        username: username,
-        password: password
-    }
- );
+```js
+axios.post("https://server.com/api/v1/registration", {
+  email: "mail@mail.com",
+  username: "username",
+  password: "password",
+  firstName: "firstName",
+  lastName: "lastname",
+});
 ```
 
 sample response
 
-```
+```js
 {
     data:{
         code: 200,
@@ -55,26 +66,30 @@ sample response
 
 This API is used for user login and only accessible from client domain.
 
-- Path : `/api/v1/login`
-- Method: `POST`
-- Param: `email,password`
 - Authentication: `Not Needed`
+- Target Server: `Auth`
+
+```http
+  POST  /api/v1/login
+```
+
+| Parameter  | Type     | Required | Description     |
+| :--------- | :------- | :------- | :-------------- |
+| `email`    | `string` | True     | User's email    |
+| `password` | `string` | True     | User's password |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
- axios.post(
-    "https://server.com/api/v1/login",
-    {
-        email: mail@mail.com,
-        password: password
-    }
- );
+```js
+axios.post("https://server.com/api/v1/login", {
+  email: "mail@mail.com",
+  password: "password",
+});
 ```
 
 sample response
 
-```
+```js
 {
     data:{
         code: 200,
@@ -95,22 +110,26 @@ sample response
 
 This API is used for validating a loggedin user to check wheather the user is logged in or not.
 
-- Path : `/api/v1/validate`
-- Method: `GET`
-- Param: null
 - Authentication: `Needed`
+- Target Server: `Auth`
+
+```http
+  GET /api/v1/validate
+```
+
+| Parameter | Type | Required | Description                      |
+| :-------- | :--- | :------- | :------------------------------- |
+| Null      | Null | False    | You do not have to pass anything |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
- axios.get(
-    "https://server.com/api/v1/validate"
- );
+```js
+axios.get("https://server.com/api/v1/validate");
 ```
 
 sample response
 
-```
+```js
 {
     data:{
       isLogin: true,
@@ -132,22 +151,26 @@ sample response
 
 This API is used for regenerating new set of token.
 
-- Path : `/api/v1/regen`
-- Method: `GET`
-- Param: null
 - Authentication: `Needed`
+- Target Server: `Auth`
+
+```http
+  GET /api/v1/regen
+```
+
+| Parameter | Type | Required | Description                      |
+| :-------- | :--- | :------- | :------------------------------- |
+| Null      | Null | False    | You do not have to pass anything |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
- axios.get(
-    "https://server.com/api/v1/regen"
- );
+```js
+axios.get("https://server.com/api/v1/regen");
 ```
 
 sample response
 
-```
+```js
 {
     data:{
       msg: "Successfull",
@@ -163,32 +186,34 @@ sample response
 | 200        | 4002, 4003, 4004 |
 | 401        | 4001, 3000       |
 
-
-
 ## # AddFriend API
 
 This API is used for sending friend request and only accessible from client domain.
 
-- Path : `/api/v1/addFriend`
-- Method: `POST`
-- Param: `userId,friendId`
 - Authentication: `Needed`
+- Target Server: `Resource`
+
+```http
+  POST  /api/v1/addFriend
+```
+
+| Parameter  | Type     | Required | Description                                 |
+| :--------- | :------- | :------- | :------------------------------------------ |
+| `userId`   | `string` | True     | User's id who is sending request            |
+| `friendId` | `string` | True     | User's id to whom the request is to be sent |
 
 A sample request is shown below using [axios](https://axios-http.com/)
 
-```
- axios.post(
-    "https://server.com/api/v1/addFreind",
-    {
-        userId: "userId",
-        friendId: "friendId"
-    }
- );
+```js
+axios.post("https://server.com/api/v1/addFreind", {
+  userId: "userId",
+  friendId: "friendId",
+});
 ```
 
 sample response
 
-```
+```js
 {
     data:{
         code: 200,
@@ -199,11 +224,13 @@ sample response
 
 ### Expected status codes are:
 
-| Http codes | Response codes  |
-| ---------- | --------------- |
-| 200        | 200             |
-| 400        | 6000,3003       |
-| 500        | 5000            |
+| Http codes | Response codes |
+| ---------- | -------------- |
+| 200        | 2000           |
+| 400        | 6000,3003      |
+| 500        | 5000           |
+
+
 
 
 <hr/>
@@ -254,7 +281,7 @@ sample response
 - 4001
   > A access token is required but got none and also could not get the refresh token. In this situation client need to authenticate with the server to obtain new set of token.
 - 4002
-  > Current authentication token is malformed of has expired.
+  > Current authentication token is malformed or has expired.
 - 4003
   > Token version is not matching and that's why refresh token can not be generated.
 - 4004
