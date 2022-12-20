@@ -33,8 +33,8 @@ export async function handelRegeneration(req: Request, res: Response) {
     const userAccessToken = await getData(uid);
     if (userAccessToken && verifyToken(userAccessToken)) {
       return res.status(StatusCodes.Success).json({
-        msg: ErrorMessages.TokenVersionError,
-        code: StatusCodes.TokenVersionMissMatch,
+        msg: ErrorMessages.BadRequest,
+        code: StatusCodes.ValidAccessTokenError,
       });
     }
 

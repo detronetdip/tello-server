@@ -40,11 +40,15 @@ export const addFriend=async (req:Request,res:Response)=>{
             friendId: friendId,
         }
     })
+    return res.status(StatusCodes.Success).json({
+        ResponseCode: StatusCodes.RegistrationSuccessful,
+        message: ErrorMessages.Successfull
+    })
 
    }
    catch(error){
         return res.status(StatusCodes.ServerError).json({
-            ResponseCode: StatusCodes.ServerError,
+            ResponseCode: StatusCodes.InternalServerError,
             message: ErrorMessages.ServerError
         })
    }
