@@ -27,12 +27,12 @@ export const accept = async (req: Request, res: Response) => {
       data: { isAccepted: true },
     });
     return res.status(StatusCodes.Success).json({
-      ResponseCode: StatusCodes.Accepted,
+      ResponseCode: StatusCodes.RegistrationSuccessful,
       message: ErrorMessages.Successfull,
     });
   } catch (error) {
     return res.status(StatusCodes.ServerError).json({
-      ResponseCode: StatusCodes.ServerError,
+      ResponseCode: StatusCodes.InternalServerError,
       message: ErrorMessages.ServerError,
       error,
     });

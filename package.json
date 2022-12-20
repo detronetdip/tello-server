@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/detronetdip/tello-server.git"
   },
-  "author": "",
+  "author": "Ayondip Jana, Parijat Ghosh, Sinchan Patra, Hritesh Bhowmik",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/detronetdip/tello-server/issues"
