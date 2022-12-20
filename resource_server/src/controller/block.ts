@@ -38,7 +38,7 @@ export const block = async (req: Request, res: Response) => {
         },
       });
       return res.status(StatusCodes.Success).json({
-        ResponseCode: StatusCodes.Success,
+        ResponseCode: StatusCodes.RegistrationSuccessful,
         message: ErrorMessages.Successfull,
       });
     } else if (targetId) {
@@ -55,7 +55,7 @@ export const block = async (req: Request, res: Response) => {
           data: { block: true },
         });
         return res.status(StatusCodes.Success).json({
-          ResponseCode: StatusCodes.Accepted,
+          ResponseCode: StatusCodes.RegistrationSuccessful,
           message: ErrorMessages.Successfull,
         });
       } else if (!action && !targetId.isAccepted) {
@@ -65,7 +65,7 @@ export const block = async (req: Request, res: Response) => {
           },
         });
         return res.status(StatusCodes.Success).json({
-          ResponseCode: StatusCodes.Accepted,
+          ResponseCode: StatusCodes.RegistrationSuccessful,
           message: ErrorMessages.Successfull,
         });
       }
@@ -74,7 +74,7 @@ export const block = async (req: Request, res: Response) => {
         data: { block: false },
       });
       return res.status(StatusCodes.Success).json({
-        ResponseCode: StatusCodes.Accepted,
+        ResponseCode: StatusCodes.RegistrationSuccessful,
         message: ErrorMessages.Successfull,
       });
     } else {
