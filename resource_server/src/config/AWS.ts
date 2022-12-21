@@ -1,3 +1,3 @@
 import AWS from "aws-sdk";
-AWS.config.loadFromPath("./config.json");
+AWS.config.loadFromPath("./src/config/config.json");
 export default AWS;

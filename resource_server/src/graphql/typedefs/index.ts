@@ -3,7 +3,7 @@ import { gql } from "apollo-server-express";
 const typedefs = gql`
   type Query {
     test: String
-    friendsOfUser(uid: String): [UserFriends]
+    userDetails(uid: String): DetailsOfUser
   }
   input TestInput {
     t1: String
@@ -12,7 +12,7 @@ const typedefs = gql`
   type Mutation {
     test(obj: TestInput): String
   }
-  type User{
+  type User {
     id: String
     username: String
     firstname: String
@@ -20,24 +20,25 @@ const typedefs = gql`
     createdAt: String
     updatedAt: String
   }
-  type friendConnection{
-    id: String,
-    userId: String,
-    friendId: String,
-    createdAt: String,
-    updatedAt: String,
-    isAccepted: Boolean,
-    block: Boolean,
-    follower:User
+  type FriendConnection {
+    id: String
+    userId: String
+    friendId: String
+    createdAt: String
+    updatedAt: String
+    isAccepted: Boolean
+    block: Boolean
+    follower: User
   }
-  type UserFriends {
+  type DetailsOfUser {
     id: String
     username: String
     firstname: String
     lastname: String
     createdAt: String
     updatedAt: String
-    followers: [friendConnection]
+    followers: [FriendConnection]
+    totalFriends: String
   }
 `;
 export default typedefs;
