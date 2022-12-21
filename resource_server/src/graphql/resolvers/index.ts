@@ -1,11 +1,15 @@
-import { friendsOfUser } from "../../controller/friendsOfUser";
+import { countFriends } from "../../controller/countFriends";
+import { userDetails } from "../../controller/userDetails";
 
 const resolvers = {
+  DetailsOfUser: {
+    totalFriends: countFriends,
+  },
   Query: {
     test: () => {
       return "hello world";
     },
-    friendsOfUser: friendsOfUser,
+    userDetails: userDetails,
   },
   Mutation: {
     test: (_parrent: any, _args: any, _context: any, _info: any) => {

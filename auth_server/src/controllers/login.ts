@@ -46,7 +46,7 @@ export async function handelLogin(req: Request, res: Response) {
         ...cookieOption,
         maxAge: tokenConfig.refreshTokenExpiryTime * 1000,
       });
-      await setData(_user.uid, accessToken);
+      await setData(_user.uid, accessToken, tokenConfig.accessTokenExpiryTime);
       res.status(StatusCodes.Success).json({
         code: StatusCodes.Success,
         msg: ErrorMessages.Successfull,

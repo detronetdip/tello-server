@@ -60,7 +60,7 @@ export async function handelRegeneration(req: Request, res: Response) {
         email,
         version: updatedUser.tokenVersion,
       });
-      setData(uid, accessToken);
+      setData(uid, accessToken,tokenConfig.accessTokenExpiryTime);
       res.cookie("accessToken", accessToken, {
         ...cookieOption,
         maxAge: tokenConfig.accessTokenExpiryTime * 1000,

@@ -3,8 +3,10 @@ import { Controller } from "../../controller";
 import { Auth } from "../../middleware/authMiddleware";
 import { validate } from "../../utils/validate";
 import { validationSchema } from "../../validator";
+import multer from "multer";
 
 const route = Router();
+const Multer = multer();
 
 route.post(
   "/api/v1/addFriend",
@@ -29,5 +31,12 @@ route.post(
   Auth,
   validate(validationSchema.blockSchema),
   Controller.block
+);
+route.post(
+  "/api/v1/uploadFile",
+  Auth,
+  Multer.single("media"),
+  // validate(validationSchema.blockSchema),
+  Controller.UploadFile
 );
 export default route;
