@@ -381,7 +381,7 @@ export function otpTemplate(otp: string) {
           max-width: 100%;
         }
         body {
-          background-color: #e7e8e9;
+          background-color: #f6f6f6;
           font-family: sans-serif;
           -webkit-font-smoothing: antialiased;
           font-size: 14px;
@@ -421,7 +421,7 @@ export function otpTemplate(otp: string) {
         }
         .main {
           background: #ffffff;
-          border-radius: 8px;
+          border-radius: 3px;
           width: 100%;
         }
         .wrapper {
@@ -669,7 +669,7 @@ export function otpTemplate(otp: string) {
                                 padding: 0.2rem;
                                 border-radius: 7px;
                               "
-                              >123456</b
+                              >${otp}</b
                             >
                           </p>
                         </td>
