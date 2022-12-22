@@ -27,7 +27,10 @@ async function startServer() {
   const graphQlServer = new ApolloServer({
     typeDefs: typedefs,
     resolvers: resolvers,
-    context: graphQlAuth,
+    // context: graphQlAuth,
+    context: ({req})=>{
+      return req;
+    },
   });
   await graphQlServer.start();
   graphQlServer.applyMiddleware({ app });

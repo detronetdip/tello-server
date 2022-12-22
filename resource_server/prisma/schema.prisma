@@ -1,11 +1,13 @@
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native","linux-musl"]
+  output = "../prisma-client/"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model user {
