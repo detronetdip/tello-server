@@ -27,7 +27,6 @@ export async function handelRegeneration(req: Request, res: Response) {
   } else {
     const _user = await UserModel.findOne({ uid: token.uid });
     const uid: string = _user.uid;
-    const UserName = `${_user.firstName} ${_user.lastName}`;
     const email = _user.email;
     const v = _user.tokenVersion;
     const userAccessToken = await getData(uid);
@@ -46,7 +45,6 @@ export async function handelRegeneration(req: Request, res: Response) {
     } else {
       const accessToken = await generateAccessToken({
         uid,
-        UserName,
         email,
       });
       const updatedUser = await UserModel.findOneAndUpdate(
@@ -56,7 +54,6 @@ export async function handelRegeneration(req: Request, res: Response) {
       );
       const refreshToken = await generateRefreshToken({
         uid,
-        UserName,
         email,
         version: updatedUser.tokenVersion,
       });

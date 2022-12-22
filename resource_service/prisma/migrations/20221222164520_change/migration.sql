@@ -10,6 +10,8 @@ CREATE TABLE "user" (
     "username" VARCHAR(255) NOT NULL,
     "firstname" VARCHAR(255) NOT NULL DEFAULT '',
     "lastname" VARCHAR(255) NOT NULL DEFAULT '',
+    "bio" VARCHAR(255) NOT NULL DEFAULT '',
+    "dob" VARCHAR(255) NOT NULL DEFAULT '',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
