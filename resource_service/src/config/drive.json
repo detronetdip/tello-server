@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "tello-373710",
+  "private_key_id": "7144bd83fcce6944938d2036cc29bfa39716ce96",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCs/t6K8BzpxR9e\nZDEx5F6R17Ep5hh6jE0xBwEzaJO8AiSgJbVFjiocGP2wfsXowlZsazyOAPnOj5f4\ncss/wqLGTwZa+wJG54TSsiyUsZgzHYWFp8KN2qiQnC1UzStpRP1Hs7h2avOKcB29\nVf38H0Jm+9T+COmNxFwUyeXCwNkyK5S5QEZ+zgTGPC+GkyRd8vH0956pCeMMw62p\niPYKHmh4o9zrD0oavqrZJeRVK6Y5HHNOL8fLRVe9DZDN2BM8nvtinXDCwcM9cZTy\nConXT0c4ICfGDq5Xt3QmcK73fnDEvndvHk7xtY05zDoYyuMvH+jGG7Or1Vt0NK4Q\ncskbmb37AgMBAAECggEAIX759Rn35zWxVLP+qIPo4cFLPuscC0J2Qcty6pLRpCIg\nGFgkyLJ1qdoW6OErDd3vIPAEmhRLSjkYelUz0IUtwksT1nLqpnL2j1tLcYEPkLoj\nG9V3QMM5R0LOLjDJuojOp97/FQKxZDlAMORhGLuuvkT9oTB1lGsUTzwmfjab93AR\nrCl0KCawtA5xHw2S1CeCG4Oaf9eZMyvgRzq6/CKOHpCQv/Y99xY1CwD4yzbxwrPp\nlWPYnZUtLSM4eWHSV+pQCvb95l5c3wPjsU0dbepEYNW34FCDvz1DH254GRKdNMZ+\nUhok1bqxNrR0CU8gMcDGK+/ado9QxA0RSGxwATsxmQKBgQDuTr2m8rYRGXa7bPrs\nVoi/DY1M1kySRT3hVLWQeK6CQITiu3DkcmwzXW+mVnkokMwn5gOI6A4/lxf+HVSb\n/UPagzjhykyr2RZ13CIScZXGMGhZW8KzbAtoqcGJgjKUFhdsJwYM4IKyyrPL5a7O\nadU/JJP3JsKQE2JsU9qyS2WY4wKBgQC51tALk+dvmYrapTS46DBDckJ8R+OOCGQg\n5jiD8Wo0fhdirXH0dCNgrA8X30BBUtzNQwswr7b7skXLFZSCKCw22MZlUuSRpl7h\nNSQ83xvL9HW2JSHDtXlXA+O4Ntpgc7WtsReF4psauJORlG/InZwWSOUA6Xbph/uT\nqgTzSH+KCQKBgAE1+za28v/hPj4zjo7W3bkCy54BVMBFg8v6TzXdtx1IUKSKSUeP\n4Ubdiayxscnn+nGVdJ0keLYQAXo0EfL89XRNyGM1UPBqmPeeV7n6Q8WPB2i006dv\nvBsbCbW2KKWh+xp8lEZKeb+I0iMOFrZLyV6Zw/q0graSsqRURL81LN37AoGAMmXU\nI9+nevdr1aHJ639kX1YkO6oPRxx1cwqcNwQIZlXvp54b8kxwr63ZpgKwXUbIhI3z\nAfAVMqsFDG88yBN28iTVoPLa87jnsDGGM0/aLPSN26i0QGv9jSCL6BBQJqoakhEd\nrPxoTdXShz93FTPQ+aYpHJcz3V84VbJdB1EY7WkCgYEAyz8Z1Das327Pxv8ipSRh\nHocj2UZ64f/5k7AfwaWYg66m0Sx1VxQH0xiv105tSkgq8oNL96LzLOQDWJiE+uDX\nvNDCOOva1sKi9m9fmHvqbktsRcf5iIRtdboCCaEFDIAPiPNK/Jn0oRFGLT4rSW6x\nHJEkOCvUHl0bybQFXgnQP/o=\n-----END PRIVATE KEY-----\n",
+  "client_email": "telloupload@tello-373710.iam.gserviceaccount.com",
+  "client_id": "102391779131369467847",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/telloupload%40tello-373710.iam.gserviceaccount.com"
+}

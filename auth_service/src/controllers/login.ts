@@ -29,12 +29,10 @@ export async function handelLogin(req: Request, res: Response) {
     } else {
       const accessToken = await generateAccessToken({
         uid: _user.uid,
-        name: _user.userName,
         email: _user.email,
       });
       const refreshToken = await generateRefreshToken({
         uid: _user.uid,
-        name: _user.userName,
         email: _user.email,
         version: _user.tokenVersion == 0 ? 0 : _user.tokenVersion,
       });
