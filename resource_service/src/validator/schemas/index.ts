@@ -16,3 +16,6 @@ export const blockSchema = {
   friendId: Joi.string().required(),
   action: Joi.boolean().required()
 };
+export const DeleteSchema = {
+  reqId: Joi.string().required(),
+};

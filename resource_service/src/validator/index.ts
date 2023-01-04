@@ -1,8 +1,9 @@
-import { addFriendsSchema, postSchema,acceptSchema,blockSchema } from "./schemas";
+import { addFriendsSchema, postSchema,acceptSchema,blockSchema,DeleteSchema } from "./schemas";
 
 export const validationSchema = {
   addFriendsSchema,
   postSchema,
   acceptSchema,
-  blockSchema
+  blockSchema,
+  DeleteSchema
 };

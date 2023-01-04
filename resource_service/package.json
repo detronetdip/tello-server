@@ -7,7 +7,7 @@
     "start": "nodemon --exec ts-node src/app.ts",
     "build": "npx tsc && npx minify-all-js ./dist/",
     "lint": "npx eslint . --ext .ts",
-    "td":"ts-node test.ts"
+    "td": "ts-node test.ts"
   },
   "keywords": [],
   "author": "Ayondip Jana",
