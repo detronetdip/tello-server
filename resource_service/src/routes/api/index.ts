@@ -34,7 +34,7 @@ route.post(
 );
 route.post(
   "/api/v1/uploadFile",
-  Auth,
+  // Auth,
   Multer.single("media"),
   // validate(validationSchema.blockSchema),
   Controller.UploadFile
