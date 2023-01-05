@@ -9,11 +9,19 @@ export async function updateEmail(req: Request, res: Response) {
   const { email, userId } = req.body;
   try {
     const _user = await UserModel.findOne({ uid: userId });
-    if (!_user)
+    if (!_user) {
       return res.status(StatusCodes.Success).json({
         code: StatusCodes.InvalidCredential,
         msg: ErrorMessages.InvalidCredentials,
       });
+    }
+    const result = await UserModel.find({ email: email });
+    if (result && email!==_user.email) {
+      return res.status(StatusCodes.Conflict).json({
+        code: StatusCodes.AlredyInUse,
+        msg: ErrorMessages.AllRedyPresent,
+      });
+    }
     const updatedData = await UserModel.findOneAndUpdate(
       {
         uid: userId,

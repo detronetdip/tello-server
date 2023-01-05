@@ -12,10 +12,21 @@ export const updateProfileDetails = async (req: Request, res: Response) => {
         id: userId,
       },
     });
+    const user2 = await prisma.user.findFirst({
+      where: {
+        username: username,
+      },
+    });
     if (!user) {
       return res.status(StatusCodes.BadRequest).json({
         ResponseCode: StatusCodes.InvalidCredential,
         message: ErrorMessages.InvalidCredentials,
+      });
+    }
+    if (user2) {
+      return res.status(StatusCodes.Conflict).json({
+        code: StatusCodes.AlredyInUse,
+        msg: ErrorMessages.AllRedyPresent,
       });
     }
     const response = await axios.put(
@@ -34,7 +45,7 @@ export const updateProfileDetails = async (req: Request, res: Response) => {
         bio,
       },
     });
-    
+
     return res.status(StatusCodes.Success).json({
       ResponseCode: StatusCodes.Accepted,
       message: ErrorMessages.Successfull,
@@ -44,9 +55,17 @@ export const updateProfileDetails = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
+    if (error.response.status === StatusCodes.Conflict) {
+      return res.status(StatusCodes.Conflict).json({
+        code: StatusCodes.AlredyInUse,
+        msg: ErrorMessages.AllRedyPresent,
+      });
+    }
+
     return res.status(StatusCodes.ServerError).json({
       ResponseCode: StatusCodes.InternalServerError,
       message: ErrorMessages.ServerError,
+      error,
     });
   }
 };
