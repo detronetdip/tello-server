@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
@@ -13,6 +13,8 @@ model user {
   username      String          @db.VarChar(255)
   firstname     String          @default("") @db.VarChar(255)
   lastname      String          @default("") @db.VarChar(255)
+  bio           String          @default("") @db.VarChar(255)
+  dob           String          @default("") @db.VarChar(255)
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   comment       comment[]
@@ -31,8 +33,8 @@ model friends {
   updatedAt  DateTime @updatedAt
   isAccepted Boolean  @default(false)
   block      Boolean  @default(false)
-  follower   user     @relation(name: "following", fields: [friendId], references: [id], onDelete: Cascade)
-  user       user     @relation(name: "user", fields: [userId], references: [id], onDelete: Cascade)
+  follower   user     @relation("following", fields: [friendId], references: [id], onDelete: Cascade)
+  user       user     @relation("user", fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([friendId, userId])
 }
@@ -46,9 +48,9 @@ model comment {
   updatedAt        DateTime
   parrentCommentId String?
   comment          comment?  @relation("commentTocomment", fields: [parrentCommentId], references: [id], onDelete: Cascade)
+  other_comment    comment[] @relation("commentTocomment")
   post             post      @relation(fields: [postId], references: [id], onDelete: Cascade)
   user             user      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  other_comment    comment[] @relation("commentTocomment")
 }
 
 model like {
@@ -81,9 +83,9 @@ model post {
   type      PostType  @default(CONTENT_ONLY)
   createdAt DateTime  @default(now())
   updatedAt DateTime
-  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade)
   comment   comment[]
   like      like[]
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum NotificationType {

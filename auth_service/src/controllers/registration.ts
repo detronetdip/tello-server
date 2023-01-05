@@ -38,11 +38,8 @@ export async function handelRegistration(req: Request, res: Response) {
   try {
     const userId=uuidv4();
     const USER = new UserModel({
-      userName: username,
       email: email,
       password: bcrypt.hashSync(password, salt),
-      firstName: firstName,
-      lastName: lastName,
       uid: userId,
     });
 

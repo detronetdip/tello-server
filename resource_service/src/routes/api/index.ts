@@ -34,9 +34,15 @@ route.post(
 );
 route.post(
   "/api/v1/uploadFile",
-  Auth,
+  // Auth,
   Multer.single("media"),
   // validate(validationSchema.blockSchema),
   Controller.UploadFile
+);
+route.put(
+  "/api/v1/updateProfile",
+  // Auth,
+  validate(validationSchema.updateProfileSchema),
+  Controller.updateProfileDetails
 );
 export default route;
