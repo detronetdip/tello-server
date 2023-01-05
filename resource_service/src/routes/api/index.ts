@@ -39,4 +39,10 @@ route.post(
   // validate(validationSchema.blockSchema),
   Controller.UploadFile
 );
+route.put(
+  "/api/v1/updateProfile",
+  // Auth,
+  validate(validationSchema.updateProfileSchema),
+  Controller.updateProfileDetails
+);
 export default route;

@@ -7,7 +7,7 @@
     "start": "nodemon --exec ts-node src/app.ts",
     "build": "npx tsc && npx minify-all-js ./dist/",
     "lint": "npx eslint . --ext .ts",
-    "td":"ts-node test.ts"
+    "td": "ts-node test.ts"
   },
   "keywords": [],
   "author": "Ayondip Jana",
@@ -30,6 +30,7 @@
     "@types/multer": "^1.4.7",
     "apollo-server-express": "^3.10.2",
     "aws-sdk": "^2.1279.0",
+    "axios": "^1.2.2",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
