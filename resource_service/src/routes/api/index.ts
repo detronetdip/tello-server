@@ -39,6 +39,12 @@ route.post(
   // validate(validationSchema.blockSchema),
   Controller.UploadFile
 );
+route.post(
+  "/api/v1/delete",
+  Auth,
+  validate(validationSchema.DeleteSchema),
+  Controller.Delete
+)
 route.put(
   "/api/v1/updateProfile",
   // Auth,

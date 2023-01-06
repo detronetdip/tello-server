@@ -3,6 +3,7 @@ import {
   postSchema,
   acceptSchema,
   blockSchema,
+  DeleteSchema,
   updateProfileSchema,
 } from "./schemas";
 
@@ -11,5 +12,6 @@ export const validationSchema = {
   postSchema,
   acceptSchema,
   blockSchema,
+  DeleteSchema,
   updateProfileSchema,
 };

@@ -22,3 +22,6 @@ export const updateProfileSchema = {
   username: Joi.string().required(),
   bio: Joi.string().required(),
 };
+export const DeleteSchema = {
+  reqId: Joi.string().required(),
+};
