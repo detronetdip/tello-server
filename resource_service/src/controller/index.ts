@@ -4,6 +4,7 @@ import { accept } from "./accept";
 import { block } from "./block";
 import { UploadFile } from "./UploadFile";
 import { Delete } from "./Delete"
+import { updateProfileDetails } from "./UpdateProfileDetails";
 
 export const Controller = {
   addFriend,
@@ -11,5 +12,6 @@ export const Controller = {
   userPost,
   block,
   UploadFile,
-  Delete
+  Delete,
+  updateProfileDetails
 };

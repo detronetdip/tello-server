@@ -44,5 +44,11 @@ route.post(
   Auth,
   validate(validationSchema.DeleteSchema),
   Controller.Delete
+)
+route.put(
+  "/api/v1/updateProfile",
+  // Auth,
+  validate(validationSchema.updateProfileSchema),
+  Controller.updateProfileDetails
 );
 export default route;

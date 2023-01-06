@@ -32,7 +32,6 @@ export async function validateRegistration(
       const result = await UserModel.find({
         $or: [{ email: email }, { userName: username }],
       });
-      console.log(result);
       
       if (result.length > 0) {
         return res.status(StatusCodes.Conflict).json({
