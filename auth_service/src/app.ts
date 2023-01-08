@@ -13,6 +13,7 @@ import helmet from "helmet";
 import { connectCache } from "./cache";
 import validLogin from "./routes/authentication/validLogin";
 import UpdateEmail from "./routes/updateEmail";
+import UpdatePassword from "./routes/updatepassword";
 
 Database_Connection; // skipcq: JS-0354
 const app = express();
@@ -27,7 +28,8 @@ app.use(login);
 app.use(regen);
 app.use(validLogin);
 app.use(defaultRoute);
-app.use(UpdateEmail)
+app.use(UpdateEmail);
+app.use(UpdatePassword);
 connectCache();
 app.listen(port, () => {
   return console.log(`Server is listening at http://localhost:${port}`); // skipcq: JS-0002

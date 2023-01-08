@@ -10,4 +10,5 @@ export enum ErrorMessages {
   InvalidCredentials = "Invalid Credentials",
   BadRequest = "Bad Request",
   SomethingWentWrong = "Something went wrong",
+  PasswordNotMatched_PC="Password and Confirm password not matched"
 }
