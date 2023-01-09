@@ -3,6 +3,8 @@ import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
 import { UserModel } from "../model/userModel";
 import bcrypt from "bcryptjs";
+import { delData } from "../cache";
+import cookieOption from "../config/Cookie";
 
 export async function updatePassword(req: Request, res: Response) {
   const { userId, old, pass, cnf } = req.body;
@@ -21,11 +23,11 @@ export async function updatePassword(req: Request, res: Response) {
       });
     }
     const Db_password = user.password;
-    
+
     const match = await bcrypt.compare(old, Db_password);
-    
-    if (!match) {        
-     return res.status(StatusCodes.Success).json({
+
+    if (!match) {
+      return res.status(StatusCodes.Success).json({
         code: StatusCodes.InvalidCredential,
         msg: ErrorMessages.InvalidCredentials,
       });
@@ -41,6 +43,15 @@ export async function updatePassword(req: Request, res: Response) {
         },
       }
     );
+    delData(user.uid);
+    res.cookie("accessToken", "accessToken", {
+      ...cookieOption,
+      maxAge: 0,
+    });
+    res.cookie("refreshToken", "refreshToken", {
+      ...cookieOption,
+      maxAge: 0,
+    });
     return res.status(StatusCodes.Success).json({
       ResponseCode: StatusCodes.Accepted,
       message: ErrorMessages.Successfull,
