@@ -1,17 +1,12 @@
-import { Router, Request, Response } from "express";
-import { prisma } from "../../prisma_connection";
+import { Router } from "express";
+import { Controller } from "../../controller";
+import { validate } from "../../utils/validate";
+import { validationSchema } from "../../validator";
 const route = Router();
 
-route.post("/api/internal/createUser", async (req: Request, res: Response) => {
-  const { username, firstName, lastName, userId } = req.body;
-  await prisma.user.create({
-    data: {
-      id: userId,
-      username,
-      firstname: firstName,
-      lastname: lastName,
-    },
-  });
-  res.send(true);
-});
+route.post(
+  "/api/internal/passwordChanged",
+  validate(validationSchema.passwordChangedSchema),
+  Controller.passwordChangeNotification
+);
 export default route;

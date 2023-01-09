@@ -18,4 +18,4 @@ app.use(express.json());
 app.use(internalAPIRoutes);
 
 
-app.listen(PORT, () => console.log(`resourse server started at : ${PORT}`)); // skipcq: JS-0002
+app.listen(PORT, () => console.log(`notification server started at : ${PORT}`)); // skipcq: JS-0002

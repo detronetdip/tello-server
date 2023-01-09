@@ -723,7 +723,7 @@ export function otpTemplate(otp: string) {
   </html>
   `;
 }
-export function changePasswordNotification(url: string) {
+export function changePasswordNotification(name: string, url: string) {
   return `
   <!DOCTYPE html>
 <html>
@@ -977,6 +977,10 @@ export function changePasswordNotification(url: string) {
         }
         
       }
+      .content .presentation{
+        border: 2px solid #009efa;
+        border-radius: 8px;
+      }
     </style>
   </head>
   <body>
@@ -992,16 +996,16 @@ export function changePasswordNotification(url: string) {
         <td>&nbsp;</td>
         <td class="container">
           <div class="content">
-            <table role="presentation" class="main">
+            <table role="presentation" class="main presentation">
               <tr>
-                <td class="wrapper">
+                <td class="wrapper" >
                   <table role="presentation" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
                         Hi Unknown, password for your tello account just have
                         changed, if it was not by you please change your
                         password
-                        <a href="${url}">here</a>
+                        <a href="">here</a>
                       </td>
                     </tr>
                   </table>
