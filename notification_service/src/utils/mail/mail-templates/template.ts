@@ -1002,10 +1002,10 @@ export function changePasswordNotification(name: string, url: string) {
                   <table role="presentation" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        Hi Unknown, password for your tello account just have
+                        Hi ${name}, password for your tello account just have
                         changed, if it was not by you please change your
-                        password
-                        <a href="">here</a>
+                        password.
+                        <a href="${url}">here</a>
                       </td>
                     </tr>
                   </table>

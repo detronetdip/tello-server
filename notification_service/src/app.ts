@@ -11,6 +11,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 
+app.use(helmet());
 app.use(cors(corsOption));
 app.use(cookie());
 app.use(express.json());
