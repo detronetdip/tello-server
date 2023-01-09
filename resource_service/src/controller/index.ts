@@ -3,6 +3,7 @@ import { userPost } from "./Post";
 import { accept } from "./accept";
 import { block } from "./block";
 import { UploadFile } from "./UploadFile";
+import { Delete } from "./Delete"
 import { updateProfileDetails } from "./UpdateProfileDetails";
 
 export const Controller = {
@@ -11,5 +12,6 @@ export const Controller = {
   userPost,
   block,
   UploadFile,
-  updateProfileDetails,
+  Delete,
+  updateProfileDetails
 };

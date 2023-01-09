@@ -21,4 +21,7 @@ async function getData(key: string) {
   const val = await client.get(key);
   return val;
 }
-export { connectCache, setData, getData };
+async function delData(key: string) {
+  await client.del(key);
+}
+export { connectCache, setData, getData, delData };

@@ -34,14 +34,20 @@ route.post(
 );
 route.post(
   "/api/v1/uploadFile",
-  // Auth,
+  Auth,
   Multer.single("media"),
-  // validate(validationSchema.blockSchema),
+  validate(validationSchema.blockSchema),
   Controller.UploadFile
 );
+route.post(
+  "/api/v1/delete",
+  Auth,
+  validate(validationSchema.DeleteSchema),
+  Controller.Delete
+)
 route.put(
   "/api/v1/updateProfile",
-  // Auth,
+  Auth,
   validate(validationSchema.updateProfileSchema),
   Controller.updateProfileDetails
 );

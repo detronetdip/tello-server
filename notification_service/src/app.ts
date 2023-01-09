@@ -11,6 +11,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 
+app.use(helmet());
 app.use(cors(corsOption));
 app.use(cookie());
 app.use(express.json());
@@ -18,4 +19,4 @@ app.use(express.json());
 app.use(internalAPIRoutes);
 
 
-app.listen(PORT, () => console.log(`resourse server started at : ${PORT}`)); // skipcq: JS-0002
+app.listen(PORT, () => console.log(`notification server started at : ${PORT}`)); // skipcq: JS-0002
