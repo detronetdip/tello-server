@@ -19,14 +19,23 @@ jobs:
           uses: actions/setup-node@v3
           with:
             node-version: '16.x'
-        - name: Build Auth server 
+        - name: Build Auth service 
           run: |
-            cd auth_server 
+            cd auth_service
             npm install
             npm run build
-        - name: Build Resourse server
+        - name: Build Resourse service
           run: |
-            cd resource_server 
+            cd resource_service 
             npm install
             npm run build
-             
+        - name: Build fanout service
+          run: |
+            cd fanout_service 
+            npm install
+            npm run build
+        - name: Build notification service
+          run: |
+            cd notification_service 
+            npm install
+            npm run build     
