@@ -37,10 +37,27 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+  message-queue:
+    image: rabbitmq:3.8-management
+    container_name: message-queue
+    volumes:
+      - "/home/ayondip/final-project-db/rabbitmq:/var/lib/rabbitmq"
+    ports:
+      - "8080:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=pass
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
   auth_server:
     image: auth-server
     env_file:
-      - ./auth_server/.env
+      - ./auth_service/.env
     depends_on:
       db-mongo:
         condition: service_healthy
@@ -48,16 +65,18 @@ services:
         condition: service_healthy
       db-cache:
         condition: service_healthy
+      message-queue:
+        condition: service_healthy
     container_name: auth_server
     build:
-      context: ./auth_server
+      context: ./auth_service
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
   resource_server:
     image: resource-server
     env_file:
-      - ./resource_server/.env
+      - ./resource_service/.env
     depends_on:
       db-mongo:
         condition: service_healthy
@@ -65,9 +84,11 @@ services:
         condition: service_healthy
       db-cache:
         condition: service_healthy
+      message-queue:
+        condition: service_healthy
     container_name: resource_server
     build:
-      context: ./resource_server
+      context: ./resource_service
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
