@@ -49,7 +49,6 @@ export async function handelRegistration(req: Request, res: Response) {
       firstName,
       lastName,
     });
-    console.log(response);
 
     await USER.save().then((_e: object) => {
       res.status(StatusCodes.Success).json({
@@ -58,7 +57,6 @@ export async function handelRegistration(req: Request, res: Response) {
       });
     });
   } catch (error) {
-    console.log(error);
 
     res.status(StatusCodes.ServerError).json({
       msg: ErrorMessages.ServerError,
