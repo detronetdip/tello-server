@@ -34,7 +34,7 @@ export async function handelLogin(req: Request, res: Response) {
       const refreshToken = await generateRefreshToken({
         uid: _user.uid,
         email: _user.email,
-        version: _user.tokenVersion == 0 ? 0 : _user.tokenVersion,
+        version: _user.tokenVersion === 0 ? 0 : _user.tokenVersion,
       });
       res.cookie("accessToken", accessToken, {
         ...cookieOption,
