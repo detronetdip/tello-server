@@ -3,16 +3,16 @@ import {
   loginTemplate,
   otpTemplate,
 } from "./mail-templates/template";
-import crypto from "crypto";
 export function constructMail(
   category: "OTP" | "REGISTRATION" | "PASSWORDCHANGED",
   _aditional: {
     USERID?: string;
     USERNAME?: string;
+    otp?: string;
   }
 ) {
   if (category === "OTP") {
-    return otpTemplate(crypto.randomBytes(6).toString("hex"));
+    return otpTemplate(_aditional.otp);
   } else if (category === "PASSWORDCHANGED") {
     return changePasswordNotification(
       _aditional.USERNAME,

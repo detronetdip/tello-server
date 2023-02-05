@@ -13,6 +13,10 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
+  isComplete:{
+    type: Boolean,
+    default: false
+  }
 });
 const handelDuplicateKeyError = function (error, res, next) {
   if (error.name === "MongoServerError" && error.code === 11000) {

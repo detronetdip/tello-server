@@ -9,4 +9,9 @@ route.post(
   validate(validationSchema.passwordChangedSchema),
   Controller.passwordChangeNotification
 );
+route.post(
+  "/api/internal/sent-otp",
+  validate(validationSchema.sentOtp),
+  Controller.sentOTP
+);
 export default route;
