@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { handelRegistration } from "../../controllers/registration";
-import { validateRegistration } from "../../middleware/validateRegistration";
+import { validateOtp } from "../../controllers/validateOTP";
+import { validateRegenerateRequest } from "../../middleware/validateOtp";
 const route = Router();
-route.post("/api/v1/registration/validate-otp", validateRegistration, handelRegistration);
+route.post("/api/v1/registration/validate-otp", validateRegenerateRequest, validateOtp);
 export default route;
