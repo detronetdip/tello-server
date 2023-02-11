@@ -92,3 +92,22 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
+  notification_server:
+    image: notification-server
+    env_file:
+      - ./notification_service/.env
+    depends_on:
+      db-mongo:
+        condition: service_healthy
+      db-postgress:
+        condition: service_healthy
+      db-cache:
+        condition: service_healthy
+      message-queue:
+        condition: service_healthy
+    container_name: notification_server
+    build:
+      context: ./notification_service
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
