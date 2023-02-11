@@ -8,8 +8,8 @@ export function validateRegenerateRequest(
   res: Response,
   next: Function
 ): void | Response {
-  const { userId,OTP } = req.body;
-  if (!userId || !OTP) {
+  const { userId,otp } = req.body;
+  if (!userId || !otp) {
     return res.status(StatusCodes.Success).json({
       code: StatusCodes.InsufficientArguments,
       msg: ErrorMessages.InsufficientData,
