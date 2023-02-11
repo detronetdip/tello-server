@@ -14,6 +14,7 @@ import { connectCache } from "./cache";
 import validLogin from "./routes/authentication/validLogin";
 import UpdateEmail from "./routes/updateEmail";
 import UpdatePassword from "./routes/updatepassword";
+import validateOtp from "./routes/authentication/validateOtp";
 
 Database_Connection; // skipcq: JS-0354
 const app = express();
@@ -30,6 +31,7 @@ app.use(validLogin);
 app.use(defaultRoute);
 app.use(UpdateEmail);
 app.use(UpdatePassword);
+app.use(validateOtp);
 connectCache();
 app.listen(port, () => {
   return console.log(`Server is listening at http://localhost:${port}`); // skipcq: JS-0002

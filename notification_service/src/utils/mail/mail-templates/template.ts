@@ -657,7 +657,7 @@ export function otpTemplate(otp: string) {
                       <tr>
                         <td>
                           <p>
-                            Your One Time Password for verifying your email Id is.
+                            Your One Time Password for verifying your Account is.
                             <br />
                             <br />
                             <b

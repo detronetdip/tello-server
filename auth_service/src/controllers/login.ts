@@ -22,11 +22,16 @@ export async function handelLogin(req: Request, res: Response) {
     const Db_password = _user.password;
     const match = await bcrypt.compare(password, Db_password);
     if (!match) {
-      res.status(StatusCodes.Success).json({
+      return res.status(StatusCodes.Success).json({
         code: StatusCodes.InvalidCredential,
         msg: ErrorMessages.InvalidCredentials,
       });
-    } else {
+    } else if(!_user.isComplete){
+      return res.status(StatusCodes.Success).json({
+        code: StatusCodes.AccountVerificationPending,
+        msg: ErrorMessages.AccountVerificationending,
+      });
+    }else {
       const accessToken = await generateAccessToken({
         uid: _user.uid,
         email: _user.email,
