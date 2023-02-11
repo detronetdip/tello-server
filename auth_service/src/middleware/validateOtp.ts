@@ -8,7 +8,7 @@ export function validateRegenerateRequest(
   res: Response,
   next: Function
 ): void | Response {
-  const { userId,OTP } = req.cookies;
+  const { userId,OTP } = req.body;
   if (!userId || !OTP) {
     return res.status(StatusCodes.Success).json({
       code: StatusCodes.InsufficientArguments,
