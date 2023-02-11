@@ -16,9 +16,9 @@ export async function validateOtp(req: Request, res: Response) {
       });
     }
 
-    const match = OTP == otp;
+    console.log(OTP, otp);
 
-    if (!match) {
+    if (OTP != otp) {
       return res.status(StatusCodes.Success).json({
         code: StatusCodes.InvalidCredential,
         msg: ErrorMessages.InvalidCredentials,
