@@ -16,7 +16,6 @@ export async function validateOtp(req: Request, res: Response) {
       });
     }
 
-    console.log(OTP, otp);
 
     if (OTP != otp) {
       return res.status(StatusCodes.Success).json({
