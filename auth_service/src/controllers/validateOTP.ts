@@ -33,7 +33,7 @@ export async function validateOtp(req: Request, res: Response) {
         },
       }
     );
-    delData(user.uid + "-OTP");
+    await delData(user.uid + "-OTP");
     return res.status(StatusCodes.Success).json({
       ResponseCode: StatusCodes.Accepted,
       message: ErrorMessages.Successfull,
