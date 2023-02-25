@@ -2,7 +2,6 @@ import dotEnv from "dotenv";
 dotEnv.config();
 import cors from "cors";
 import express from "express";
-import Database_Connection from "./config/DB";
 import cookie from "cookie-parser";
 import defaultRoute from "./routes/Default";
 import registration from "./routes/authentication/Register";
@@ -16,7 +15,6 @@ import UpdateEmail from "./routes/updateEmail";
 import UpdatePassword from "./routes/updatepassword";
 import validateOtp from "./routes/authentication/validateOtp";
 
-Database_Connection; // skipcq: JS-0354
 const app = express();
 const port = 3000;
 app.disable("x-powered-by");

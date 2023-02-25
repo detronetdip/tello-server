@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
-import { UserModel } from "../model/userModel";
 import bcrypt from "bcryptjs";
 import { delData } from "../cache";
 import cookieOption from "../config/Cookie";
+import { prisma } from "../prisma_connection";
 
 export async function updatePassword(req: Request, res: Response) {
   const { userId, old, pass, cnf } = req.body;
@@ -15,7 +15,7 @@ export async function updatePassword(req: Request, res: Response) {
         message: ErrorMessages.PasswordNotMatched_PC,
       });
     }
-    const user = await UserModel.findOne({ uid: userId });
+    const user = await prisma.user.findFirst({ where: { id: userId } });
     if (!user) {
       return res.status(StatusCodes.BadRequest).json({
         ResponseCode: StatusCodes.InvalidCredential,
@@ -33,17 +33,15 @@ export async function updatePassword(req: Request, res: Response) {
       });
     }
     const salt = bcrypt.genSaltSync(10);
-    await UserModel.findOneAndUpdate(
-      {
-        uid: userId,
+    await prisma.user.update({
+      where: {
+        id: userId,
       },
-      {
-        $set: {
-          password: bcrypt.hashSync(pass, salt),
-        },
-      }
-    );
-    delData(user.uid);
+      data: {
+        password: bcrypt.hashSync(pass, salt)
+      },
+    });
+    delData(user.id);
     res.cookie("accessToken", "accessToken", {
       ...cookieOption,
       maxAge: 0,

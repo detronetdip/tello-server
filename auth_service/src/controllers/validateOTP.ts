@@ -1,14 +1,18 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
-import { UserModel } from "../model/userModel";
+import { prisma } from "../prisma_connection";
 import { getData, delData } from "./../cache";
 
 export async function validateOtp(req: Request, res: Response) {
   const { userId, otp } = req.body;
   try {
     const OTP = await getData(userId + "-OTP");
-    const user = await UserModel.findOne({ uid: userId });
+    const user = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
     if (!user) {
       return res.status(StatusCodes.BadRequest).json({
         ResponseCode: StatusCodes.InvalidCredential,
@@ -16,24 +20,21 @@ export async function validateOtp(req: Request, res: Response) {
       });
     }
 
-
     if (OTP != otp) {
       return res.status(StatusCodes.Success).json({
         code: StatusCodes.InvalidCredential,
         msg: ErrorMessages.InvalidCredentials,
       });
     }
-    await UserModel.findOneAndUpdate(
-      {
-        uid: userId,
+    await prisma.user.update({
+      where: {
+        id: userId,
       },
-      {
-        $set: {
-          isComplete: true,
-        },
-      }
-    );
-    await delData(user.uid + "-OTP");
+      data: {
+        isComplete: true,
+      },
+    });
+    await delData(user.id + "-OTP");
     return res.status(StatusCodes.Success).json({
       ResponseCode: StatusCodes.Accepted,
       message: ErrorMessages.Successfull,
