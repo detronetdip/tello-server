@@ -53,6 +53,11 @@ export async function handelLogin(req: Request, res: Response) {
       res.status(StatusCodes.Success).json({
         code: StatusCodes.Success,
         msg: ErrorMessages.Successfull,
+        info: {
+          id: _user.id,
+          username: _user.username,
+          email: _user.email,
+        },
       });
     }
   } catch (error) {

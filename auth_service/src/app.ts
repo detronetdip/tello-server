@@ -13,6 +13,7 @@ import { connectCache } from "./cache";
 import validLogin from "./routes/authentication/validLogin";
 import UpdatePassword from "./routes/updatepassword";
 import validateOtp from "./routes/authentication/validateOtp";
+import logout from "./routes/authentication/logout";
 
 const app = express();
 const port = 3000;
@@ -28,6 +29,7 @@ app.use(validLogin);
 app.use(defaultRoute);
 app.use(UpdatePassword);
 app.use(validateOtp);
+app.use(logout);
 connectCache();
 app.listen(port, () => {
   return console.log(`Server is listening at http://localhost:${port}`); // skipcq: JS-0002
