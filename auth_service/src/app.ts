@@ -11,7 +11,6 @@ import corsOption from "./config/cors";
 import helmet from "helmet";
 import { connectCache } from "./cache";
 import validLogin from "./routes/authentication/validLogin";
-import UpdateEmail from "./routes/updateEmail";
 import UpdatePassword from "./routes/updatepassword";
 import validateOtp from "./routes/authentication/validateOtp";
 
@@ -27,7 +26,6 @@ app.use(login);
 app.use(regen);
 app.use(validLogin);
 app.use(defaultRoute);
-app.use(UpdateEmail);
 app.use(UpdatePassword);
 app.use(validateOtp);
 connectCache();

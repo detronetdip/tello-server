@@ -10,7 +10,7 @@ export function validateRegenerateRequest(
 ): void | Response {
   const { userId,otp } = req.body;
   if (!userId || !otp) {
-    return res.status(StatusCodes.Success).json({
+    return res.status(StatusCodes.BadRequest).json({
       code: StatusCodes.InsufficientArguments,
       msg: ErrorMessages.InsufficientData,
     });
