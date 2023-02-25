@@ -9,13 +9,6 @@ services:
     ports:
       - "6379:6379"
     command: redis-server --save 30 1 --loglevel warning
-  db-mongo:
-    image: mongo
-    container_name: mongo-database
-    volumes:
-      - "/home/ayondip/final-project-db/mongodb:/data/db"
-    ports:
-      - "27017:27017"
   db-postgress:
     image: postgres
     container_name: postgres-database
