@@ -8,7 +8,6 @@ import resolvers from "./graphql/resolvers";
 import typedefs from "./graphql/typedefs";
 import corsOption from "./config/cors";
 import helmet from "helmet";
-import internalAPIRoutes from "./routes/internal/index";
 import externalAPIRoutes from "./routes/api/index";
 import { graphQlAuth } from "./middleware/graphQlAuth";
 
@@ -21,7 +20,6 @@ app.use(cors(corsOption));
 app.use(cookie());
 app.use(express.json());
 
-app.use(internalAPIRoutes);
 app.use(externalAPIRoutes);
 
 async function startServer() {
