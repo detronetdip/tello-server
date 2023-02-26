@@ -51,4 +51,9 @@ route.put(
   validate(validationSchema.updateProfileSchema),
   Controller.updateProfileDetails
 );
+route.get(
+  "/api/v1/me/:uid",
+  Auth,
+  Controller.myDetails
+);
 export default route;

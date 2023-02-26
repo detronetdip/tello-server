@@ -57,6 +57,8 @@ export async function handelLogin(req: Request, res: Response) {
           id: _user.id,
           username: _user.username,
           email: _user.email,
+          firstname: _user.firstname,
+          lastname: _user.lastname,
         },
       });
     }
