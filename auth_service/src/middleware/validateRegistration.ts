@@ -2,8 +2,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
 import { validateEmail, validateUserName } from "../utils/validator";
-import { UserModel } from "../model/userModel";
 import { ErrorMessages } from "../error_messages";
+import { prisma } from "../prisma_connection";
 
 export async function validateRegistration(
   req: Request,
@@ -29,10 +29,12 @@ export async function validateRegistration(
     });
   } else {
     try {
-      const result = await UserModel.find({
-        $or: [{ email: email }, { userName: username }],
+      const result = await prisma.user.findMany({
+        where: {
+          OR: [{ email: email }, { username: username }],
+        },
       });
-      
+
       if (result.length > 0) {
         return res.status(StatusCodes.Conflict).json({
           code: StatusCodes.AlredyInUse,

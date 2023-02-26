@@ -9,7 +9,7 @@ export const validate =
       const err = error.details.map((details) => details.message).join(", ");
       return res.status(StatusCodes.BadRequest).json({
         statusCode: StatusCodes.InsufficientArguments,
-        message: err,
+        msg: err,
       });
     } else {
       req.body = value;

@@ -18,9 +18,13 @@ export const blockSchema = {
 };
 export const updateProfileSchema = {
   userId: Joi.string().required(),
-  email: Joi.string().email().required(),
-  username: Joi.string().required(),
-  bio: Joi.string().required(),
+  email: Joi.string().email().optional(),
+  username: Joi.string().optional(),
+  bio: Joi.string().optional(),
+  password: Joi.string().optional(),
+  firstName: Joi.string().optional(),
+  lastName: Joi.string().optional(),
+  dob: Joi.string().optional(),
 };
 export const DeleteSchema = {
   reqId: Joi.string().required(),

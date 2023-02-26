@@ -22,6 +22,11 @@ async function getData(key: string) {
   return val;
 }
 async function delData(key: string) {
-  await client.del(key);
+  try {
+    const data = await client.del(key);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
 }
 export { connectCache, setData, getData, delData };
