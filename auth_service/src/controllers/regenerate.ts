@@ -25,7 +25,7 @@ export async function handelRegeneration(req: Request, res: Response) {
       msg: ErrorMessages.TokenExpired,
     });
   } else {
-    const _user = await prisma.user.findFirst({ where:{id: token.uid} });
+    const _user = await prisma.user.findFirst({ where: { id: token.uid } });
     const uid: string = _user.id;
     const email = _user.email;
     const v = _user.tokenversion;
@@ -48,19 +48,19 @@ export async function handelRegeneration(req: Request, res: Response) {
         email,
       });
       const updatedUser = await prisma.user.update({
-        where:{
-          email:token.email
+        where: {
+          id: uid,
         },
-        data:{
-          tokenversion:{increment:1}
-        }
+        data: {
+          tokenversion: { increment: 1 },
+        },
       });
       const refreshToken = await generateRefreshToken({
         uid,
         email,
         version: updatedUser.tokenversion,
       });
-      setData(uid, accessToken,tokenConfig.accessTokenExpiryTime);
+      setData(uid, accessToken, tokenConfig.accessTokenExpiryTime);
       res.cookie("accessToken", accessToken, {
         ...cookieOption,
         maxAge: tokenConfig.accessTokenExpiryTime * 1000,

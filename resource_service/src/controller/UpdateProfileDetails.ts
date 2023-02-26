@@ -14,7 +14,7 @@ export const updateProfileDetails = async (req: Request, res: Response) => {
     if (!user)
       return res.status(StatusCodes.BadRequest).json({
         ResponseCode: StatusCodes.InvalidCredential,
-        message: ErrorMessages.InvalidCredentials,
+        msg: ErrorMessages.InvalidCredentials,
       });
     if (username) {
       const user = await prisma.user.findFirst({
@@ -68,7 +68,13 @@ export const updateProfileDetails = async (req: Request, res: Response) => {
     });
     return res.status(StatusCodes.Success).json({
       ResponseCode: StatusCodes.Accepted,
-      message: ErrorMessages.Successfull,
+      msg: ErrorMessages.Successfull,
+      info: {
+        username: data.username,
+        email: data.email,
+        firstname: data.firstname,
+        lastname: data.lastname,
+      },
     });
   } catch (error) {
     // if (error.response.status === StatusCodes.Conflict) {
@@ -77,11 +83,11 @@ export const updateProfileDetails = async (req: Request, res: Response) => {
     //     msg: ErrorMessages.AllRedyPresent,
     //   });
     // }
-console.log(error);
+    console.log(error);
 
     return res.status(StatusCodes.ServerError).json({
       ResponseCode: StatusCodes.InternalServerError,
-      message: ErrorMessages.ServerError,
+      msg: ErrorMessages.ServerError,
       error,
     });
   }
