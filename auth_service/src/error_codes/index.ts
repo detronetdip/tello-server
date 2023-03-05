@@ -17,6 +17,7 @@ enum StatusCodes {
   // --------------------
   // success indication codes should present within 2*** level
   RegistrationSuccessful = 2000,
+  AccountVerificationPending = 2001,
   // Invalidity indication codes should present within 3*** level
   InvalidToken = 3000,
   InsufficientArguments = 3001,

@@ -1,5 +1,5 @@
 export default {
-  origin: "*",
-  methods: ["POST", "GET"],
+  origin: "http://localhost:5173",
+  methods: ["POST", "GET","PUT"],
   credentials: true,
 };
