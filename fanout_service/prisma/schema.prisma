@@ -45,7 +45,7 @@ model friends {
 }
 
 model comment {
-  id               String    @id @default(uuid())
+  id               String    @id
   content          String
   postId           String
   userId           String
@@ -59,7 +59,7 @@ model comment {
 }
 
 model like {
-  id        String   @id @default(uuid())
+  id        String   @id
   createdAt DateTime @default(now())
   updatedAt DateTime
   userId    String
@@ -70,7 +70,7 @@ model like {
 }
 
 model notifications {
-  id        String           @id @default(uuid())
+  id        String           @id
   content   String
   userId    String
   createdAt DateTime         @default(now())
@@ -81,13 +81,13 @@ model notifications {
 }
 
 model post {
-  id        String      @id @default(uuid())
+  id        String      @id
   userId    String
   media     String      @default("")
   content   String      @db.VarChar(255)
   type      PostType    @default(CONTENT_ONLY)
   createdAt DateTime    @default(now())
-  updatedAt DateTime    @default(now())
+  updatedAt DateTime
   comment   comment[]
   like      like[]
   user      user        @relation(fields: [userId], references: [id], onDelete: Cascade)

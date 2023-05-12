@@ -1,9 +1,9 @@
 import { Router } from "express";
+import multer from "multer";
 import { Controller } from "../../controller";
 import { Auth } from "../../middleware/authMiddleware";
 import { validate } from "../../utils/validate";
 import { validationSchema } from "../../validator";
-import multer from "multer";
 
 const route = Router();
 const Multer = multer();
@@ -13,12 +13,6 @@ route.post(
   Auth,
   validate(validationSchema.addFriendsSchema),
   Controller.addFriend
-);
-route.post(
-  "/api/v1/post",
-  Auth,
-  validate(validationSchema.postSchema),
-  Controller.userPost
 );
 route.post(
   "/api/v1/accept",
@@ -33,10 +27,9 @@ route.post(
   Controller.block
 );
 route.post(
-  "/api/v1/uploadFile",
+  "/api/v1/upload",
   Auth,
   Multer.single("media"),
-  validate(validationSchema.blockSchema),
   Controller.UploadFile
 );
 route.post(
@@ -44,16 +37,12 @@ route.post(
   Auth,
   validate(validationSchema.DeleteSchema),
   Controller.Delete
-)
+);
 route.put(
   "/api/v1/updateProfile",
   Auth,
   validate(validationSchema.updateProfileSchema),
   Controller.updateProfileDetails
 );
-route.get(
-  "/api/v1/me/:uid",
-  Auth,
-  Controller.myDetails
-);
+route.get("/api/v1/me/:uid", Auth, Controller.myDetails);
 export default route;

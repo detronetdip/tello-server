@@ -7,11 +7,15 @@ CREATE TYPE "PostType" AS ENUM ('CONTENT_ONLY', 'MEDIA_ONLY', 'MEDIA_WITH_CONTEN
 -- CreateTable
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
+    "email" VARCHAR(100) NOT NULL,
+    "password" TEXT NOT NULL,
     "username" VARCHAR(255) NOT NULL,
     "firstname" VARCHAR(255) NOT NULL DEFAULT '',
     "lastname" VARCHAR(255) NOT NULL DEFAULT '',
     "bio" VARCHAR(255) NOT NULL DEFAULT '',
     "dob" VARCHAR(255) NOT NULL DEFAULT '',
+    "tokenversion" INTEGER NOT NULL DEFAULT 0,
+    "isComplete" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -82,6 +86,22 @@ CREATE TABLE "post" (
     CONSTRAINT "post_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "news_feed" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "postId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "news_feed_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_username_key" ON "user"("username");
+
 -- CreateIndex
 CREATE UNIQUE INDEX "friends_friendId_userId_key" ON "friends"("friendId", "userId");
 
@@ -111,3 +131,9 @@ ALTER TABLE "notifications" ADD CONSTRAINT "notifications_userId_fkey" FOREIGN K
 
 -- AddForeignKey
 ALTER TABLE "post" ADD CONSTRAINT "post_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "news_feed" ADD CONSTRAINT "news_feed_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "news_feed" ADD CONSTRAINT "news_feed_postId_fkey" FOREIGN KEY ("postId") REFERENCES "post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
