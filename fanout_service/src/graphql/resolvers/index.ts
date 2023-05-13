@@ -12,7 +12,7 @@ const resolvers = {
     userDetails: userDetails,
   },
   Mutation: {
-    test: (_parrent: any, _args: any, _context: any, _info: any) => {
+    test: (_parrent: unknown, _args: unknown, _context: unknown, _info: unknown) => {
       console.log(_info);
       return "world";
     },

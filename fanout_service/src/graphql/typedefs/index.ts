@@ -1,6 +1,5 @@
-import { gql } from "apollo-server-express";
 
-const typedefs = gql`
+const typedefs = `
   type Query {
     test: String
     userDetails(uid: String): DetailsOfUser

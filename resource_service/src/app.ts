@@ -1,4 +1,3 @@
-import { ApolloServer } from "apollo-server-express";
 import cookie from "cookie-parser";
 import cors from "cors";
 import dotEnv from "dotenv";
@@ -7,8 +6,6 @@ import helmet from "helmet";
 import { createServer } from "http";
 import { connectCache, getData } from "./cache";
 import corsOption from "./config/cors";
-import resolvers from "./graphql/resolvers";
-import typedefs from "./graphql/typedefs";
 import externalAPIRoutes from "./routes/api/index";
 import { socketServer } from "./socket";
 dotEnv.config();
@@ -17,10 +14,11 @@ const PORT = process.env.PORT;
 const app = express();
 
 const server = createServer(app);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 socketServer(server).then(({ socket, io }) => {
   
   app.post("/notification", async (req, res) => {
-    const { notification, userId, toAll } = req.body;
+    const { notification, userId} = req.body;
     // socket.emit("message", notification);
     {
       const socketId = await getData(userId + "-sokt-msg");
@@ -41,16 +39,6 @@ app.use(externalAPIRoutes);
 
 async function startServer() {
   await connectCache();
-  const graphQlServer = new ApolloServer({
-    typeDefs: typedefs,
-    resolvers: resolvers,
-    // context: graphQlAuth,
-    context: ({ req }) => {
-      return req;
-    },
-  });
-  await graphQlServer.start();
-  graphQlServer.applyMiddleware({ app });
   server.listen(PORT, () => console.log(`resourse server started at : ${PORT}`)); // skipcq: JS-0002
 }
 startServer();
