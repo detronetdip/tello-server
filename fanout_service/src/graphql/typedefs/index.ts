@@ -3,6 +3,7 @@ const typedefs = `
   type Query {
     test: String
     userDetails(uid: String): DetailsOfUser
+    myposts(uid: String): [MyPosts]
   }
   input TestInput {
     t1: String
@@ -11,6 +12,21 @@ const typedefs = `
   type Mutation {
     test(obj: TestInput): String
   }
+
+  type Likes{
+    
+  }
+
+  type MyPosts{
+    id: String
+    userId:String
+    media:String
+    content:String
+    createdAt:String
+    type: String
+    likes:[Likes]
+  }
+
   type User {
     id: String
     username: String

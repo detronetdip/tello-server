@@ -64,9 +64,9 @@ model like {
   updatedAt DateTime
   userId    String
   postId    String
-  likeCount BigInt
   post      post     @relation(fields: [postId], references: [id])
   user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId,postId])
 }
 
 model notifications {
@@ -89,9 +89,9 @@ model post {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @default(now())
   comment   comment[]
+  news_feed news_feed[]
   like      like[]
   user      user        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  news_feed news_feed[]
 }
 
 model news_feed {
@@ -99,7 +99,7 @@ model news_feed {
   userId    String
   postId    String
   createdAt DateTime @default(now())
-  user       user     @relation(fields: [userId], references: [id])
+  user      user     @relation(fields: [userId], references: [id])
   post      post     @relation(fields: [postId], references: [id])
 }
 

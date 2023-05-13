@@ -55,7 +55,6 @@ CREATE TABLE "like" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL,
     "postId" TEXT NOT NULL,
-    "likeCount" BIGINT NOT NULL,
 
     CONSTRAINT "like_pkey" PRIMARY KEY ("id")
 );
@@ -81,7 +80,7 @@ CREATE TABLE "post" (
     "content" VARCHAR(255) NOT NULL,
     "type" "PostType" NOT NULL DEFAULT 'CONTENT_ONLY',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "post_pkey" PRIMARY KEY ("id")
 );
@@ -104,6 +103,9 @@ CREATE UNIQUE INDEX "user_username_key" ON "user"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "friends_friendId_userId_key" ON "friends"("friendId", "userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "like_userId_postId_key" ON "like"("userId", "postId");
 
 -- AddForeignKey
 ALTER TABLE "friends" ADD CONSTRAINT "friends_friendId_fkey" FOREIGN KEY ("friendId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
