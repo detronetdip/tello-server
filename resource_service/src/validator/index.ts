@@ -1,10 +1,11 @@
 import {
-  addFriendsSchema,
-  postSchema,
-  acceptSchema,
-  blockSchema,
   DeleteSchema,
-  updateProfileSchema,
+  acceptSchema,
+  addFriendsSchema,
+  blockSchema,
+  deletePostSchema,
+  postSchema,
+  updateProfileSchema
 } from "./schemas";
 
 export const validationSchema = {
@@ -14,4 +15,5 @@ export const validationSchema = {
   blockSchema,
   DeleteSchema,
   updateProfileSchema,
+  deletePostSchema
 };

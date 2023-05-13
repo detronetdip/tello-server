@@ -13,8 +13,11 @@ const typedefs = `
     test(obj: TestInput): String
   }
 
-  type Likes{
-    
+  type Comments{
+    id: String,
+    content:String
+    userId:String
+    postId:String
   }
 
   type MyPosts{
@@ -24,7 +27,7 @@ const typedefs = `
     content:String
     createdAt:String
     type: String
-    likes:[Likes]
+    comments:[Comments]
   }
 
   type User {

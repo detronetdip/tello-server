@@ -32,8 +32,8 @@ route.post(
   Multer.single("media"),
   Controller.UploadFile
 );
-route.post(
-  "/api/v1/delete",
+route.delete(
+  "/api/v1/delete-request",
   Auth,
   validate(validationSchema.DeleteSchema),
   Controller.Delete
@@ -44,5 +44,13 @@ route.put(
   validate(validationSchema.updateProfileSchema),
   Controller.updateProfileDetails
 );
+
+route.post(
+  "/api/v1/delete-post",
+  Auth,
+  validate(validationSchema.deletePostSchema),
+  Controller.deletePost
+);
+
 route.get("/api/v1/me/:uid", Auth, Controller.myDetails);
 export default route;

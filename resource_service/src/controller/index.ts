@@ -1,10 +1,11 @@
-import { addFriend } from "./addFriend";
+import { Delete } from "./Delete";
 import { userPost } from "./Post";
-import { accept } from "./accept";
-import { block } from "./block";
-import { UploadFile } from "./UploadFile";
-import { Delete } from "./Delete"
 import { updateProfileDetails } from "./UpdateProfileDetails";
+import { UploadFile } from "./UploadFile";
+import { accept } from "./accept";
+import { addFriend } from "./addFriend";
+import { block } from "./block";
+import { deletePost } from "./deletePost";
 import { myDetails } from "./myDetails";
 
 export const Controller = {
@@ -15,5 +16,6 @@ export const Controller = {
   UploadFile,
   Delete,
   updateProfileDetails,
-  myDetails
+  myDetails,
+  deletePost
 };

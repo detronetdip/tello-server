@@ -66,7 +66,8 @@ model like {
   postId    String
   post      post     @relation(fields: [postId], references: [id])
   user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  @@unique([userId,postId])
+
+  @@unique([userId, postId])
 }
 
 model notifications {
@@ -84,7 +85,7 @@ model post {
   id        String      @id @default(uuid())
   userId    String
   media     String      @default("")
-  content   String      @db.VarChar(255)
+  content   String      @db.Text
   type      PostType    @default(CONTENT_ONLY)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @default(now())
