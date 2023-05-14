@@ -53,4 +53,5 @@ route.post(
 );
 
 route.get("/api/v1/me/:uid", Auth, Controller.myDetails);
+route.get("/api/v1/search", Auth, Controller.search);
 export default route;
