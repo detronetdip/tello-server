@@ -6,7 +6,7 @@ import { getData, setData } from "../cache";
 export const search = async (req: Request, res: Response) => {
   try {
     const { q } = req.query;
-    const data = await getData(`${q}-QUERY`);
+    const data = await getData(`${q}-${req.body.userId}-QUERY`);
     if (data) {
       return res.status(StatusCodes.Success).json({
         ResponseCode: StatusCodes.RegistrationSuccessful,
@@ -20,19 +20,26 @@ export const search = async (req: Request, res: Response) => {
             {
               username: {
                 contains: String(q),
-                mode:'insensitive'
+                mode: "insensitive",
               },
             },
             {
               firstname: {
                 contains: String(q),
-                mode:'insensitive'
+                mode: "insensitive",
               },
             },
             {
               lastname: {
                 contains: String(q),
-                mode:'insensitive'
+                mode: "insensitive",
+              },
+            },
+          ],
+          AND: [
+            {
+              NOT: {
+                id: req.body.userId,
               },
             },
           ],
@@ -45,11 +52,36 @@ export const search = async (req: Request, res: Response) => {
         },
         take: 10,
       });
+      const myFriends = await prisma.friends.findMany({
+        where: {
+          OR: [
+            {
+              userId: req.body.userId,
+              friendId: {
+                in: users.map((u) => u.id),
+              },
+            },
+            {
+              friendId: req.body.userId,
+              userId: {
+                in: users.map((u) => u.id),
+              },
+            },
+          ],
+        },
+      });
+
+      const allUsers = users.map((user) => ({
+        ...user,
+        isFriend: myFriends.some(
+          (friend) => friend.friendId === user.id || friend.userId === user.id
+        ),
+      }));
       await setData(String(q), JSON.stringify(users), 30);
       return res.status(StatusCodes.Success).json({
         ResponseCode: StatusCodes.Success,
         message: ErrorMessages.Successfull,
-        data: users,
+        data: allUsers,
       });
     }
   } catch (error) {
