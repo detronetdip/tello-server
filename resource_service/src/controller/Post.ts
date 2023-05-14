@@ -1,11 +1,29 @@
-import { Request, Response } from "express";
-import { StatusCodes } from "../error_codes";
-import { ErrorMessages } from "../error_messages";
+import { prisma } from "../prisma_connection";
 
-export const userPost=(req:Request,res:Response)=>{
-    console.log("received");
-    res.status(StatusCodes.Success).json({
-        statusCode: StatusCodes.Accepted,
-        message: ErrorMessages.Successfull
-    })
-}
+export const userPost = async (postData: {
+  userId: string;
+  text: string;
+  imageUrl?: string;
+}) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      id: postData.userId,
+    },
+  });
+  const post = await prisma.post.create({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    data: {
+      content: postData.text,
+      media: postData.imageUrl,
+      userId: user.id,
+      type:
+        postData.imageUrl && postData.text
+          ? "MEDIA_WITH_CONTENT_ONLY"
+          : postData.imageUrl && !postData.text
+          ? "MEDIA_ONLY"
+          : "CONTENT_ONLY",
+    },
+  });
+  return post;
+};

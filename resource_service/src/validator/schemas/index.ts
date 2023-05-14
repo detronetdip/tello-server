@@ -29,3 +29,8 @@ export const updateProfileSchema = {
 export const DeleteSchema = {
   reqId: Joi.string().required(),
 };
+
+export const deletePostSchema = {
+  postId: Joi.string().required().uuid().message("postId should be valid id"),
+  userId: Joi.string().required().uuid().message("userId should be valid id"),
+};

@@ -7,7 +7,7 @@
     "start": "nodemon --exec ts-node src/app.ts",
     "build": "npx tsc && npx minify-all-js ./dist/",
     "lint": "npx eslint . --ext .ts",
-    "td":"ts-node test.ts"
+    "td": "ts-node test.ts"
   },
   "keywords": [],
   "author": "Ayondip Jana",
@@ -39,6 +39,7 @@
     "nodemailer": "^6.8.0",
     "prisma": "^4.7.1",
     "redis": "^4.3.1",
+    "socket.io": "^4.6.1",
     "uuid": "^9.0.0"
   }
 }

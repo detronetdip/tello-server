@@ -1,19 +1,34 @@
-import dotEnv from "dotenv";
-dotEnv.config();
-import cors from "cors";
-import express from "express";
 import cookie from "cookie-parser";
-import { ApolloServer } from "apollo-server-express";
-import resolvers from "./graphql/resolvers";
-import typedefs from "./graphql/typedefs";
-import corsOption from "./config/cors";
+import cors from "cors";
+import dotEnv from "dotenv";
+import express from "express";
 import helmet from "helmet";
+import { createServer } from "http";
+import { connectCache, getData } from "./cache";
+import corsOption from "./config/cors";
 import externalAPIRoutes from "./routes/api/index";
-import { graphQlAuth } from "./middleware/graphQlAuth";
+import { socketServer } from "./socket";
+dotEnv.config();
 
 const PORT = process.env.PORT;
 const app = express();
 
+const server = createServer(app);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+socketServer(server).then(({ socket, io }) => {
+  
+  app.post("/notification", async (req, res) => {
+    const { notification, userId} = req.body;
+    // socket.emit("message", notification);
+    {
+      const socketId = await getData(userId + "-sokt-msg");
+      console.log(socketId);
+
+      io.to(socketId).emit("message", notification);
+    }
+    res.send({ msg: "Sent successfully" });
+  });
+});
 
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors(corsOption));
@@ -23,16 +38,7 @@ app.use(express.json());
 app.use(externalAPIRoutes);
 
 async function startServer() {
-  const graphQlServer = new ApolloServer({
-    typeDefs: typedefs,
-    resolvers: resolvers,
-    // context: graphQlAuth,
-    context: ({req})=>{
-      return req;
-    },
-  });
-  await graphQlServer.start();
-  graphQlServer.applyMiddleware({ app });
-  app.listen(PORT, () => console.log(`resourse server started at : ${PORT}`)); // skipcq: JS-0002
+  await connectCache();
+  server.listen(PORT, () => console.log(`resourse server started at : ${PORT}`)); // skipcq: JS-0002
 }
 startServer();

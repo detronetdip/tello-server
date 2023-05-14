@@ -4,11 +4,10 @@ import { ErrorMessages } from "../error_messages";
 import { prisma } from "../prisma_connection/index";
 export const myDetails = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { uid } = req.params;
     const user = await prisma.user.findFirst({
       where: {
-        id: id,
-
+        id: uid,
       },
       include: {
         _count: {

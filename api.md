@@ -5,10 +5,13 @@
 `Use { withCredentials:true } for each and every request where authentication is needed`
 
 - [Registration API](#registration-api)
+- [OTP validation API](#otp-validation-api)
 - [Login API](#login-api)
 - [Login Validation API](#login-validation-api)
 - [Refresh Token API](#regeneration-token-api)
 - [Add Friend API](#addfriend-api)
+- [Friend request accept API](#friend-request-accept-api)
+- [Block unblock API](#block-unblock-api)
 
 ## # Registration API
 
@@ -45,10 +48,11 @@ sample response
 
 ```js
 {
-    data:{
-        code: 200,
-        msg: "Successfuly registered"
-    }
+      code: 200,
+      msg: "Successfull",
+      data: {
+        userId: "qw1232w331t437",
+      }
 }
 ```
 
@@ -60,6 +64,49 @@ sample response
 | 409        | 6000            |
 | 400        | 6000            |
 | 500        | 5000            |
+
+## # OTP validation API
+
+This API is used for verifying account upon registration from client domain.
+
+- Authentication: `Not Needed`
+- Target Server: `Auth`
+
+```http
+  POST  /api/v1/registration/validate-otp
+```
+
+| Parameter | Type     | Required | Description |
+| :-------- | :------- | :------- | :---------- |
+| `userId`  | `string` | True     | user Id     |
+| `otp`     | `string` | True     | OTP         |
+
+A sample request is shown below using [axios](https://axios-http.com/)
+
+```js
+axios.post("https://server.com/api/v1/registration/validate-otp", {
+  reqId: "friendRequest Id",
+});
+```
+
+sample response
+
+```js
+{
+    data:{
+        code: 200,
+        msg: "Successfull"
+    }
+}
+```
+
+### Expected status codes are:
+
+| Http codes | Response codes |
+| ---------- | -------------- |
+| 200        | 202,3003       |
+| 400        | 3001,3003      |
+| 500        | 5000           |
 
 ## # Login API
 
