@@ -16,9 +16,8 @@ const app = express();
 const server = createServer(app);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 socketServer(server).then(({ socket, io }) => {
-  
   app.post("/notification", async (req, res) => {
-    const { notification, userId} = req.body;
+    const { notification, userId } = req.body;
     // socket.emit("message", notification);
     {
       const socketId = await getData(userId + "-sokt-msg");
@@ -36,9 +35,13 @@ app.use(cookie());
 app.use(express.json());
 
 app.use(externalAPIRoutes);
-
 async function startServer() {
   await connectCache();
-  server.listen(PORT, () => console.log(`resourse server started at : ${PORT}`)); // skipcq: JS-0002
+
+  server.listen(PORT, () =>
+    console.log(`resourse server started at : ${PORT}`)
+  ); // skipcq: JS-0002
 }
 startServer();
+
+

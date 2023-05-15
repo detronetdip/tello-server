@@ -1,4 +1,6 @@
 import { prisma } from "../prisma_connection";
+import { connectQueue } from "../queue/connection";
+import { queueSender } from "../queue/sender";
 
 export const userPost = async (postData: {
   userId: string;
@@ -25,5 +27,16 @@ export const userPost = async (postData: {
           : "CONTENT_ONLY",
     },
   });
+  const con = await connectQueue();
+  const channel = await queueSender(con);
+  channel.sendToQueue(
+    "post-service",
+    Buffer.from(
+      JSON.stringify({
+        id: post.id,
+        userId: post.userId,
+      })
+    )
+  );
   return post;
 };
