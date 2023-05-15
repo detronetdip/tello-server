@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build_auth":"cd auth_service && npm run build",
+    "build_resource":"cd resource_service && npm run build",
+    "build_notification":"cd notification_service && npm run build",
+    "build_fanout":"cd fanout_service && npm run build",
+    "build":"npm run build_auth && npm run build_resource && npm run build_notification && npm run build_fanout"
   },
   "repository": {
     "type": "git",
