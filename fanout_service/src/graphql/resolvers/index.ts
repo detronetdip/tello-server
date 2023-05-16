@@ -1,6 +1,8 @@
 import { countFriends } from "../../controller/countFriends";
+import { getMyNewsFeed } from "../../controller/getNewsFeed";
 import { myPosts } from "../../controller/mypost";
 import { userDetails } from "../../controller/userDetails";
+
 
 const resolvers = {
   DetailsOfUser: {
@@ -12,6 +14,7 @@ const resolvers = {
     },
     userDetails: userDetails,
     myposts: myPosts,
+    myFeed: getMyNewsFeed
   },
   Mutation: {
     test: (

@@ -4,6 +4,7 @@ const typedefs = `
     test: String
     userDetails(uid: String): DetailsOfUser
     myposts(uid: String): [MyPosts]
+    myFeed(uid: String): [MyFeed]
   }
   input TestInput {
     t1: String
@@ -28,6 +29,11 @@ const typedefs = `
     createdAt:String
     type: String
     comments:[Comments]
+  }
+
+  type MyFeed{
+    id: String
+    userId:String
   }
 
   type User {
