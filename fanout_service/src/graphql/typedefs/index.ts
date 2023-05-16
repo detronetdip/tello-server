@@ -1,9 +1,8 @@
-
 const typedefs = `
   type Query {
     test: String
     userDetails(uid: String): DetailsOfUser
-    myposts(uid: String): [MyPosts]
+    myposts(uid: String): [Posts]
     myFeed(uid: String): [MyFeed]
   }
   input TestInput {
@@ -21,7 +20,7 @@ const typedefs = `
     postId:String
   }
 
-  type MyPosts{
+  type Posts{
     id: String
     userId:String
     media:String
@@ -29,11 +28,22 @@ const typedefs = `
     createdAt:String
     type: String
     comments:[Comments]
+    user: User
+  }
+
+  type User{
+    id: String
+    firstname: String
+    lastname:String
+    username: String
   }
 
   type MyFeed{
     id: String
     userId:String
+    createdAt:String
+    postId:String
+    post: Posts
   }
 
   type User {

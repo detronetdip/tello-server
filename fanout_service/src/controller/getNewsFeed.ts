@@ -10,6 +10,5 @@ export const getMyNewsFeed = async (
       post: { include: { user: true } },
     },
   });
-  console.log(feed)
-  return {};
+  return feed;
 };
