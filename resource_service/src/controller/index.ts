@@ -8,6 +8,7 @@ import { block } from "./block";
 import { deletePost } from "./deletePost";
 import { myDetails } from "./myDetails";
 import { search } from "./search";
+import { getAllequests } from "./getAllRequests";
 
 export const Controller = {
   addFriend,
@@ -19,5 +20,6 @@ export const Controller = {
   updateProfileDetails,
   myDetails,
   deletePost,
-  search
+  search,
+  getAllequests
 };

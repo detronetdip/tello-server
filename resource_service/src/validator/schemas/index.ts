@@ -10,6 +10,7 @@ export const postSchema = {
 };
 export const acceptSchema = {
   reqId: Joi.string().required(),
+  userId: Joi.string().required(),
 };
 export const blockSchema = {
   userId: Joi.string().required(),

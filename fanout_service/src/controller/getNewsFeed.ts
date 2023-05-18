@@ -12,12 +12,12 @@ export const getMyNewsFeed = async (
   });
   if (feed.length === 0) {
     const following = await prisma.friends.findMany({
-      where: { userId: _args.uid },
+      where: {AND:[{ userId: _args.uid },{isAccepted:true}]},
       select: { friendId: true },
     });
 
     const followers = await prisma.friends.findMany({
-      where: { friendId: _args.uid },
+      where: { AND: [{ friendId: _args.uid }, { isAccepted: true }] },
       select: { userId: true },
     });
 

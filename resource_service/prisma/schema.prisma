@@ -108,6 +108,7 @@ enum NotificationType {
   POST_LIKE
   POST_COMMENT
   COMMENT_REPLY
+  REQUEST_ACCEPTED
 }
 
 enum PostType {
