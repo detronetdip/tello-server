@@ -8,6 +8,6 @@ export const myPosts = async (_parrent: unknown, _args: { uid: string }) => {
       userId: _args?.uid,
     },
   });
-  console.log(posts)
+  console.log(posts,"lll")
   return posts;
 };

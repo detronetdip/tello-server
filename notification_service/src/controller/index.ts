@@ -1,7 +1,7 @@
-import { passwordChangeNotification } from "./passwordChangeNotification";
-import { sentOTP } from "./sentOtp";
+import { getNotifications } from "./getNotifications";
+import {deleteNotifications} from './deleteNotification'
 
 export const Controller = {
-  passwordChangeNotification,
-  sentOTP
+  getNotifications,
+  deleteNotifications
 };

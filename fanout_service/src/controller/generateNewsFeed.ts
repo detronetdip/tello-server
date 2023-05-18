@@ -15,8 +15,7 @@ export const generateNewsFeed = async ({ userId, id }) => {
     friends = myFriends.map((e) =>
       e.userId === userId ? e.friendId : e.userId
     );
-
-    await setDataToSET(friendsCaheKey, friends, 30);
+    if (friends.length !== 0) await setDataToSET(friendsCaheKey, friends, 30);
   }
   const newsFeed = friends.map((user) => ({
     userId: user,
