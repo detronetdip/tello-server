@@ -4,7 +4,7 @@ import { ErrorMessages } from "../error_messages";
 import { prisma } from "../prisma_connection/index";
 export const Delete = async (req: Request, res: Response) =>{
     try{
-        const { reqId }= req.body;
+        const reqId = req.params.id;
         const targetId = await prisma.friends.findFirst({
             where: {
              id: reqId,

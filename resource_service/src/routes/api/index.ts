@@ -33,9 +33,8 @@ route.post(
   Controller.UploadFile
 );
 route.delete(
-  "/api/v1/delete-request",
+  "/api/v1/delete-request/:id",
   Auth,
-  validate(validationSchema.DeleteSchema),
   Controller.Delete
 );
 route.put(
