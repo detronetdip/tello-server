@@ -9,6 +9,7 @@ import { deletePost } from "./deletePost";
 import { myDetails } from "./myDetails";
 import { search } from "./search";
 import { getAllequests } from "./getAllRequests";
+import { getAllFriends } from "./getAllFriends";
 
 export const Controller = {
   addFriend,
@@ -21,5 +22,6 @@ export const Controller = {
   myDetails,
   deletePost,
   search,
-  getAllequests
+  getAllequests,
+  getAllFriends,
 };

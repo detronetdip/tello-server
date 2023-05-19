@@ -52,6 +52,7 @@ route.post(
 );
 
 route.get("/api/v1/me/:uid", Auth, Controller.myDetails);
+route.get("/api/v1/friends/:uid", Auth, Controller.getAllFriends);
 route.get("/api/v1/requests/:uid", Auth, Controller.getAllequests);
 route.get("/api/v1/search", Auth, Controller.search);
 export default route;
