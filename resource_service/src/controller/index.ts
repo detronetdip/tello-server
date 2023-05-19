@@ -10,6 +10,7 @@ import { myDetails } from "./myDetails";
 import { search } from "./search";
 import { getAllequests } from "./getAllRequests";
 import { getAllFriends } from "./getAllFriends";
+import { createComment } from "./comment";
 
 export const Controller = {
   addFriend,
@@ -24,4 +25,5 @@ export const Controller = {
   search,
   getAllequests,
   getAllFriends,
+  createComment,
 };

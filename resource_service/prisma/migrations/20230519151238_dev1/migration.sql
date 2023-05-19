@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "NotificationType" AS ENUM ('POST_LIKE', 'POST_COMMENT', 'COMMENT_REPLY');
+CREATE TYPE "NotificationType" AS ENUM ('POST_LIKE', 'POST_COMMENT', 'COMMENT_REPLY', 'REQUEST_ACCEPTED');
 
 -- CreateEnum
 CREATE TYPE "PostType" AS ENUM ('CONTENT_ONLY', 'MEDIA_ONLY', 'MEDIA_WITH_CONTENT_ONLY');
@@ -43,7 +43,7 @@ CREATE TABLE "comment" (
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "parrentCommentId" TEXT,
+    "parentCommentId" TEXT,
 
     CONSTRAINT "comment_pkey" PRIMARY KEY ("id")
 );
@@ -77,7 +77,7 @@ CREATE TABLE "post" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "media" TEXT NOT NULL DEFAULT '',
-    "content" VARCHAR(255) NOT NULL,
+    "content" TEXT NOT NULL,
     "type" "PostType" NOT NULL DEFAULT 'CONTENT_ONLY',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -114,7 +114,7 @@ ALTER TABLE "friends" ADD CONSTRAINT "friends_friendId_fkey" FOREIGN KEY ("frien
 ALTER TABLE "friends" ADD CONSTRAINT "friends_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "comment" ADD CONSTRAINT "comment_parrentCommentId_fkey" FOREIGN KEY ("parrentCommentId") REFERENCES "comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "comment" ADD CONSTRAINT "comment_parentCommentId_fkey" FOREIGN KEY ("parentCommentId") REFERENCES "comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "comment" ADD CONSTRAINT "comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "post"("id") ON DELETE CASCADE ON UPDATE CASCADE;

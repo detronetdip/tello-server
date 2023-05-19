@@ -51,6 +51,12 @@ route.post(
   Controller.deletePost
 );
 
+route.post(
+  "/api/v1/comment",
+  Auth,
+  Controller.createComment
+);
+
 route.get("/api/v1/me/:uid", Auth, Controller.myDetails);
 route.get("/api/v1/friends/:uid", Auth, Controller.getAllFriends);
 route.get("/api/v1/requests/:uid", Auth, Controller.getAllequests);
