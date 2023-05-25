@@ -7,7 +7,7 @@ export const getMyNewsFeed = async (
   const feed = await prisma.news_feed.findMany({
     where: { userId: _args.uid },
     include: {
-      post: { include: { user: true } },
+      post: { include: { user: true, like: { where: { userId: _args.uid } } } },
     },
   });
   if (feed.length === 0) {
@@ -23,14 +23,14 @@ export const getMyNewsFeed = async (
 
     const followingPosts = await prisma.post.findMany({
       where: { userId: { in: following.map((user) => user.friendId) } },
-      include: { user: true },
+      include: { user: true,like: { where: { userId: _args.uid } } },
       take: 5,
       orderBy: { createdAt: "desc" },
     });
 
     const followersPosts = await prisma.post.findMany({
       where: { userId: { in: followers.map((user) => user.userId) } },
-      include: { user: true },
+      include: { user: true,like: { where: { userId: _args.uid } } },
       take: 5,
       orderBy: { createdAt: "desc" },
     });

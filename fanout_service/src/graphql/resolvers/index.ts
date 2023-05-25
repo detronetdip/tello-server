@@ -14,7 +14,8 @@ const resolvers = {
     },
     userDetails: userDetails,
     myposts: myPosts,
-    myFeed: getMyNewsFeed
+    myFeed: getMyNewsFeed,
+    postDetails: getMyNewsFeed
   },
   Mutation: {
     test: (

@@ -57,6 +57,12 @@ route.post(
   Controller.createComment
 );
 
+route.post(
+  "/api/v1/like",
+  Auth,
+  Controller.likePost
+);
+
 route.get("/api/v1/me/:uid", Auth, Controller.myDetails);
 route.get("/api/v1/friends/:uid", Auth, Controller.getAllFriends);
 route.get("/api/v1/requests/:uid", Auth, Controller.getAllequests);

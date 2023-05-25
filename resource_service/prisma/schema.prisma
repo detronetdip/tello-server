@@ -45,27 +45,26 @@ model friends {
 }
 
 model comment {
-  id               String    @id @default(uuid())
-  content          String    @db.Text
-  postId           String
-  userId           String
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  parentCommentId  String?
-  comment          comment?  @relation("commentToComment", fields: [parentCommentId], references: [id], onDelete: Cascade)
-  other_comments   comment[] @relation("commentToComment")
-  post             post      @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user             user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id              String    @id @default(uuid())
+  content         String    @db.Text
+  postId          String
+  userId          String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  parentCommentId String?
+  comment         comment?  @relation("commentToComment", fields: [parentCommentId], references: [id], onDelete: Cascade)
+  other_comments  comment[] @relation("commentToComment")
+  post            post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user            user      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
 
 model like {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   userId    String
   postId    String
-  post      post     @relation(fields: [postId], references: [id])
+  post      post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, postId])
