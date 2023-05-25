@@ -8,11 +8,14 @@ import helmet from "helmet";
 import corsOption from "./config/cors";
 import resolvers from "./graphql/resolvers";
 import typeDefs from "./graphql/typedefs";
+import { connectQueue } from "./queue/connection";
+import { queueListner } from "./queue/listner";
+import { connectCache } from "./cache";
 dotEnv.config();
 
 const PORT = process.env.PORT;
 const app = express();
- 
+
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors(corsOption));
 app.use(cookie());
@@ -22,7 +25,9 @@ app.use(express.json());
 // app.use(externalAPIRoutes);
 
 async function startServer() {
-
+  await connectCache();
+  const con = await connectQueue();
+  await queueListner(con);
   const server = new ApolloServer({
     typeDefs,
     resolvers,

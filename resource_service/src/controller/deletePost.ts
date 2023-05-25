@@ -18,15 +18,17 @@ export const deletePost = async (req: Request, res: Response) => {
     await prisma.post.delete({ where: { id: postId } });
     await prisma.like.deleteMany({ where: { postId } });
     await prisma.comment.deleteMany({ where: { postId } });
-    const auth = new google.auth.GoogleAuth({
-      keyFile: "./src/config/drive.json",
-      scopes: ["https://www.googleapis.com/auth/drive"],
-    });
-    const drive = google.drive({
-      version: "v3",
-      auth,
-    });
-    await drive.files.delete({ fileId: post.media });
+    if (post.media) {
+      const auth = new google.auth.GoogleAuth({
+        keyFile: "./src/config/drive.json",
+        scopes: ["https://www.googleapis.com/auth/drive"],
+      });
+      const drive = google.drive({
+        version: "v3",
+        auth,
+      });
+      await drive.files.delete({ fileId: post.media });
+    }
     return res.status(StatusCodes.Accepted).json({
       ResponseCode: StatusCodes.Success,
       message: ErrorMessages.Successfull,

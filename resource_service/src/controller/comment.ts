@@ -4,46 +4,51 @@ import { ErrorMessages } from "../error_messages";
 import { prisma } from "../prisma_connection/index";
 import axios from "axios";
 import { NOTIFICATION_TYPES } from "../utils/utils";
-export const accept = async (req: Request, res: Response) => {
+export const createComment = async (req: Request, res: Response) => {
   try {
-    const { reqId } = req.body;
-    const id1 = await prisma.friends.findFirst({
+    const { postId, user, comment, parrent } = req.body;
+    console.log("received",{ postId, user, comment, parrent })
+    const post = await prisma.post.findFirst({
       where: {
-        id: reqId,
+        id: postId,
+        userId:user
       },
     });
-    if (!id1) {
+    console.log({
+      id: postId,
+      user
+    })
+    if (!post) {
       return res.status(StatusCodes.BadRequest).json({
-        ResponseCode: StatusCodes.InvalidCredential,
+        ResponseCode: StatusCodes.NotFound,
         message: ErrorMessages.InvalidCredentials,
       });
     }
-    if (id1.isAccepted) {
-      return res.status(StatusCodes.BadRequest).json({
-        ResponseCode: StatusCodes.AlredyInUse,
-        message: ErrorMessages.AllRedyPresent,
-      });
-    }
-    await prisma.friends.update({
-      where: { id: id1.id },
-      data: { isAccepted: true },
-    });
+    await prisma.comment.create({
+      data:{
+        content: comment,
+        userId:user,
+        postId,
+        parentCommentId:parrent
+      }
+    })
     await axios.post(
       `${process.env.NOTIFICATION_SERVER_URL}/internal/notification`,
       {
-        userId: id1.userId,
+        userId: post.userId,
         notification: {
-          content: "Your request is accepted",
-          type: NOTIFICATION_TYPES.REQUEST_ACCEPTED,
+          content: "Your got a comment!",
+          type: NOTIFICATION_TYPES.POST_COMMENT,
           redirect: "",
         },
       }
     );
     return res.status(StatusCodes.Success).json({
-      ResponseCode: StatusCodes.RegistrationSuccessful,
+      ResponseCode: StatusCodes.Accepted,
       message: ErrorMessages.Successfull,
     });
   } catch (error) {
+    console.log(error)
     return res.status(StatusCodes.ServerError).json({
       ResponseCode: StatusCodes.InternalServerError,
       message: ErrorMessages.ServerError,

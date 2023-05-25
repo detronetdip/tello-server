@@ -33,9 +33,8 @@ route.post(
   Controller.UploadFile
 );
 route.delete(
-  "/api/v1/delete-request",
+  "/api/v1/delete-request/:id",
   Auth,
-  validate(validationSchema.DeleteSchema),
   Controller.Delete
 );
 route.put(
@@ -52,6 +51,20 @@ route.post(
   Controller.deletePost
 );
 
+route.post(
+  "/api/v1/comment",
+  Auth,
+  Controller.createComment
+);
+
+route.post(
+  "/api/v1/like",
+  Auth,
+  Controller.likePost
+);
+
 route.get("/api/v1/me/:uid", Auth, Controller.myDetails);
+route.get("/api/v1/friends/:uid", Auth, Controller.getAllFriends);
+route.get("/api/v1/requests/:uid", Auth, Controller.getAllequests);
 route.get("/api/v1/search", Auth, Controller.search);
 export default route;

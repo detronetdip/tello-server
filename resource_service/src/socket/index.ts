@@ -25,9 +25,12 @@ export const socketServer = (server) =>
         const old = await getData(event.uid + "-sokt-msg");
         console.log("old msg socket: ", old);
         if (!old) {
-          await setData(event.uid + "-sokt-msg", event.sid);
+          await setData(event.sid, event.uid);
+        }else{
+          await delData(old);
           await setData(event.sid, event.uid);
         }
+        await setData(event.uid + "-sokt-msg", event.sid);
       });
       res({ socket, io });
     });

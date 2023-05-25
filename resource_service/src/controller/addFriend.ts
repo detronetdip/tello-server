@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { StatusCodes } from "../error_codes";
 import { ErrorMessages } from "../error_messages";
 import { prisma } from "../prisma_connection/index";
+import axios from "axios";
+import { NOTIFICATION_TYPES } from "../utils/utils";
 export const addFriend=async (req:Request,res:Response)=>{
    try{
     const { userId,friendId }=req.body;
@@ -40,6 +42,17 @@ export const addFriend=async (req:Request,res:Response)=>{
             friendId: friendId,
         }
     })
+    await axios.post(
+        `${process.env.NOTIFICATION_SERVER_URL}/internal/notification`,
+        {
+          userId: friendId,
+          notification: {
+            content: "Your have a new friend request",
+            type: NOTIFICATION_TYPES.REQUEST_ACCEPTED,
+            redirect: "",
+          },
+        }
+      );
     return res.status(StatusCodes.Success).json({
         ResponseCode: StatusCodes.RegistrationSuccessful,
         message: ErrorMessages.Successfull
