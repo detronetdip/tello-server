@@ -2,6 +2,8 @@
 
 Tello is a social media application inspired by Twitter, allowing users to sign up, share posts, interact with other users, and exchange messages.
 
+**This is the repo of the backend code, for the frontend part refer [here](https://github.com/detronetdip/tello-client).**
+
 ## Technologies Used
 
 - **Frontend**: 
