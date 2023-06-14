@@ -26,7 +26,7 @@
 
 Tello is a social media application inspired by Twitter, allowing users to sign up, share posts, interact with other users, and exchange messages.
 
-**This is the repo of the backend code, for the frontend part refer [here](https://github.com/detronetdip/tello-client).**
+**This repo contains the backend code, for the frontend part refer [here](https://github.com/detronetdip/tello-client).**
 
 ## Technologies Used
 
@@ -71,7 +71,7 @@ Ensure that you have the following software installed on your machine:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your/repository.git
+git clone https://github.com/detronetdip/tello-server
 ```
 
 2. Start the required containers using Docker Compose:
