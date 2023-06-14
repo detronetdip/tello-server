@@ -1,11 +1,12 @@
   <h1 align="center"><i>Tello: A Social Media App</i></h1>
 
-
 <p>
   <h4 align="center"><i>Build with ❤️ and</i></h4>
 </p>
 <p align="center"> 
     <img alt="HTML5" src="https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white"/>&nbsp;
+    <img alt="HTML5" src="https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB"/>&nbsp;
+    <img alt="HTML5" src="https://img.shields.io/badge/React_Router-CA4245?logo=react-router&logoColor=white"/>&nbsp;
     <img src="https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white" alt="express" />
     &nbsp;
     <img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white" alt="typescript" />&nbsp;
@@ -20,6 +21,7 @@
     <img src="https://img.shields.io/badge/redis-CC0000.svg?&logo=redis&logoColor=white" alt="redis"/>
     <img src="https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&logo=rabbitmq&logoColor=white" alt="rabitmq"/>
     <img src="https://img.shields.io/badge/Socket.io-010101?&logo=Socket.io&logoColor=white" alt="socket.io"/>
+    <img src="https://img.shields.io/badge/Vite-B73BFE?logo=vite&logoColor=FFD62E"/>
 </p>
 
 Tello is a social media application inspired by Twitter, allowing users to sign up, share posts, interact with other users, and exchange messages.
@@ -28,23 +30,23 @@ Tello is a social media application inspired by Twitter, allowing users to sign 
 
 ## Technologies Used
 
-- **Frontend**: 
-    - React
-    - Vite
-    - Apollo GraphQL
-    - TypeScript
-    - Recoil
-    - IndexedDB
-- **Backend**: 
-    - Node.js
-    - Express.js
-    - Redis
-    - RabbitMQ
-    - PostgreSQL
-    - GraphQL
-    - Socket.IO
-- **Deployment**: 
-    - Docker
+- **Frontend**:
+  - React
+  - Vite
+  - Apollo GraphQL
+  - TypeScript
+  - Recoil
+  - IndexedDB
+- **Backend**:
+  - Node.js
+  - Express.js
+  - Redis
+  - RabbitMQ
+  - PostgreSQL
+  - GraphQL
+  - Socket.IO
+- **Deployment**:
+  - Docker
 
 ## Features
 
@@ -95,6 +97,14 @@ npm start
 ```
 
 5. Install dependencies and start the frontend development server
+
+   - Clone the [frontend](https://github.com/detronetdip/tello-client)
+   - Run below commands
+     ```
+     cd tello-client
+     npm install
+     npm run dev
+     ```
 
 6. Access the Tello application in your browser at `http://localhost:5172`
 
