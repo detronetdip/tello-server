@@ -1,4 +1,26 @@
-# Tello
+  <h1 align="center"><i>Tello: A Social Media App</i></h1>
+
+
+<p>
+  <h4 align="center"><i>Build with ❤️ and</i></h4>
+</p>
+<p align="center"> 
+    <img alt="HTML5" src="https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white"/>&nbsp;
+    <img src="https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white" alt="express" />
+    &nbsp;
+    <img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white" alt="typescript" />&nbsp;
+    <img src="https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white" alt="postgresql"/>
+    &nbsp;
+    <img src="https://img.shields.io/badge/Prisma-3982CE?logo=Prisma&logoColor=white" alt="prisma"/>
+    &nbsp;
+    <img src="https://img.shields.io/badge/GraphQl-E10098?logo=graphql&logoColor=white" alt="graphql"/>
+    <img src="https://img.shields.io/badge/Apollo%20GraphQL-311C87?&logo=Apollo%20GraphQL&logoColor=white" alt="appolo-graphql"/>
+    <img src="https://img.shields.io/badge/Sass-CC6699?logo=sass&logoColor=white" alt="scss"/>
+    <img src="https://img.shields.io/badge/Docker-2CA5E0?logo=docker&logoColor=white" alt="docker"/>
+    <img src="https://img.shields.io/badge/redis-CC0000.svg?&logo=redis&logoColor=white" alt="redis"/>
+    <img src="https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&logo=rabbitmq&logoColor=white" alt="rabitmq"/>
+    <img src="https://img.shields.io/badge/Socket.io-010101?&logo=Socket.io&logoColor=white" alt="socket.io"/>
+</p>
 
 Tello is a social media application inspired by Twitter, allowing users to sign up, share posts, interact with other users, and exchange messages.
 
