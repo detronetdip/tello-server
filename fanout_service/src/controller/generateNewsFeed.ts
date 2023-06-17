@@ -3,7 +3,7 @@ import { prisma } from "../prisma_connection";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const generateNewsFeed = async ({ userId, id }) => {
-  const MAX_FEED_COUNT = 3;
+  const MAX_FEED_COUNT = 30;
   const friendsCaheKey = `FRIENDS-${userId}`;
   let friends = await getDataFromSET(friendsCaheKey);
   if (friends.length === 0) {
